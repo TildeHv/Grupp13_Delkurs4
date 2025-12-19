@@ -159,8 +159,9 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProjektActionPerformed
 
     private void lblanvandarnamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblanvandarnamnActionPerformed
-     Person pi = new Person();
-      pi.setVisible(true);// TODO add your handling code here:
+     Person pi = new Person(idb, inloggadAnvandare);
+pi.setVisible(true);
+//TODO add your handling code here:
     }//GEN-LAST:event_lblanvandarnamnActionPerformed
 
     private void btnpartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnerActionPerformed
