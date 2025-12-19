@@ -48,8 +48,10 @@ public class Inloggning extends javax.swing.JFrame {
 
         lbllosenord.setText("Lösenord:");
 
+        txtepost.setText("maria.g@example.com");
         txtepost.addActionListener(this::txtepostActionPerformed);
 
+        txtlosenord.setText("password123");
         txtlosenord.addActionListener(this::txtlosenordActionPerformed);
 
         btnlogin.setText("Logga in");
