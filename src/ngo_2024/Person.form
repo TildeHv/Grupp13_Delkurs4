@@ -24,65 +24,62 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="jToggleButton1" min="-2" pref="153" max="-2" attributes="0"/>
+              <EmptySpace pref="213" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel1" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
-                                  <Component id="lblanvandarepost" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="AnställdID" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="lbladress" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lbltelefon" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblnamn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
+                          <Component id="lblanvandarepost" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="AnställdID" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="lbladress" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbltelefon" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtpersonepost" min="-2" pref="71" max="-2" attributes="0"/>
-                          <Component id="txtpersonadress" min="-2" pref="71" max="-2" attributes="0"/>
-                          <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
-                          <Component id="txttelefon" min="-2" pref="71" max="-2" attributes="0"/>
-                          <Component id="txtanvandarnamn" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtID" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="jToggleButton1" min="-2" pref="153" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblnamn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="185" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtpersonadress" min="-2" pref="71" max="-2" attributes="0"/>
+                  <Component id="txttelefon" min="-2" pref="71" max="-2" attributes="0"/>
+                  <Component id="txtID" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
+                  <Component id="lblpersonnamn" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblfulltnamn" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblnamn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtanvandarnamn" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblnamn" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblfulltnamn" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblanvandarepost" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtpersonepost" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblanvandarepost" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblpersonnamn" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jPasswordField1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbladress" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtpersonadress" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -99,7 +96,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -136,14 +133,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtpersonadressActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtpersonepost">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Epost"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtpersonepostActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="lbltelefon">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefon"/>
@@ -162,14 +151,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtanvandarnamn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Namn"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtanvandarnamnActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="lblnamn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Fullst&#xe4;ndigt namn"/>
@@ -186,6 +167,16 @@
     <Component class="javax.swing.JLabel" name="Anst&#xe4;lldID">
       <Properties>
         <Property name="text" type="java.lang.String" value="Anst&#xe4;lldID"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblpersonnamn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Namn"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblfulltnamn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Namn"/>
       </Properties>
     </Component>
   </SubComponents>

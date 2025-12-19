@@ -4,20 +4,45 @@
  */
 package ngo_2024;
 
+import oru.inf.InfDB;
+import oru.inf.InfException;
 /**
  *
  * @author user
  */
 public class Person extends javax.swing.JFrame {
     
+    private InfDB idb;
+    private String inloggadAnvandare;
+    private String fullstandigtnamn;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Person.class.getName());
 
     /**
      * Creates new form Person
      */
-    public Person() {
+    public Person(InfDB idb, String inloggadAnvandare) {
+        this.idb = idb;
+        this.inloggadAnvandare = inloggadAnvandare;
+        
         initComponents();
+        getFullstandigtnamn();
+        lblfulltnamn.setText(fullstandigtnamn);
+       
     }
+    
+    public void getFullstandigtnamn(){
+        try{
+        String sqlFraga = "SELECT fornamn WHERE ePost = '" + inloggadAnvandare + "'";
+        String sqlFraga2 = "SELECT efternamn WHERE ePost = '" + inloggadAnvandare + "'";
+        String fornamnEfternamn = idb.fetchSingle(sqlFraga) + " " + idb.fetchSingle(sqlFraga2);
+        
+        if (fornamnEfternamn != null) {
+            this.fullstandigtnamn = fornamnEfternamn;
+        }
+        }catch(Exception e){
+        }
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,14 +58,14 @@ public class Person extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         lbladress = new javax.swing.JLabel();
         txtpersonadress = new javax.swing.JTextField();
-        txtpersonepost = new javax.swing.JTextField();
         lbltelefon = new javax.swing.JLabel();
         txttelefon = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
-        txtanvandarnamn = new javax.swing.JTextField();
         lblnamn = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         AnställdID = new javax.swing.JLabel();
+        lblpersonnamn = new javax.swing.JLabel();
+        lblfulltnamn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,18 +81,12 @@ public class Person extends javax.swing.JFrame {
         txtpersonadress.setText("Adress");
         txtpersonadress.addActionListener(this::txtpersonadressActionPerformed);
 
-        txtpersonepost.setText("Epost");
-        txtpersonepost.addActionListener(this::txtpersonepostActionPerformed);
-
         lbltelefon.setText("Telefon");
 
         txttelefon.setText("Telefon");
 
         jToggleButton1.setText("Ändra personuppgifter");
         jToggleButton1.addActionListener(this::jToggleButton1ActionPerformed);
-
-        txtanvandarnamn.setText("Namn");
-        txtanvandarnamn.addActionListener(this::txtanvandarnamnActionPerformed);
 
         lblnamn.setText("Fullständigt namn");
 
@@ -76,56 +95,59 @@ public class Person extends javax.swing.JFrame {
 
         AnställdID.setText("AnställdID");
 
+        lblpersonnamn.setText("Namn");
+
+        lblfulltnamn.setText("Namn");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(213, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblanvandarepost)
-                                    .addComponent(AnställdID)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lbladress)
-                                        .addComponent(lbltelefon)))
-                                .addGap(43, 43, 43))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblnamn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtpersonepost, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtpersonadress, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txttelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtanvandarnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(185, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblanvandarepost)
+                            .addComponent(AnställdID)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lbladress)
+                                .addComponent(lbltelefon)))
+                        .addGap(43, 43, 43))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblnamn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtpersonadress, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblpersonnamn)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblfulltnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblnamn)
-                    .addComponent(txtanvandarnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblfulltnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblanvandarepost)
-                    .addComponent(txtpersonepost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblpersonnamn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbladress)
                     .addComponent(txtpersonadress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -139,7 +161,7 @@ public class Person extends javax.swing.JFrame {
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton1)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,17 +175,9 @@ public class Person extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpersonadressActionPerformed
 
-    private void txtpersonepostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpersonepostActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpersonepostActionPerformed
-
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
-
-    private void txtanvandarnamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtanvandarnamnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtanvandarnamnActionPerformed
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
@@ -191,7 +205,7 @@ public class Person extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Person().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new Person().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -201,12 +215,12 @@ public class Person extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lbladress;
     private javax.swing.JLabel lblanvandarepost;
+    private javax.swing.JLabel lblfulltnamn;
     private javax.swing.JLabel lblnamn;
+    private javax.swing.JLabel lblpersonnamn;
     private javax.swing.JLabel lbltelefon;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtanvandarnamn;
     private javax.swing.JTextField txtpersonadress;
-    private javax.swing.JTextField txtpersonepost;
     private javax.swing.JTextField txttelefon;
     // End of variables declaration//GEN-END:variables
 }
