@@ -217,16 +217,19 @@ public class Person extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-       Uppgiftsandrare newframe = new Uppgiftsandrare(idb, inloggadAnvandare);
+       /*Uppgiftsandrare newframe = new Uppgiftsandrare(idb, inloggadAnvandare);
        newframe.setVisible(true);
-       newframe.toFront();
+       newframe.toFront();*/
+       UppdateraAnstallda uppdateraAnstallda = new UppdateraAnstallda(idb, inloggadAnvandare);
+       uppdateraAnstallda.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.toBack();
+
         Meny newframe = new Meny(idb, inloggadAnvandare);
         newframe.setVisible(true);
-        newframe.toFront();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
