@@ -66,6 +66,7 @@ public class Meny extends javax.swing.JFrame {
         lblanvandarnamn.addActionListener(this::lblanvandarnamnActionPerformed);
 
         btnhallbarhetsmal.setText("Hållbarhetsmål");
+        btnhallbarhetsmal.addActionListener(this::btnhallbarhetsmalActionPerformed);
 
         jToggleButton2.setText("jToggleButton2");
 
@@ -167,6 +168,10 @@ pi.setVisible(true);
     private void btnpartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnpartnerActionPerformed
+
+    private void btnhallbarhetsmalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhallbarhetsmalActionPerformed
+        
+    }//GEN-LAST:event_btnhallbarhetsmalActionPerformed
 
     /**
      * @param args the command line arguments
