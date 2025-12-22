@@ -220,8 +220,8 @@ public class Person extends javax.swing.JFrame {
        /*Uppgiftsandrare newframe = new Uppgiftsandrare(idb, inloggadAnvandare);
        newframe.setVisible(true);
        newframe.toFront();*/
-       UppdateraAnstallda uppdateraAnstallda = new UppdateraAnstallda(idb, inloggadAnvandare);
-       uppdateraAnstallda.setVisible(true);
+       AndraUppgifter andraUppgifter = new AndraUppgifter(idb, inloggadAnvandare);
+       andraUppgifter.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
