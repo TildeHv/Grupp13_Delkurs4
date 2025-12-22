@@ -15,6 +15,10 @@ public class Person extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private String fullstandigtnamn;
+    private String anvandaradress;
+    private String anvandartelefon;
+    private String anvandarID; 
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Person.class.getName());
 
@@ -26,8 +30,16 @@ public class Person extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
         
         initComponents();
+        
         getFullstandigtnamn();
+        getAnvandarAdress();
+        getAnvandarTelefon();
+        getAnvandarID();
+        
         lblfulltnamn.setText(fullstandigtnamn);
+        lblanvandaradress.setText(anvandaradress);
+        lblanvandartelefon.setText(anvandartelefon);
+        lblanvandarID.setText(anvandarID);
        
     }
     
@@ -44,6 +56,45 @@ public class Person extends javax.swing.JFrame {
         }
     } 
     
+    public void getAnvandarTelefon() {
+    try {
+        String sqlFraga = "SELECT telefon FROM anstalld WHERE ePost = '" + inloggadAnvandare + "'";
+        String telefon = idb.fetchSingle(sqlFraga);
+
+        if (telefon != null) {
+            this.anvandartelefon = telefon;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+    public void getAnvandarAdress() {
+    try {
+        String sqlFraga = "SELECT adress FROM anstalld WHERE ePost = '" + inloggadAnvandare + "'";
+        String adress = idb.fetchSingle(sqlFraga);
+
+        if (adress != null) {
+            this.anvandaradress = adress;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    
+    
+    public void getAnvandarID() {
+    try {
+        String sqlFraga = "SELECT aid FROM anstalld WHERE ePost = '" + inloggadAnvandare + "'";
+        String id = idb.fetchSingle(sqlFraga);
+
+        if (id != null) {
+            this.anvandarID = id;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
     // KOD FÖR ATT FÅ IN SAKER FRÅN DATABASEN TILL EN LABEL ^
 
     /**
@@ -56,41 +107,28 @@ public class Person extends javax.swing.JFrame {
     private void initComponents() {
 
         lblanvandarepost = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
         lbladress = new javax.swing.JLabel();
-        txtpersonadress = new javax.swing.JTextField();
         lbltelefon = new javax.swing.JLabel();
-        txttelefon = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
-        txtID = new javax.swing.JTextField();
         AnställdID = new javax.swing.JLabel();
         lblpersonnamn = new javax.swing.JLabel();
         lblfulltnamn = new javax.swing.JLabel();
+        lblanvandaradress = new javax.swing.JLabel();
+        lblanvandartelefon = new javax.swing.JLabel();
+        lblanvandarID = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblanvandarepost.setText("Epost:");
 
-        jLabel1.setText("Lösenord");
-
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(this::jPasswordField1ActionPerformed);
-
         lbladress.setText("Adress");
-
-        txtpersonadress.setText("Adress");
-        txtpersonadress.addActionListener(this::txtpersonadressActionPerformed);
 
         lbltelefon.setText("Telefon");
 
-        txttelefon.setText("Telefon");
-
         jToggleButton1.setText("Ändra personuppgifter");
         jToggleButton1.addActionListener(this::jToggleButton1ActionPerformed);
-
-        txtID.setText("ID");
-        txtID.addActionListener(this::txtIDActionPerformed);
 
         AnställdID.setText("AnställdID");
 
@@ -98,83 +136,101 @@ public class Person extends javax.swing.JFrame {
 
         lblfulltnamn.setText("Namn");
 
+        lblanvandaradress.setText("Adress");
+
+        lblanvandartelefon.setText("Telefonnummer");
+
+        lblanvandarID.setText("ID");
+
+        jButton1.setText("Tillbaka");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        jLabel1.setText("Hejsan");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblfulltnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblanvandarepost)
-                            .addComponent(AnställdID)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbladress)
-                                .addComponent(lbltelefon)))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtpersonadress, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txttelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblpersonnamn)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbltelefon, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(lblanvandarepost)
+                                            .addGap(3, 3, 3)))
+                                    .addComponent(AnställdID)
+                                    .addComponent(lbladress))
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblanvandarID)
+                                    .addComponent(lblanvandartelefon)
+                                    .addComponent(lblanvandaradress)
+                                    .addComponent(lblpersonnamn)))
+                            .addComponent(jToggleButton1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jButton1)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblfulltnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(lblfulltnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblanvandarepost)
-                    .addComponent(lblpersonnamn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblfulltnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                    .addComponent(lblpersonnamn)
+                    .addComponent(lblanvandarepost))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbladress)
-                    .addComponent(txtpersonadress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbltelefon)
-                    .addComponent(txttelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblanvandaradress))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AnställdID)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(lbltelefon)
+                    .addComponent(lblanvandartelefon))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblanvandarID)
+                    .addComponent(AnställdID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToggleButton1)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
-
-    private void txtpersonadressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpersonadressActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpersonadressActionPerformed
-
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        // TODO add your handling code here:
+       /*Uppgiftsandrare newframe = new Uppgiftsandrare(idb, inloggadAnvandare);
+       newframe.setVisible(true);
+       newframe.toFront();*/
+       UppdateraAnstallda uppdateraAnstallda = new UppdateraAnstallda(idb, inloggadAnvandare);
+       uppdateraAnstallda.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        Meny newframe = new Meny(idb, inloggadAnvandare);
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,16 +259,16 @@ public class Person extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AnställdID;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lbladress;
+    private javax.swing.JLabel lblanvandarID;
+    private javax.swing.JLabel lblanvandaradress;
     private javax.swing.JLabel lblanvandarepost;
+    private javax.swing.JLabel lblanvandartelefon;
     private javax.swing.JLabel lblfulltnamn;
     private javax.swing.JLabel lblpersonnamn;
     private javax.swing.JLabel lbltelefon;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtpersonadress;
-    private javax.swing.JTextField txttelefon;
     // End of variables declaration//GEN-END:variables
 }
