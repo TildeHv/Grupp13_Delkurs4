@@ -11,3 +11,4 @@ src/.DS_Store
 build/built-jar.properties
 build/built-jar.properties
 build/built-jar.properties
+/nbproject/private/
