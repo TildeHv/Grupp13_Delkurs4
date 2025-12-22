@@ -138,9 +138,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="H&#xe5;llbarhetsm&#xe5;l"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnhallbarhetsmalActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButton2">
       <Properties>
