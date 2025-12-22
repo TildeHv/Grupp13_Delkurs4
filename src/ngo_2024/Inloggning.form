@@ -63,9 +63,9 @@
                   <Component id="txtepost" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbllosenord" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtlosenord" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbllosenord" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblFelMeddelande" min="-2" max="-2" attributes="0"/>
