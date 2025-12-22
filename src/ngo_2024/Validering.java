@@ -8,7 +8,7 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 /**
  *
- * @author hansa
+ * @author Albin
  */
 public class Validering {
     public static boolean ValideraEpost(String ePost) { 
