@@ -10,19 +10,19 @@ import oru.inf.InfException;
 
 /**
  *
- * @author user*
+ * @author Tilde
  */
-public class Uppgiftsandrare extends javax.swing.JFrame {
+public class UppdateraAnstallda extends javax.swing.JFrame {
     
     private InfDB idb;
     private String inloggadAnvandare;
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Uppgiftsandrare.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UppdateraAnstallda.class.getName());
 
     /**
-     * Creates new form Uppgiftsändrare
+     * Creates new form UppdateraAnstallda
      */
-    public Uppgiftsandrare(InfDB idb, String inloggadAnvandare) {
+    public UppdateraAnstallda(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         
@@ -39,25 +39,20 @@ public class Uppgiftsandrare extends javax.swing.JFrame {
     private void initComponents() {
 
         lblandrauppgifter = new javax.swing.JLabel();
-        lblnytelefonnummer = new javax.swing.JLabel();
         lblnyadress = new javax.swing.JLabel();
-        lblnyepost = new javax.swing.JLabel();
-        txtnyadress = new javax.swing.JTextField();
-        txtnytelefonnummer = new javax.swing.JTextField();
-        txtnyepost = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtnyadress = new javax.swing.JTextPane();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblandrauppgifter.setText("Ändra dina uppgifter");
-
-        lblnytelefonnummer.setText("Nytt telefonnummer");
+        lblandrauppgifter.setText("Ändra din uppgifter");
 
         lblnyadress.setText("Ny adress");
 
-        lblnyepost.setText("Ny Epostadress");
+        jScrollPane1.setViewportView(txtnyadress);
 
-        jButton1.setText("Ändra uppgifter");
+        jButton1.setText("jButton1");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -65,65 +60,50 @@ public class Uppgiftsandrare extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblandrauppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblandrauppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblnyadress, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblnyadress)
-                            .addComponent(lblnytelefonnummer)
-                            .addComponent(lblnyepost))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtnyadress)
-                            .addComponent(txtnytelefonnummer)
-                            .addComponent(txtnyepost)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))))
-                .addContainerGap(103, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lblandrauppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(24, 24, 24)
+                .addComponent(lblandrauppgifter)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblnyadress)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblnytelefonnummer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblnyepost))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtnyadress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtnytelefonnummer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtnyepost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lblnyadress)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(84, 84, 84))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try{
-            String value1= txtnyadress.getText();
-                    /*String value2= txtnyepost.getText();
+        // TODO add your handling code here:
+        try {
+            String value1 = txtnyadress.getText();
+            /*String value2= txtnyepost.getText();
                             String value3 = txtnytelefonnummer.getText();/*/
 
             String sql = "UPDATE anstalld SET adress = '" + value1 + "' WHERE epost = '" + inloggadAnvandare + "'";
-             idb.update(sql);
-             JOptionPane.showMessageDialog(null, "Uppdaterad!");
+            idb.update(sql);
+            JOptionPane.showMessageDialog(null, "Uppdaterad!");
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, "Fel vid uppdatering");
 
         }
-    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -148,17 +128,14 @@ public class Uppgiftsandrare extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       // java.awt.EventQueue.invokeLater(() -> new Uppgiftsändrare().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new UppdateraAnstallda().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblandrauppgifter;
     private javax.swing.JLabel lblnyadress;
-    private javax.swing.JLabel lblnyepost;
-    private javax.swing.JLabel lblnytelefonnummer;
-    private javax.swing.JTextField txtnyadress;
-    private javax.swing.JTextField txtnyepost;
-    private javax.swing.JTextField txtnytelefonnummer;
+    private javax.swing.JTextPane txtnyadress;
     // End of variables declaration//GEN-END:variables
-
+}

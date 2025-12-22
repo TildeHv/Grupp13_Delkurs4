@@ -11,12 +11,20 @@ import oru.inf.InfException;
  * @author hansa
  */
 public class Validering {
-    public static boolean isValidEpost(String ePost) {
-       return ePost.matches ("^[a-zA-Z0-9._]{3,20}$");  
+    public static boolean ValideraEpost(String ePost) { 
+       return ePost.matches ("^[a-zA-Z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");  // ^början $slut.  a-z tillåter bokstäver förutomåäö. 
     }
+    
+    public static boolean ValideraTelefon(String telefon){
+        return telefon.matches ("^\\+?[0-9]{7,15}$"); 
+    }
+    
+    public static boolean ValideraAdress(String adress) { 
+        return adress.matches ("^[A-Za-zÅÄÖåäö0-9 .\\-]{5,50}$"); 
+    }
+    
+   public static boolean ValideraNamn(String namn){
+       return namn.matches ("^[A-Za-zÅÄÖåäö'\\ -]{2,40}$");
+   }
+    
 }
-    
-
-    
-
-

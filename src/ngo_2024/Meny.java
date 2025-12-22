@@ -152,7 +152,7 @@ public class Meny extends javax.swing.JFrame {
 
     private void btnProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProjektActionPerformed
 
-    ProjektFlik pi = new ProjektFlik();
+    ProjektFlik pi = new ProjektFlik(idb);
      pi.setVisible(true);
      
    
