@@ -4,19 +4,61 @@
  */
 package ngo_2024;
 
+import oru.inf.InfDB;
+import oru.inf.InfException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
  */
 public class ProjektFlik extends javax.swing.JFrame {
     
+    private InfDB idb;
+    private ArrayList<String> projektLista = new ArrayList<>();
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
     /**
      * Creates new form ProjektFlik
      */
-    public ProjektFlik() {
+    public ProjektFlik(InfDB idb) {
+        this.idb = idb;
         initComponents();
+
+        projektTabell.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Projektnamn", "Status", "Prioritet"}));
+        
+        getProjektInfo();
+    }
+    
+    public void getProjektInfo() {
+        try {
+            projektLista.clear();
+            DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
+            
+            ArrayList<HashMap<String, String>> projects = idb.fetchRows("select * from projekt");
+
+            for (HashMap<String, String> project : projects) {
+            model.addRow(new Object[]{
+                project.get("projektnamn"),
+                project.get("status"),
+                project.get("prioritet")
+            });
+        }
+
+            //projektN(amn = idb.fetchRows("select * from projekt");
+            //status = idb.fetchColumn("select status from projekt");
+            //for (int i = 0; i < projektNamn.size(); i++) {
+            //    projektLista.add(projektNamn.get(i) + " " + status.get(i));
+            //}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -31,14 +73,14 @@ public class ProjektFlik extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollBar1 = new javax.swing.JScrollBar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        projektTabell = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("PROJEKT");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        projektTabell.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -49,7 +91,7 @@ public class ProjektFlik extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(projektTabell);
 
         jLabel2.setText("jLabel2");
 
@@ -122,6 +164,6 @@ public class ProjektFlik extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable projektTabell;
     // End of variables declaration//GEN-END:variables
 }
