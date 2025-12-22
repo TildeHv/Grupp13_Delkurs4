@@ -15,47 +15,61 @@ import javax.swing.table.DefaultTableModel;
  * @author user
  */
 public class ProjektFlik extends javax.swing.JFrame {
-    
+
     private InfDB idb;
+    private String inloggadAnvandare;
     private ArrayList<String> projektLista = new ArrayList<>();
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
     /**
      * Creates new form ProjektFlik
      */
-    public ProjektFlik(InfDB idb) {
+    public ProjektFlik(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
+        this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
 
         projektTabell.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "Projektnamn", "Status", "Prioritet"}));
-        
-        getProjektInfo();
+
+            projektLista.clear();
+            DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
+            model.setRowCount(0);
+        //getProjektInfo();
+        //getAnstalldProjektInfo();
     }
     
-    public void getProjektInfo() {
+    public String getAllSql() {
+        return "select * from projekt";
+    }
+    
+    public String getAnstalldSql() {
+        return "SELECT * "
+                    + "FROM projekt "
+                    + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
+                    + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
+                    + "WHERE anstalld.epost = '" + inloggadAnvandare + "'";
+    }
+
+    public void getProjektInfo(String sqlFraga) {
         try {
             projektLista.clear();
             DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
-            
-            ArrayList<HashMap<String, String>> projects = idb.fetchRows("select * from projekt");
+            model.setRowCount(0);
+
+            ArrayList<HashMap<String, String>> projects = idb.fetchRows(sqlFraga);
 
             for (HashMap<String, String> project : projects) {
-            model.addRow(new Object[]{
-                project.get("projektnamn"),
-                project.get("status"),
-                project.get("prioritet")
-            });
-        }
+                model.addRow(new Object[]{
+                    project.get("projektnamn"),
+                    project.get("status"),
+                    project.get("prioritet")
+                });
+            }
 
-            //projektN(amn = idb.fetchRows("select * from projekt");
-            //status = idb.fetchColumn("select status from projekt");
-            //for (int i = 0; i < projektNamn.size(); i++) {
-            //    projektLista.add(projektNamn.get(i) + " " + status.get(i));
-            //}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,10 +85,10 @@ public class ProjektFlik extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollBar1 = new javax.swing.JScrollBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         projektTabell = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,7 +107,11 @@ public class ProjektFlik extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(projektTabell);
 
-        jLabel2.setText("jLabel2");
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        jButton2.setText("jButton1");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,15 +121,15 @@ public class ProjektFlik extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,20 +137,27 @@ public class ProjektFlik extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        getProjektInfo(getAllSql());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        getProjektInfo(getAnstalldSql());
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,13 +181,13 @@ public class ProjektFlik extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       // java.awt.EventQueue.invokeLater(() -> new ProjektFlik().setVisible(true));
+        // java.awt.EventQueue.invokeLater(() -> new ProjektFlik().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable projektTabell;
     // End of variables declaration//GEN-END:variables
