@@ -29,7 +29,7 @@ public class Person extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         
-        initComponents();
+        initComponents(); 
         
         getFullstandigtnamn();
         getAnvandarAdress();
