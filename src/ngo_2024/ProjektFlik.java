@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author user
- */
 public class ProjektFlik extends javax.swing.JFrame {
 
     private InfDB idb;
@@ -23,9 +19,6 @@ public class ProjektFlik extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
-    /**
-     * Creates new form ProjektFlik
-     */
     public ProjektFlik(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
