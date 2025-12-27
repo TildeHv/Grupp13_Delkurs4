@@ -5,53 +5,65 @@
 package ngo_2024;
 
 import oru.inf.InfDB;
-import oru.inf.InfException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author user
- */
 public class ProjektFlik extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
+    private String projektnamn;
     private ArrayList<String> projektLista = new ArrayList<>();
+    private String aktuellSql;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
-    /**
-     * Creates new form ProjektFlik
-     */
     public ProjektFlik(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
+        this.projektnamn = projektnamn;
         initComponents();
+
+        projInfoKnapp.setEnabled(false);
 
         projektTabell.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "Projektnamn", "Status", "Prioritet"}));
 
-            projektLista.clear();
-            DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
-            model.setRowCount(0);
-        //getProjektInfo();
-        //getAnstalldProjektInfo();
+        //kod för knapparna
+        projektLista.clear();
+        DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
+        model.setRowCount(0);
+
+        getProjektInfo(getAnstalldSql());
+        addTabellLyssnare();
+
+        filterBox.removeAllItems();
+        filterBox.addItem("Alla statusar");
+        filterBox.addItem("Planerat");
+        filterBox.addItem("Pågående");
+        filterBox.addItem("Avslutat");
+
     }
-    
-    public String getAllSql() {
-        return "select * from projekt";
-    }
-    
+
     public String getAnstalldSql() {
         return "SELECT * "
-                    + "FROM projekt "
-                    + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
-                    + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
-                    + "WHERE anstalld.epost = '" + inloggadAnvandare + "'";
+                + "FROM projekt "
+                + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
+                + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
+                + "WHERE anstalld.epost = '" + inloggadAnvandare + "'";
+    }
+
+    public String getAvdelningsProjektSql() {
+        return "SELECT DISTINCT projekt.* "
+                + "FROM projekt "
+                + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
+                + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
+                + "WHERE anstalld.avdelning = ("
+                + "SELECT avdelning FROM anstalld "
+                + "WHERE epost = '" + inloggadAnvandare + "')";
     }
 
     public void getProjektInfo(String sqlFraga) {
@@ -75,6 +87,24 @@ public class ProjektFlik extends javax.swing.JFrame {
         }
     }
 
+    private void openProjektInfo(String projektnamn) {
+        ProjektInfo projektInfo = new ProjektInfo(idb, projektnamn, inloggadAnvandare);
+        projektInfo.setVisible(true);
+    }
+
+    private void addTabellLyssnare() {
+        projektTabell.getSelectionModel()
+                .addListSelectionListener(e -> {
+                    if (!e.getValueIsAdjusting()) {
+                        int radIndex = projektTabell.getSelectedRow();
+                        if (radIndex >= 0) {
+                            this.projektnamn = (String) projektTabell.getValueAt(radIndex, 0);
+                            projInfoKnapp.setEnabled(true);
+                        }
+                    }
+                });
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,8 +117,10 @@ public class ProjektFlik extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         projektTabell = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        MinaProjKnapp = new javax.swing.JButton();
+        filterBox = new javax.swing.JComboBox<>();
+        AvdProjKnapp = new javax.swing.JButton();
+        projInfoKnapp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -107,11 +139,17 @@ public class ProjektFlik extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(projektTabell);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        MinaProjKnapp.setText("Mina projekt");
+        MinaProjKnapp.addActionListener(this::MinaProjKnappActionPerformed);
 
-        jButton2.setText("jButton1");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        filterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        filterBox.addActionListener(this::filterBoxActionPerformed);
+
+        AvdProjKnapp.setText("Avdelningens projekt");
+        AvdProjKnapp.addActionListener(this::AvdProjKnappActionPerformed);
+
+        projInfoKnapp.setText("Öppna");
+        projInfoKnapp.addActionListener(this::projInfoKnappActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,43 +159,78 @@ public class ProjektFlik extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(MinaProjKnapp)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(AvdProjKnapp)))
+                        .addGap(0, 53, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(MinaProjKnapp)
+                    .addComponent(AvdProjKnapp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(projInfoKnapp)
+                .addGap(44, 44, 44))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        getProjektInfo(getAllSql());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void MinaProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinaProjKnappActionPerformed
+        this.aktuellSql = getAnstalldSql();
+        getProjektInfo(aktuellSql);
+    }//GEN-LAST:event_MinaProjKnappActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        getProjektInfo(getAnstalldSql());
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void filterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBoxActionPerformed
+        if (aktuellSql == null) {
+            return;
+        }
+
+        String valdStatus = (String) filterBox.getSelectedItem();
+        String filtreradSql = aktuellSql;
+
+        if (!"Alla statusar".equals(valdStatus)) {
+            filtreradSql += " AND status = '" + valdStatus + "'";
+        }
+
+        getProjektInfo(filtreradSql);
+    }//GEN-LAST:event_filterBoxActionPerformed
+
+    private void AvdProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvdProjKnappActionPerformed
+        this.aktuellSql = getAvdelningsProjektSql();
+        getProjektInfo(aktuellSql);
+    }//GEN-LAST:event_AvdProjKnappActionPerformed
+
+    private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
+        if (this.projektnamn != null && !this.projektnamn.isEmpty()) {
+            openProjektInfo(this.projektnamn);
+        }
+    }//GEN-LAST:event_projInfoKnappActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,10 +258,12 @@ public class ProjektFlik extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton AvdProjKnapp;
+    private javax.swing.JButton MinaProjKnapp;
+    private javax.swing.JComboBox<String> filterBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton projInfoKnapp;
     private javax.swing.JTable projektTabell;
     // End of variables declaration//GEN-END:variables
 }
