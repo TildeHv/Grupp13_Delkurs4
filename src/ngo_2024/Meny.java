@@ -27,8 +27,24 @@ public class Meny extends javax.swing.JFrame {
   
         initComponents();
         lblanvandare.setText(inloggadAnvandare);
+        sattBehorighet();
     }
-
+        private void sattBehorighet() {
+            
+            System.out.println("Sätter behörighet för: " + inloggadAnvandare);
+            
+            boolean arAdmin =
+                    ValAvRoll.arAdmin(idb, inloggadAnvandare);
+            
+            boolean arHandlaggare =
+                    ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
+            
+            boolean arProjektchef =
+                    ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+            
+            System.out.println("Handläggare: " + arHandlaggare);
+      
+        }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,9 +176,7 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProjektActionPerformed
 
     private void lblanvandarnamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblanvandarnamnActionPerformed
-     Person pi = new Person(idb, inloggadAnvandare);
-pi.setVisible(true);
-//TODO add your handling code here:
+   
     }//GEN-LAST:event_lblanvandarnamnActionPerformed
 
     private void btnpartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnerActionPerformed
