@@ -5,7 +5,6 @@
 package ngo_2024;
 
 import oru.inf.InfDB;
-import oru.inf.InfException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +13,7 @@ public class ProjektFlik extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
+    private String projektnamn;
     private ArrayList<String> projektLista = new ArrayList<>();
     private String aktuellSql;
 
@@ -22,7 +22,10 @@ public class ProjektFlik extends javax.swing.JFrame {
     public ProjektFlik(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
+        this.projektnamn = projektnamn;
         initComponents();
+
+        projInfoKnapp.setEnabled(false);
 
         projektTabell.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -35,12 +38,14 @@ public class ProjektFlik extends javax.swing.JFrame {
         model.setRowCount(0);
 
         getProjektInfo(getAnstalldSql());
+        addTabellLyssnare();
 
         filterBox.removeAllItems();
         filterBox.addItem("Alla statusar");
         filterBox.addItem("Planerat");
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
+
     }
 
     public String getAnstalldSql() {
@@ -82,6 +87,24 @@ public class ProjektFlik extends javax.swing.JFrame {
         }
     }
 
+    private void openProjektInfo(String projektnamn) {
+        ProjektInfo projektInfo = new ProjektInfo(idb, projektnamn, inloggadAnvandare);
+        projektInfo.setVisible(true);
+    }
+
+    private void addTabellLyssnare() {
+        projektTabell.getSelectionModel()
+                .addListSelectionListener(e -> {
+                    if (!e.getValueIsAdjusting()) {
+                        int radIndex = projektTabell.getSelectedRow();
+                        if (radIndex >= 0) {
+                            this.projektnamn = (String) projektTabell.getValueAt(radIndex, 0);
+                            projInfoKnapp.setEnabled(true);
+                        }
+                    }
+                });
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +120,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         MinaProjKnapp = new javax.swing.JButton();
         filterBox = new javax.swing.JComboBox<>();
         AvdProjKnapp = new javax.swing.JButton();
+        projInfoKnapp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,6 +148,9 @@ public class ProjektFlik extends javax.swing.JFrame {
         AvdProjKnapp.setText("Avdelningens projekt");
         AvdProjKnapp.addActionListener(this::AvdProjKnappActionPerformed);
 
+        projInfoKnapp.setText("Öppna");
+        projInfoKnapp.addActionListener(this::projInfoKnappActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,6 +172,10 @@ public class ProjektFlik extends javax.swing.JFrame {
                                 .addComponent(AvdProjKnapp)))
                         .addGap(0, 53, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,14 +193,15 @@ public class ProjektFlik extends javax.swing.JFrame {
                     .addComponent(AvdProjKnapp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(projInfoKnapp)
+                .addGap(44, 44, 44))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void MinaProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinaProjKnappActionPerformed
-        // TODO add your handling code here:
         this.aktuellSql = getAnstalldSql();
         getProjektInfo(aktuellSql);
     }//GEN-LAST:event_MinaProjKnappActionPerformed
@@ -190,10 +222,15 @@ public class ProjektFlik extends javax.swing.JFrame {
     }//GEN-LAST:event_filterBoxActionPerformed
 
     private void AvdProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvdProjKnappActionPerformed
-        // TODO add your handling code here:
         this.aktuellSql = getAvdelningsProjektSql();
         getProjektInfo(aktuellSql);
     }//GEN-LAST:event_AvdProjKnappActionPerformed
+
+    private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
+        if (this.projektnamn != null && !this.projektnamn.isEmpty()) {
+            openProjektInfo(this.projektnamn);
+        }
+    }//GEN-LAST:event_projInfoKnappActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +263,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> filterBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton projInfoKnapp;
     private javax.swing.JTable projektTabell;
     // End of variables declaration//GEN-END:variables
 }
