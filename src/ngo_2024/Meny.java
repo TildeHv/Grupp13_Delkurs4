@@ -171,12 +171,14 @@ public class Meny extends javax.swing.JFrame {
 
     ProjektFlik pi = new ProjektFlik(idb, inloggadAnvandare);
      pi.setVisible(true);
-     
+ 
    
     }//GEN-LAST:event_btnProjektActionPerformed
 
     private void lblanvandarnamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblanvandarnamnActionPerformed
-   
+   Anvandaruppgifter2 pi = new Anvandaruppgifter2(idb, inloggadAnvandare);
+    pi.setVisible(true);
+        
     }//GEN-LAST:event_lblanvandarnamnActionPerformed
 
     private void btnpartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnerActionPerformed

@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class Anvandare {
     
     private InfDB idb;
-    
+    private String inloggadAnvandare;
     private String aid;
     private String fornamn;
     private String efternamn;
@@ -25,23 +25,36 @@ public class Anvandare {
     private String anstallningsdatum;
     private String avdelning;
     
-    public Anvandare(InfDB idb, String aid) {
+    public Anvandare(InfDB idb, String inloggadAnvandare) {
         
+        this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;
-        this.aid = aid;
         hamtaUppgifter();
+        System.out.println("Skapar Anvandare med aid: " + aid);
     }
     
     private void hamtaUppgifter() {
+
         
         try {
+            
+            System.out.println(aid);
           String sqlFraga =
-                  "SELECT fornamn, efternamn, adress, epost, telefon, " 
-                  + "anstallningsdatum, abdelning " +
-                  "FROM anstalld" +
-                  " WHERE aid = '" + aid + "'";
+          "SELECT fornamn, aid, efternamn, adress, epost, telefon, " +
+          "anstallningsdatum, avdelning " +
+          "FROM anstalld " +      
+          "WHERE ePost = '" + inloggadAnvandare + "'";
+          
+          System.out.print(sqlFraga);
+        
           
           HashMap<String, String> rad = idb.fetchRow(sqlFraga);
+          
+           if (rad == null) {
+    System.out.println("Ingen rad hittades för aid: " + aid);
+} else {
+    System.out.println("Hämtade användare: " + rad.get("fornamn") + " " + rad.get("efternamn"));
+}
           
           fornamn = rad.get("fornamn");
           efternamn = rad.get("efternamn");
@@ -50,6 +63,10 @@ public class Anvandare {
           telefon = rad.get ("telefon");
           anstallningsdatum = rad.get ("anstallningsdatum");
           avdelning = rad.get ("avdelning");
+          aid = rad.get("aid");
+
+          
+          System.out.println(efternamn);
           
         } catch (InfException e) {
           System.out.println(e.getMessage());
