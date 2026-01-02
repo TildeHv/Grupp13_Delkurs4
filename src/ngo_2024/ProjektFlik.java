@@ -8,6 +8,13 @@ import oru.inf.InfDB;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.util.Calendar;
 
 public class ProjektFlik extends javax.swing.JFrame {
 
@@ -27,25 +34,76 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         projInfoKnapp.setEnabled(false);
 
-        projektTabell.setModel(new javax.swing.table.DefaultTableModel(
+        // --- Sätt upp tabellens kolumner ---
+        projektTabell.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{
-                    "Projektnamn", "Status", "Prioritet"}));
+                new String[]{"Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}));
 
-        //kod för knapparna
-        projektLista.clear();
-        DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
-        model.setRowCount(0);
+        // --- Sätt upp start- och slutdatum ---
+        Calendar calStart = Calendar.getInstance();
+        calStart.add(Calendar.YEAR, -2); // två år tillbaka
+        Date startDatumInit = calStart.getTime();
 
-        getProjektInfo(getAnstalldSql());
+        Date slutDatumInit = new Date(); // idag
+
+        startDatumSpinner.setModel(new SpinnerDateModel(startDatumInit, null, null, Calendar.DAY_OF_MONTH));
+        startDatumSpinner.setEditor(new JSpinner.DateEditor(startDatumSpinner, "yyyy-MM-dd"));
+
+        slutDatumSpinner.setModel(new SpinnerDateModel(slutDatumInit, null, null, Calendar.DAY_OF_MONTH));
+        slutDatumSpinner.setEditor(new JSpinner.DateEditor(slutDatumSpinner, "yyyy-MM-dd"));
+
+        // --- Sätt aktuell SQL innan tabellen fylls ---
+        this.aktuellSql = getAnstalldSql();
+
+        // --- Lägg till ChangeListeners efter att spinnersna är satta ---
+        startDatumSpinner.addChangeListener(e -> uppdateraProjektTabell());
+        slutDatumSpinner.addChangeListener(e -> uppdateraProjektTabell());
+
+        // --- Fyll tabellen direkt med projekten mellan start- och slutdatum ---
+        uppdateraProjektTabell();
+
+        // --- Lägg till tabelllyssnare ---
         addTabellLyssnare();
 
+        // --- Lägg till filteralternativ ---
         filterBox.removeAllItems();
         filterBox.addItem("Alla statusar");
         filterBox.addItem("Planerat");
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
+    }
 
+    private void uppdateraProjektTabell() {
+        if (aktuellSql == null) {
+            return;
+        }
+
+        String filtreradSql = aktuellSql;
+
+        // Filtrera på status
+        String valdStatus = (String) filterBox.getSelectedItem();
+        if (!"Alla statusar".equals(valdStatus)) {
+            filtreradSql += " AND status = '" + valdStatus + "'";
+        }
+
+        // Filtrera på datum
+        Date startDatum = (Date) startDatumSpinner.getValue();
+        Date slutDatum = (Date) slutDatumSpinner.getValue();
+        filtreradSql = filtreraSqlMedDatum(filtreradSql, startDatum, slutDatum);
+
+        getProjektInfo(filtreradSql);
+    }
+
+    private String filtreraSqlMedDatum(String sqlBas, Date startDatum, Date slutDatum) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String startStr = sdf.format(startDatum);
+        String slutStr = sdf.format(slutDatum);
+
+        // Oracle DATE-kolumner -> enklare syntax
+        String sqlMedDatum = sqlBas
+                + " AND startdatum >= DATE '" + startStr + "'"
+                + " AND slutdatum <= DATE '" + slutStr + "'";
+        return sqlMedDatum;
     }
 
     public String getAnstalldSql() {
@@ -78,7 +136,9 @@ public class ProjektFlik extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     project.get("projektnamn"),
                     project.get("status"),
-                    project.get("prioritet")
+                    project.get("prioritet"),
+                    project.get("startdatum"),
+                    project.get("slutdatum")
                 });
             }
 
@@ -121,6 +181,8 @@ public class ProjektFlik extends javax.swing.JFrame {
         filterBox = new javax.swing.JComboBox<>();
         AvdProjKnapp = new javax.swing.JButton();
         projInfoKnapp = new javax.swing.JButton();
+        startDatumSpinner = new javax.swing.JSpinner();
+        slutDatumSpinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -160,7 +222,11 @@ public class ProjektFlik extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(69, 69, 69)
+                        .addComponent(startDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(slutDatumSpinner)
+                        .addGap(18, 18, 18)
                         .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -186,7 +252,10 @@ public class ProjektFlik extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(startDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(slutDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MinaProjKnapp)
@@ -207,18 +276,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     }//GEN-LAST:event_MinaProjKnappActionPerformed
 
     private void filterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBoxActionPerformed
-        if (aktuellSql == null) {
-            return;
-        }
-
-        String valdStatus = (String) filterBox.getSelectedItem();
-        String filtreradSql = aktuellSql;
-
-        if (!"Alla statusar".equals(valdStatus)) {
-            filtreradSql += " AND status = '" + valdStatus + "'";
-        }
-
-        getProjektInfo(filtreradSql);
+        uppdateraProjektTabell();
     }//GEN-LAST:event_filterBoxActionPerformed
 
     private void AvdProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvdProjKnappActionPerformed
@@ -265,5 +323,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton projInfoKnapp;
     private javax.swing.JTable projektTabell;
+    private javax.swing.JSpinner slutDatumSpinner;
+    private javax.swing.JSpinner startDatumSpinner;
     // End of variables declaration//GEN-END:variables
 }
