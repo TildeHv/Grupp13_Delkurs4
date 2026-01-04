@@ -34,12 +34,10 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         projInfoKnapp.setEnabled(false);
 
-        // --- Sätt upp tabellens kolumner ---
         projektTabell.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}));
 
-        // --- Sätt upp start- och slutdatum ---
         Calendar calStart = Calendar.getInstance();
         calStart.add(Calendar.YEAR, -2); // två år tillbaka
         Date startDatumInit = calStart.getTime();
@@ -52,25 +50,20 @@ public class ProjektFlik extends javax.swing.JFrame {
         slutDatumSpinner.setModel(new SpinnerDateModel(slutDatumInit, null, null, Calendar.DAY_OF_MONTH));
         slutDatumSpinner.setEditor(new JSpinner.DateEditor(slutDatumSpinner, "yyyy-MM-dd"));
 
-        // --- Sätt aktuell SQL innan tabellen fylls ---
-        this.aktuellSql = getAnstalldSql();
-
-        // --- Lägg till ChangeListeners efter att spinnersna är satta ---
         startDatumSpinner.addChangeListener(e -> uppdateraProjektTabell());
         slutDatumSpinner.addChangeListener(e -> uppdateraProjektTabell());
 
-        // --- Fyll tabellen direkt med projekten mellan start- och slutdatum ---
-        uppdateraProjektTabell();
-
-        // --- Lägg till tabelllyssnare ---
-        addTabellLyssnare();
-
-        // --- Lägg till filteralternativ ---
         filterBox.removeAllItems();
         filterBox.addItem("Alla statusar");
         filterBox.addItem("Planerat");
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
+
+        filterBox.addActionListener(e -> uppdateraProjektTabell());
+
+        this.aktuellSql = getAnstalldSql();
+        uppdateraProjektTabell();
+        addTabellLyssnare();
     }
 
     private void uppdateraProjektTabell() {
@@ -78,18 +71,12 @@ public class ProjektFlik extends javax.swing.JFrame {
             return;
         }
 
+        String valdStatus = (String) filterBox.getSelectedItem();
         String filtreradSql = aktuellSql;
 
-        // Filtrera på status
-        String valdStatus = (String) filterBox.getSelectedItem();
         if (!"Alla statusar".equals(valdStatus)) {
             filtreradSql += " AND status = '" + valdStatus + "'";
         }
-
-        // Filtrera på datum
-        Date startDatum = (Date) startDatumSpinner.getValue();
-        Date slutDatum = (Date) slutDatumSpinner.getValue();
-        filtreradSql = filtreraSqlMedDatum(filtreradSql, startDatum, slutDatum);
 
         getProjektInfo(filtreradSql);
     }
@@ -99,10 +86,10 @@ public class ProjektFlik extends javax.swing.JFrame {
         String startStr = sdf.format(startDatum);
         String slutStr = sdf.format(slutDatum);
 
-        // Oracle DATE-kolumner -> enklare syntax
+        // Lägg till alias "projekt." framför kolumner
         String sqlMedDatum = sqlBas
-                + " AND startdatum >= DATE '" + startStr + "'"
-                + " AND slutdatum <= DATE '" + slutStr + "'";
+                + " AND projekt.startdatum >= DATE '" + startStr + "'"
+                + " AND projekt.slutdatum <= DATE '" + slutStr + "'";
         return sqlMedDatum;
     }
 
@@ -285,8 +272,8 @@ public class ProjektFlik extends javax.swing.JFrame {
     }//GEN-LAST:event_AvdProjKnappActionPerformed
 
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
-        if (this.projektnamn != null && !this.projektnamn.isEmpty()) {
-            openProjektInfo(this.projektnamn);
+        if (projektnamn != null && !projektnamn.isEmpty()) {
+            openProjektInfo(projektnamn);
         }
     }//GEN-LAST:event_projInfoKnappActionPerformed
 
