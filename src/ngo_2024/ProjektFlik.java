@@ -40,11 +40,11 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         Calendar cal = Calendar.getInstance();
         Date idag = cal.getTime();
-        cal.add(Calendar.YEAR, -2);
-        Date tvaArTillbaka = cal.getTime();
+        cal.add(Calendar.YEAR, -3);
+        Date arTillbaka = cal.getTime();
 
         SpinnerDateModel startModel
-                = new SpinnerDateModel(tvaArTillbaka, null, idag, Calendar.DAY_OF_MONTH);
+                = new SpinnerDateModel(arTillbaka, null, idag, Calendar.DAY_OF_MONTH);
         SpinnerDateModel slutModel
                 = new SpinnerDateModel(idag, null, idag, Calendar.DAY_OF_MONTH);
 
@@ -66,7 +66,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         filterBox.addItem("Avslutat");
 
         aktuellSql = getAnstalldSql();
-        getProjektInfo(aktuellSql);
+        filtreraDatum();
         addTabellLyssnare();
     }
 
