@@ -12,8 +12,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.util.Calendar;
 
 public class ProjektFlik extends javax.swing.JFrame {
