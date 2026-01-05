@@ -64,7 +64,7 @@ public class Meny extends javax.swing.JFrame {
         jToggleButton3 = new javax.swing.JToggleButton();
         btnavdelning = new javax.swing.JToggleButton();
         btnmedarbetare = new javax.swing.JToggleButton();
-        jToggleButton6 = new javax.swing.JToggleButton();
+        btnland = new javax.swing.JToggleButton();
         jToggleButton7 = new javax.swing.JToggleButton();
         jToggleButton8 = new javax.swing.JToggleButton();
 
@@ -92,7 +92,8 @@ public class Meny extends javax.swing.JFrame {
 
         btnmedarbetare.setText("Medarbetare");
 
-        jToggleButton6.setText("jToggleButton6");
+        btnland.setText("Land");
+        btnland.addActionListener(this::btnlandActionPerformed);
 
         jToggleButton7.setText("jToggleButton7");
 
@@ -122,7 +123,7 @@ public class Meny extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnhallbarhetsmal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnland, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -152,7 +153,7 @@ public class Meny extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnhallbarhetsmal)
-                    .addComponent(jToggleButton6))
+                    .addComponent(btnland))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton2)
@@ -189,6 +190,11 @@ public class Meny extends javax.swing.JFrame {
           new Hallbarhetsmal(idb, inloggadAnvandare).setVisible(true);
     }//GEN-LAST:event_btnhallbarhetsmalActionPerformed
 
+    private void btnlandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlandActionPerformed
+        Land land = new Land(idb);
+        land.setVisible(true);
+    }//GEN-LAST:event_btnlandActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,11 +224,11 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JButton btnProjekt;
     private javax.swing.JToggleButton btnavdelning;
     private javax.swing.JToggleButton btnhallbarhetsmal;
+    private javax.swing.JToggleButton btnland;
     private javax.swing.JToggleButton btnmedarbetare;
     private javax.swing.JButton btnpartner;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToggleButton jToggleButton7;
     private javax.swing.JToggleButton jToggleButton8;
     private javax.swing.JLabel lblanvandare;
