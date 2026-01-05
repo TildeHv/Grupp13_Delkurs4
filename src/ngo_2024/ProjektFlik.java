@@ -29,29 +29,35 @@ public class ProjektFlik extends javax.swing.JFrame {
     public ProjektFlik(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
-        this.projektnamn = projektnamn;
         initComponents();
 
         projInfoKnapp.setEnabled(false);
 
         projektTabell.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}));
+                new String[]{"Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
+        ));
 
-        Calendar calStart = Calendar.getInstance();
-        calStart.add(Calendar.YEAR, -2); // två år tillbaka
-        Date startDatumInit = calStart.getTime();
+        Calendar cal = Calendar.getInstance();
+        Date idag = cal.getTime();
+        cal.add(Calendar.YEAR, -2);
+        Date tvaArTillbaka = cal.getTime();
 
-        Date slutDatumInit = new Date(); // idag
+        SpinnerDateModel startModel
+                = new SpinnerDateModel(tvaArTillbaka, null, idag, Calendar.DAY_OF_MONTH);
+        SpinnerDateModel slutModel
+                = new SpinnerDateModel(idag, null, idag, Calendar.DAY_OF_MONTH);
 
-        startDatumSpinner.setModel(new SpinnerDateModel(startDatumInit, null, null, Calendar.DAY_OF_MONTH));
-        startDatumSpinner.setEditor(new JSpinner.DateEditor(startDatumSpinner, "yyyy-MM-dd"));
+        startDatumSpinner.setModel(startModel);
+        slutDatumSpinner.setModel(slutModel);
 
-        slutDatumSpinner.setModel(new SpinnerDateModel(slutDatumInit, null, null, Calendar.DAY_OF_MONTH));
-        slutDatumSpinner.setEditor(new JSpinner.DateEditor(slutDatumSpinner, "yyyy-MM-dd"));
+        startDatumSpinner.setEditor(
+                new JSpinner.DateEditor(startDatumSpinner, "yyyy-MM-dd"));
+        slutDatumSpinner.setEditor(
+                new JSpinner.DateEditor(slutDatumSpinner, "yyyy-MM-dd"));
 
-        startDatumSpinner.addChangeListener(e -> uppdateraProjektTabell());
-        slutDatumSpinner.addChangeListener(e -> uppdateraProjektTabell());
+        startDatumSpinner.addChangeListener(e -> filtreraDatum());
+        slutDatumSpinner.addChangeListener(e -> filtreraDatum());
 
         filterBox.removeAllItems();
         filterBox.addItem("Alla statusar");
@@ -59,38 +65,9 @@ public class ProjektFlik extends javax.swing.JFrame {
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
 
-        filterBox.addActionListener(e -> uppdateraProjektTabell());
-
-        this.aktuellSql = getAnstalldSql();
-        uppdateraProjektTabell();
+        aktuellSql = getAnstalldSql();
+        getProjektInfo(aktuellSql);
         addTabellLyssnare();
-    }
-
-    private void uppdateraProjektTabell() {
-        if (aktuellSql == null) {
-            return;
-        }
-
-        String valdStatus = (String) filterBox.getSelectedItem();
-        String filtreradSql = aktuellSql;
-
-        if (!"Alla statusar".equals(valdStatus)) {
-            filtreradSql += " AND status = '" + valdStatus + "'";
-        }
-
-        getProjektInfo(filtreradSql);
-    }
-
-    private String filtreraSqlMedDatum(String sqlBas, Date startDatum, Date slutDatum) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String startStr = sdf.format(startDatum);
-        String slutStr = sdf.format(slutDatum);
-
-        // Lägg till alias "projekt." framför kolumner
-        String sqlMedDatum = sqlBas
-                + " AND projekt.startdatum >= DATE '" + startStr + "'"
-                + " AND projekt.slutdatum <= DATE '" + slutStr + "'";
-        return sqlMedDatum;
     }
 
     public String getAnstalldSql() {
@@ -113,7 +90,6 @@ public class ProjektFlik extends javax.swing.JFrame {
 
     public void getProjektInfo(String sqlFraga) {
         try {
-            projektLista.clear();
             DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
             model.setRowCount(0);
 
@@ -128,7 +104,6 @@ public class ProjektFlik extends javax.swing.JFrame {
                     project.get("slutdatum")
                 });
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,16 +115,36 @@ public class ProjektFlik extends javax.swing.JFrame {
     }
 
     private void addTabellLyssnare() {
-        projektTabell.getSelectionModel()
-                .addListSelectionListener(e -> {
-                    if (!e.getValueIsAdjusting()) {
-                        int radIndex = projektTabell.getSelectedRow();
-                        if (radIndex >= 0) {
-                            this.projektnamn = (String) projektTabell.getValueAt(radIndex, 0);
-                            projInfoKnapp.setEnabled(true);
-                        }
-                    }
-                });
+        projektTabell.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int rad = projektTabell.getSelectedRow();
+                if (rad >= 0) {
+                    projektnamn = (String) projektTabell.getValueAt(rad, 0);
+                    projInfoKnapp.setEnabled(true);
+                }
+            }
+        });
+    }
+
+    private void filtreraDatum() {
+        if (aktuellSql == null) {
+            return;
+        }
+
+        Date from = (Date) startDatumSpinner.getValue();
+        Date to = (Date) slutDatumSpinner.getValue();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        String sql = aktuellSql
+                + " AND startdatum <= '" + sdf.format(to) + "'"
+                + " AND (slutdatum IS NULL OR slutdatum >= '" + sdf.format(from) + "')";
+
+        String status = (String) filterBox.getSelectedItem();
+        if (!"Alla statusar".equals(status)) {
+            sql += " AND status = '" + status + "'";
+        }
+
+        getProjektInfo(sql);
     }
 
     /**
@@ -209,12 +204,8 @@ public class ProjektFlik extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)
-                        .addGap(69, 69, 69)
-                        .addComponent(startDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(slutDatumSpinner)
-                        .addGap(18, 18, 18)
-                        .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +213,12 @@ public class ProjektFlik extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(MinaProjKnapp)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(AvdProjKnapp)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AvdProjKnapp)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(startDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(slutDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 53, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -258,22 +254,22 @@ public class ProjektFlik extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MinaProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinaProjKnappActionPerformed
-        this.aktuellSql = getAnstalldSql();
-        getProjektInfo(aktuellSql);
+        aktuellSql = getAnstalldSql();
+        filtreraDatum();
     }//GEN-LAST:event_MinaProjKnappActionPerformed
 
     private void filterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBoxActionPerformed
-        uppdateraProjektTabell();
+        filtreraDatum();
     }//GEN-LAST:event_filterBoxActionPerformed
 
     private void AvdProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvdProjKnappActionPerformed
-        this.aktuellSql = getAvdelningsProjektSql();
-        getProjektInfo(aktuellSql);
+        aktuellSql = getAvdelningsProjektSql();
+        filtreraDatum();
     }//GEN-LAST:event_AvdProjKnappActionPerformed
 
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
         if (projektnamn != null && !projektnamn.isEmpty()) {
-            openProjektInfo(projektnamn);
+            new ProjektInfo(idb, projektnamn, inloggadAnvandare).setVisible(true);
         }
     }//GEN-LAST:event_projInfoKnappActionPerformed
 
