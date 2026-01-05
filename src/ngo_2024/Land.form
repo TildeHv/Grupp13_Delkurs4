@@ -29,7 +29,6 @@
                   <Component id="txtPolitiskStruktur" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtEkonomi" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtTidszon" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtSprak" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtValuta" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -44,8 +43,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="filterLand" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="230" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="104" max="-2" attributes="0"/>
+                      <Component id="btnAndraLand" min="-2" pref="104" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="txtSprak" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -57,7 +57,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="filterLand" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAndraLand" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -141,7 +141,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtEkonomi">
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnAndraLand">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc4;ndra land"/>
       </Properties>

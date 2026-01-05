@@ -15,17 +15,24 @@ import java.util.HashMap;
 public class Land extends javax.swing.JFrame {
 
     private InfDB idb;
+    private String inloggadAnvandare;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Land.class.getName());
 
     /**
      * Creates new form Land
      */
-    public Land(InfDB idb) {
+    public Land(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
+        this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
 
         getLandNamn();
+
+        btnAndraLand.setVisible(false);
+        if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+            btnAndraLand.setVisible(true);
+        }
     }
 
     private void getLandNamn() {
@@ -60,7 +67,7 @@ public class Land extends javax.swing.JFrame {
         txtTidszon = new javax.swing.JTextField();
         txtPolitiskStruktur = new javax.swing.JTextField();
         txtEkonomi = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAndraLand = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,7 +86,7 @@ public class Land extends javax.swing.JFrame {
 
         txtTidszon.addActionListener(this::txtTidszonActionPerformed);
 
-        jButton1.setText("Ändra land");
+        btnAndraLand.setText("Ändra land");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,7 +98,6 @@ public class Land extends javax.swing.JFrame {
                     .addComponent(txtPolitiskStruktur)
                     .addComponent(txtEkonomi)
                     .addComponent(txtTidszon)
-                    .addComponent(txtSprak)
                     .addComponent(txtValuta)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +110,8 @@ public class Land extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAndraLand, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSprak))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -113,7 +120,7 @@ public class Land extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnAndraLand))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -188,8 +195,8 @@ public class Land extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAndraLand;
     private javax.swing.JComboBox<String> filterLand;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
