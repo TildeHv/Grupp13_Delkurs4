@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JMenu" name="jMenu1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenu1"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JMenu" name="jMenu2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenu2"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JMenu" name="jMenu3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenu3"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JMenu" name="jMenu4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenu4"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JMenu" name="jMenu5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenu5"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JMenu" name="jMenu6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenu6"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JPopupMenu" name="jPopupMenu1">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -23,27 +85,180 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="projektnamnLabel" min="-2" pref="116" max="-2" attributes="0"/>
-              <EmptySpace pref="278" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtbudget" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtstatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtansvarig" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtprojekt" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtland" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtstartdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lblprojektnamn" min="-2" pref="160" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblland" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblbudget" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblstatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblstartdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblprojektchef" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                      <Component id="txtbeskrivning" min="-2" pref="257" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="projektnamnLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="278" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtprojekt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblprojektnamn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtansvarig" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="lblprojektchef" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblbudget" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtbudget" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblstartdatum" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtstartdatum" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtslutdatum" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblslutdatum" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtstatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblstatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtland" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblland" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="txtbeskrivning" min="-2" pref="171" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="projektnamnLabel">
+    <Component class="javax.swing.JLabel" name="txtprojekt">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Projekt"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblprojektnamn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Namn"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblprojektchef">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Projektchef"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblbudget">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Budget"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblstartdatum">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Startdatum"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtansvarig">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ansvarig"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblslutdatum">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Slutdatum"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblstatus">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Status"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtbeskrivning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jTextField1"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtbeskrivningActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtbudget">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Budget"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtslutdatum">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Slutdatum"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtstatus">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Status"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtland">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Land"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblland">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Land"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Om projektet"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtstartdatum">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Startdatum"/>
       </Properties>
     </Component>
   </SubComponents>
