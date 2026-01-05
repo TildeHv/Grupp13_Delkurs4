@@ -16,6 +16,7 @@ public class Land extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
+    private String landNamn;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Land.class.getName());
 
@@ -87,6 +88,7 @@ public class Land extends javax.swing.JFrame {
         txtTidszon.addActionListener(this::txtTidszonActionPerformed);
 
         btnAndraLand.setText("Ändra land");
+        btnAndraLand.addActionListener(this::btnAndraLandActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,17 +102,17 @@ public class Land extends javax.swing.JFrame {
                     .addComponent(txtTidszon)
                     .addComponent(txtValuta)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                         .addComponent(btnAndraLand, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(txtSprak))
                 .addContainerGap())
         );
@@ -148,10 +150,10 @@ public class Land extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
-        String valtLand = (String) filterLand.getSelectedItem();
-        if (valtLand != null) {
+        landNamn = (String) filterLand.getSelectedItem();
+        if (landNamn != null) {
             try {
-                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE namn = '" + valtLand + "'");
+                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE namn = '" + landNamn + "'");
                 if (landInfo != null) {
                     txtSprak.setText(landInfo.get("sprak"));
                     txtValuta.setText(landInfo.get("valuta"));
@@ -168,6 +170,11 @@ public class Land extends javax.swing.JFrame {
     private void txtTidszonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTidszonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTidszonActionPerformed
+
+    private void btnAndraLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLandActionPerformed
+        LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landNamn);
+        landUppgifter.setVisible(true);
+    }//GEN-LAST:event_btnAndraLandActionPerformed
 
     /**
      * @param args the command line arguments
