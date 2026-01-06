@@ -28,13 +28,12 @@ public class Meny extends javax.swing.JFrame {
         initComponents();
         lblanvandare.setText(inloggadAnvandare);
         sattBehorighet();
-        
-            
-    btnminaprojekt.setVisible(false);
-    if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) { // ← stäng parentesen
-    btnminaprojekt.setVisible(true);
-    btnminaprojekt.setEnabled(true);
-    }
+
+        btnminaprojekt.setVisible(false);
+        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) { // ← stäng parentesen
+            btnminaprojekt.setVisible(true);
+            btnminaprojekt.setEnabled(true);
+        }
     }
 
     private void sattBehorighet() {
@@ -223,17 +222,11 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_btnlandActionPerformed
 
     private void btnminaprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminaprojektActionPerformed
-        
-        
-        btnminaprojekt.setVisible(false);
-        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) { 
-    btnminaprojekt.setVisible(true);
-    btnminaprojekt.setEnabled(true); //<--- blir package fel om man tar bort
-                
         ProjektChefTillgang pi = new ProjektChefTillgang(idb, inloggadAnvandare);
         pi.setVisible(true);
+
     }//GEN-LAST:event_btnminaprojektActionPerformed
-}
+
     private void btnavdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavdelningActionPerformed
         /*AvdelningJFrame pi = new AvdelningJFrame pi(idb, inloggadAnvandare);
        pi.setVisible(true)*/
