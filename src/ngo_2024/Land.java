@@ -15,20 +15,28 @@ import java.util.HashMap;
 public class Land extends javax.swing.JFrame {
 
     private InfDB idb;
+    private String inloggadAnvandare;
+    private String landNamn;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Land.class.getName());
 
     /**
      * Creates new form Land
      */
-    public Land(InfDB idb) {
+    public Land(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
+        this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
 
         getLandNamn();
+
+        btnAndraLand.setVisible(false);
+        if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+            btnAndraLand.setVisible(true);
+        }
     }
 
-    private void getLandNamn() {
+    public void getLandNamn() {
         try {
             ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT namn FROM land");
             filterLand.removeAllItems();
@@ -60,7 +68,7 @@ public class Land extends javax.swing.JFrame {
         txtTidszon = new javax.swing.JTextField();
         txtPolitiskStruktur = new javax.swing.JTextField();
         txtEkonomi = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAndraLand = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,7 +87,8 @@ public class Land extends javax.swing.JFrame {
 
         txtTidszon.addActionListener(this::txtTidszonActionPerformed);
 
-        jButton1.setText("Ändra land");
+        btnAndraLand.setText("Ändra land");
+        btnAndraLand.addActionListener(this::btnAndraLandActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,20 +100,20 @@ public class Land extends javax.swing.JFrame {
                     .addComponent(txtPolitiskStruktur)
                     .addComponent(txtEkonomi)
                     .addComponent(txtTidszon)
-                    .addComponent(txtSprak)
                     .addComponent(txtValuta)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAndraLand, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtSprak))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -113,7 +122,7 @@ public class Land extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnAndraLand))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,10 +150,10 @@ public class Land extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
-        String valtLand = (String) filterLand.getSelectedItem();
-        if (valtLand != null) {
+        landNamn = (String) filterLand.getSelectedItem();
+        if (landNamn != null) {
             try {
-                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE namn = '" + valtLand + "'");
+                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE namn = '" + landNamn + "'");
                 if (landInfo != null) {
                     txtSprak.setText(landInfo.get("sprak"));
                     txtValuta.setText(landInfo.get("valuta"));
@@ -161,6 +170,11 @@ public class Land extends javax.swing.JFrame {
     private void txtTidszonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTidszonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTidszonActionPerformed
+
+    private void btnAndraLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLandActionPerformed
+        LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landNamn, this);
+        landUppgifter.setVisible(true);
+    }//GEN-LAST:event_btnAndraLandActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,8 +202,8 @@ public class Land extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAndraLand;
     private javax.swing.JComboBox<String> filterLand;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

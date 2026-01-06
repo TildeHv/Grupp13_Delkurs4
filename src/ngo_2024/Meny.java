@@ -191,7 +191,7 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_btnhallbarhetsmalActionPerformed
 
     private void btnlandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlandActionPerformed
-        Land land = new Land(idb);
+        Land land = new Land(idb, inloggadAnvandare);
         land.setVisible(true);
     }//GEN-LAST:event_btnlandActionPerformed
 
