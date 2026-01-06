@@ -12,10 +12,10 @@ import oru.inf.InfException;
  * @author user
  */
 public class Meny extends javax.swing.JFrame {
-    
+
     private InfDB idb;
     private String inloggadAnvandare;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Meny.class.getName());
 
     /**
@@ -24,28 +24,36 @@ public class Meny extends javax.swing.JFrame {
     public Meny(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
-  
+
         initComponents();
         lblanvandare.setText(inloggadAnvandare);
         sattBehorighet();
+        
+            
+    btnminaprojekt.setVisible(false);
+    if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) { // ← stäng parentesen
+    btnminaprojekt.setVisible(true);
+    btnminaprojekt.setEnabled(true);
     }
-        private void sattBehorighet() {
-            
-            System.out.println("Sätter behörighet för: " + inloggadAnvandare);
-            
-            boolean arAdmin =
-                    ValAvRoll.arAdmin(idb, inloggadAnvandare);
-            
-            boolean arHandlaggare =
-                    ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
-            
-            boolean arProjektchef =
-                    ValAvRoll.arProjektchef(idb, inloggadAnvandare);
-            
-            System.out.println("Handläggare: " + arHandlaggare);
-      
-        }
-    
+    }
+
+    private void sattBehorighet() {
+
+        System.out.println("Sätter behörighet för: " + inloggadAnvandare);
+
+        boolean arAdmin
+                = ValAvRoll.arAdmin(idb, inloggadAnvandare);
+
+        boolean arHandlaggare
+                = ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
+
+        boolean arProjektchef
+                = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+
+        System.out.println("Handläggare: " + arHandlaggare);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,6 +75,8 @@ public class Meny extends javax.swing.JFrame {
         btnland = new javax.swing.JToggleButton();
         jToggleButton7 = new javax.swing.JToggleButton();
         jToggleButton8 = new javax.swing.JToggleButton();
+        lblroll = new javax.swing.JLabel();
+        btnminaprojekt = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +99,7 @@ public class Meny extends javax.swing.JFrame {
         jToggleButton3.setText("jToggleButton3");
 
         btnavdelning.setText("Avdelning");
+        btnavdelning.addActionListener(this::btnavdelningActionPerformed);
 
         btnmedarbetare.setText("Medarbetare");
 
@@ -99,12 +110,29 @@ public class Meny extends javax.swing.JFrame {
 
         jToggleButton8.setText("jToggleButton8");
 
+        lblroll.setText("Roll");
+
+        btnminaprojekt.setText("Mina projekt");
+        btnminaprojekt.addActionListener(this::btnminaprojektActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblanvandarnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblroll))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblanvandare)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnminaprojekt, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,22 +155,21 @@ public class Meny extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblanvandarnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblanvandare))))
+                                .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(lblanvandare)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblanvandare)
+                    .addComponent(btnminaprojekt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblroll)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblanvandarnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProjekt)
                     .addComponent(btnavdelning))
@@ -162,7 +189,7 @@ public class Meny extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton3)
                     .addComponent(jToggleButton8))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,16 +197,16 @@ public class Meny extends javax.swing.JFrame {
 
     private void btnProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProjektActionPerformed
 
-    ProjektFlik pi = new ProjektFlik(idb, inloggadAnvandare);
-     pi.setVisible(true);
- 
-   
+        ProjektFlik pi = new ProjektFlik(idb, inloggadAnvandare);
+        pi.setVisible(true);
+
+
     }//GEN-LAST:event_btnProjektActionPerformed
 
     private void lblanvandarnamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblanvandarnamnActionPerformed
-   Anvandaruppgifter2 pi = new Anvandaruppgifter2(idb, inloggadAnvandare);
-    pi.setVisible(true);
-        
+        Anvandaruppgifter2 pi = new Anvandaruppgifter2(idb, inloggadAnvandare);
+        pi.setVisible(true);
+
     }//GEN-LAST:event_lblanvandarnamnActionPerformed
 
     private void btnpartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnerActionPerformed
@@ -187,7 +214,7 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_btnpartnerActionPerformed
 
     private void btnhallbarhetsmalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhallbarhetsmalActionPerformed
-          new Hallbarhetsmal(idb, inloggadAnvandare).setVisible(true);
+        new Hallbarhetsmal(idb, inloggadAnvandare).setVisible(true);
     }//GEN-LAST:event_btnhallbarhetsmalActionPerformed
 
     private void btnlandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlandActionPerformed
@@ -195,6 +222,28 @@ public class Meny extends javax.swing.JFrame {
         land.setVisible(true);
     }//GEN-LAST:event_btnlandActionPerformed
 
+    private void btnminaprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminaprojektActionPerformed
+        
+        
+        btnminaprojekt.setVisible(false);
+        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) { 
+    btnminaprojekt.setVisible(true);
+    btnminaprojekt.setEnabled(true); //<--- blir package fel om man tar bort
+                
+        ProjektChefTillgang pi = new ProjektChefTillgang(idb, inloggadAnvandare);
+        pi.setVisible(true);
+    }//GEN-LAST:event_btnminaprojektActionPerformed
+}
+    private void btnavdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavdelningActionPerformed
+        /*AvdelningJFrame pi = new AvdelningJFrame pi(idb, inloggadAnvandare);
+       pi.setVisible(true)*/
+    }//GEN-LAST:event_btnavdelningActionPerformed
+    /*if (ValAvRoll.arProjektchef(idb, InloggadAnvandare)  {
+            btnminaprojekt.setVisible(true);
+            btnminaprojekt.setEnabled(true);
+        } else {
+            btnminaprojekt.setVisible(false);
+            btnminaprojekt.setEnabled(false); */
     /**
      * @param args the command line arguments
      */
@@ -217,7 +266,7 @@ public class Meny extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       // java.awt.EventQueue.invokeLater(() -> new Meny().setVisible(true));
+        // java.awt.EventQueue.invokeLater(() -> new Meny().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -226,6 +275,7 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnhallbarhetsmal;
     private javax.swing.JToggleButton btnland;
     private javax.swing.JToggleButton btnmedarbetare;
+    private javax.swing.JToggleButton btnminaprojekt;
     private javax.swing.JButton btnpartner;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
@@ -233,5 +283,6 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton8;
     private javax.swing.JLabel lblanvandare;
     private javax.swing.JToggleButton lblanvandarnamn;
+    private javax.swing.JLabel lblroll;
     // End of variables declaration//GEN-END:variables
 }
