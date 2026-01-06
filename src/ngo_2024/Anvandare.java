@@ -37,7 +37,7 @@ public class Anvandare {
         try {
           String sqlFraga =
                   "SELECT fornamn, efternamn, adress, epost, telefon, " 
-                  + "anstallningsdatum, abdelning " +
+                  + "anstallningsdatum, avdelning " +
                   "FROM anstalld" +
                   " WHERE aid = '" + aid + "'";
           
