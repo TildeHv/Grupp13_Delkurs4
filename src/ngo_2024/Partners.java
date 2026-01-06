@@ -128,7 +128,7 @@ public class Partners {
         return lista;
     }
 
-    // Hämta partners för ett projekt (via projekt_partner)
+    // Hämta partners för ett projekt
     public static ArrayList<Partners> hamtaForProjekt(InfDB idb, String projektPid) {
         ArrayList<Partners> lista = new ArrayList<>();
         try {
@@ -149,7 +149,7 @@ public class Partners {
         return lista;
     }
 
-    // Hämta partners för en handläggare: partners i projekt där handläggaren deltar (ans_proj)
+    // Hämta partners för en handläggare: partners i projekt där handläggaren deltar
     public static ArrayList<Partners> hamtaForHandlaggare(InfDB idb, String inloggadEpost) {
         ArrayList<Partners> lista = new ArrayList<>();
         try {
