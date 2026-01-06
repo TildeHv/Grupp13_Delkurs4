@@ -36,7 +36,7 @@ public class Land extends javax.swing.JFrame {
         }
     }
 
-    private void getLandNamn() {
+    public void getLandNamn() {
         try {
             ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT namn FROM land");
             filterLand.removeAllItems();
@@ -172,7 +172,7 @@ public class Land extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTidszonActionPerformed
 
     private void btnAndraLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLandActionPerformed
-        LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landNamn);
+        LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landNamn, this);
         landUppgifter.setVisible(true);
     }//GEN-LAST:event_btnAndraLandActionPerformed
 

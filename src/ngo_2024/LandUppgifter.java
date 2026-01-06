@@ -18,16 +18,18 @@ public class LandUppgifter extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private String landNamn;
+    private javax.swing.JFrame huvudFonster;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LandUppgifter.class.getName());
 
     /**
      * Creates new form LandUppgifter
      */
-    public LandUppgifter(InfDB idb, String inloggadAnvandare, String landNamn) {
+    public LandUppgifter(InfDB idb, String inloggadAnvandare, String landNamn, javax.swing.JFrame huvudFonster) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         this.landNamn = landNamn;
+        this.huvudFonster = huvudFonster;
         initComponents();
 
         jLabel1.setText(landNamn);
@@ -161,32 +163,37 @@ public class LandUppgifter extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String sprak = txtSprak.getText().trim();
-    String valuta = txtValuta.getText().trim();
-    String tidszon = txtTidszon.getText().trim();
-    String ekonomi = txtEkonomi.getText().trim();
-    String politiskStruktur = txtPolitiskStruktur.getText().trim();
+        String valuta = txtValuta.getText().trim();
+        String tidszon = txtTidszon.getText().trim();
+        String ekonomi = txtEkonomi.getText().trim();
+        String politiskStruktur = txtPolitiskStruktur.getText().trim();
 
-    try {
-        String sqlFraga = "UPDATE land SET "
-                + "sprak = '" + sprak + "', "
-                + "valuta = '" + valuta + "', "
-                + "tidszon = '" + tidszon + "', "
-                + "ekonomi = '" + ekonomi + "', "
-                + "politisk_struktur = '" + politiskStruktur + "' "
-                + "WHERE namn = '" + landNamn + "'";
+        try {
+            String sqlFraga = "UPDATE land SET "
+                    + "sprak = '" + sprak + "', "
+                    + "valuta = '" + valuta + "', "
+                    + "tidszon = '" + tidszon + "', "
+                    + "ekonomi = '" + ekonomi + "', "
+                    + "politisk_struktur = '" + politiskStruktur + "' "
+                    + "WHERE namn = '" + landNamn + "'";
 
-        idb.update(sqlFraga);
+            idb.update(sqlFraga);
 
-        JOptionPane.showMessageDialog(this, "Uppgifter uppdaterade!");
+            JOptionPane.showMessageDialog(this, "Land uppgifter uppdaterade");
 
-        this.dispose();
-        Land land = new Land(idb, inloggadAnvandare);
-        land.setVisible(true);
+            if (huvudFonster instanceof Land land) {
+                land.getLandNamn();
+            }
+
+            this.dispose();
         } catch (InfException e) {
-            System.out.println("Fel vid uppdatering: " + e.getMessage());
+            System.out.println("Fel vid uppdatering av land uppgifter: " + e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
     /**
      * @param args the command line arguments
      */
