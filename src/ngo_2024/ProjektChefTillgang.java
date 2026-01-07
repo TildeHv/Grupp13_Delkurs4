@@ -319,8 +319,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }//GEN-LAST:event_filterLandActionPerformed
 
     private void btnandraprojektuppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandraprojektuppgifterActionPerformed
-        Projektforandrare pi = new Projektforandrare(idb, inloggadAnvandare, pid);
-        pi.setVisible(true);
+        //Projektforandrare pi = new Projektforandrare(idb, inloggadAnvandare, pid);
+        //pi.setVisible(true);
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
