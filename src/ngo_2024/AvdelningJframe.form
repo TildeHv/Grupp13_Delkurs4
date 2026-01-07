@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jToggleButton1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdEpost1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="epost"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="3"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblAvdelning" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                          <Component id="lblAvdid" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblAvdNamn" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblAvdAdress" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
+                          <Component id="lblAvdEpost" alignment="0" min="-2" pref="307" max="-2" attributes="0"/>
+                          <Component id="lblAvdTelefon" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                          <Component id="lblAvdChef" alignment="0" min="-2" pref="315" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblAvdStad" min="-2" pref="298" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnRedigeraAvdelning" min="-2" pref="155" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblSokHandlaggare" min="-2" pref="129" max="-2" attributes="0"/>
+                                      <Component id="txtSokHandlaggare" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Component id="btnSokHandlaggare" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" min="-2" pref="394" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="174" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+              <Component id="lblAvdBeskrivning" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAvdelning" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblAvdNamn" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblAvdBeskrivning" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="lblAvdid" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="lblAvdAdress" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblAvdStad" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="btnRedigeraAvdelning" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblAvdEpost" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Component id="lblAvdTelefon" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblAvdChef" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace pref="116" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lblSokHandlaggare" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtSokHandlaggare" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSokHandlaggare" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane1" min="-2" pref="88" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="lblAvdelning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Avdelning:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSokHandlaggare">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSokHandlaggare">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="S&#xf6;k efter handl&#xe4;ggare:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdid">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="avdid"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdNamn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="namn"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdAdress">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="adress"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdStad">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="stad"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdEpost">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="epost"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdTelefon">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="telefon"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdChef">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="chef"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvdBeskrivning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="beskrivning"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSokHandlaggare">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="S&#xf6;k"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSokHandlaggareActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tblVisaHandlaggare">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="5" rowCount="4">
+                <Column editable="true" title="aid" type="java.lang.Object"/>
+                <Column editable="true" title="fornamn" type="java.lang.Object"/>
+                <Column editable="true" title="efternamn" type="java.lang.Object"/>
+                <Column editable="true" title="epost" type="java.lang.Object"/>
+                <Column editable="true" title="telefon" type="java.lang.Object"/>
+              </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="btnRedigeraAvdelning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Redigera avdelning"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRedigeraAvdelningActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
