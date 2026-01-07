@@ -33,6 +33,20 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         projInfoKnapp.setEnabled(false);
 
+        skapaProjektTabell();
+
+        filterBox.removeAllItems();
+        filterBox.addItem("Alla statusar");
+        filterBox.addItem("Planerat");
+        filterBox.addItem("Pågående");
+        filterBox.addItem("Avslutat");
+
+        aktuellSql = getAnstalldSql();
+        filtreraDatum();
+        addTabellLyssnare();
+    }
+
+    private void skapaProjektTabell() {
         projektTabell.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
@@ -58,34 +72,24 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         startDatumSpinner.addChangeListener(e -> filtreraDatum());
         slutDatumSpinner.addChangeListener(e -> filtreraDatum());
-
-        filterBox.removeAllItems();
-        filterBox.addItem("Alla statusar");
-        filterBox.addItem("Planerat");
-        filterBox.addItem("Pågående");
-        filterBox.addItem("Avslutat");
-
-        aktuellSql = getAnstalldSql();
-        filtreraDatum();
-        addTabellLyssnare();
     }
 
-    public String getAnstalldSql() {
-        return "SELECT * "
-                + "FROM projekt "
-                + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
-                + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
-                + "WHERE anstalld.epost = '" + inloggadAnvandare + "'";
-    }
-
-    public String getAvdelningsProjektSql() {
+    private String getAnstalldSql() {
         return "SELECT DISTINCT projekt.* "
                 + "FROM projekt "
-                + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
-                + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
-                + "WHERE anstalld.avdelning = ("
-                + "SELECT avdelning FROM anstalld "
-                + "WHERE epost = '" + inloggadAnvandare + "')";
+                + "LEFT JOIN ans_proj ON projekt.pid = ans_proj.pid "
+                + "LEFT JOIN anstalld ON ans_proj.aid = anstalld.aid "
+                + "WHERE (anstalld.epost = '" + inloggadAnvandare + "' "
+                + "OR projekt.projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "'))";
+    }
+
+    private String getAvdelningsProjektSql() {
+        return "SELECT DISTINCT projekt.* "
+                + "FROM projekt "
+                + "LEFT JOIN ans_proj ON projekt.pid = ans_proj.pid "
+                + "LEFT JOIN anstalld ON ans_proj.aid = anstalld.aid "
+                + "WHERE (anstalld.avdelning = (SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "') "
+                + "OR projekt.projektchef IN (SELECT aid FROM anstalld WHERE avdelning = (SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "')))";
     }
 
     public void getProjektInfo(String sqlFraga) {
@@ -119,16 +123,8 @@ public class ProjektFlik extends javax.swing.JFrame {
             if (!e.getValueIsAdjusting()) {
                 int rad = projektTabell.getSelectedRow();
                 if (rad >= 0) {
-                    projektnamn = (String) projektTabell.getValueAt(rad, 0);
-                    try {
-                        String pidStr = idb.fetchSingle(
-                                "SELECT pid FROM projekt WHERE projektnamn = '" + projektnamn + "'"
-                        );
-                        projektId = Integer.parseInt(pidStr);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        projektId = -1;
-                    }
+                    projektId = Integer.parseInt(projektTabell.getValueAt(rad, 0).toString());
+                    projektnamn = projektTabell.getValueAt(rad, 1).toString();
                     projInfoKnapp.setEnabled(true);
                 }
             }
@@ -284,7 +280,9 @@ public class ProjektFlik extends javax.swing.JFrame {
     }//GEN-LAST:event_AvdProjKnappActionPerformed
 
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
-        new ProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);
+        if (projektId > 0) {
+            new ProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);
+        }
     }//GEN-LAST:event_projInfoKnappActionPerformed
 
     /**
