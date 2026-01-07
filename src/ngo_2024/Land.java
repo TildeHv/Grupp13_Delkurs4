@@ -16,7 +16,8 @@ public class Land extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
-    private String landNamn;
+    private String landId;
+    private HashMap<String, String> namnTillId = new HashMap<>();
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Land.class.getName());
 
@@ -38,10 +39,14 @@ public class Land extends javax.swing.JFrame {
 
     public void getLandNamn() {
         try {
-            ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT namn FROM land");
+            ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT lid, namn FROM land");
             filterLand.removeAllItems();
+            namnTillId.clear();
             for (HashMap<String, String> land : lander) {
-                filterLand.addItem(land.get("namn"));
+                String lid = land.get("lid");
+                String namn = land.get("namn");
+                filterLand.addItem(namn);
+                namnTillId.put(namn, lid);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,11 +155,12 @@ public class Land extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
-        landNamn = (String) filterLand.getSelectedItem();
-        if (landNamn != null) {
+        String landId = (String) filterLand.getSelectedItem();
+        if (landId != null) {
             try {
-                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE namn = '" + landNamn + "'");
+                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE lid = '" + landId + "'");
                 if (landInfo != null) {
+                    landId = landInfo.get("lid");
                     txtSprak.setText(landInfo.get("sprak"));
                     txtValuta.setText(landInfo.get("valuta"));
                     txtTidszon.setText(landInfo.get("tidszon"));
@@ -172,7 +178,7 @@ public class Land extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTidszonActionPerformed
 
     private void btnAndraLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLandActionPerformed
-        LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landNamn, this);
+        LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landId, this);
         landUppgifter.setVisible(true);
     }//GEN-LAST:event_btnAndraLandActionPerformed
 
