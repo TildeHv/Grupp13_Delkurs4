@@ -209,7 +209,7 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_lblanvandarnamnActionPerformed
 
     private void btnpartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnerActionPerformed
-        // TODO add your handling code here:
+       new PartnersFonster(idb, inloggadAnvandare).setVisible(true);
     }//GEN-LAST:event_btnpartnerActionPerformed
 
     private void btnhallbarhetsmalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhallbarhetsmalActionPerformed
