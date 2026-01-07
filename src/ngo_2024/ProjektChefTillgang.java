@@ -26,6 +26,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private String landNamn;
+    private int pid;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektChefTillgang.class.getName());
 
@@ -182,6 +183,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         txtprojektchef = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblprojekt = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -230,6 +232,9 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblprojekt);
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -237,7 +242,10 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txthanteraprojekt)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txthanteraprojekt)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtprojektchef)
                     .addComponent(lblprojektkostnad)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -262,8 +270,10 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtprojektchef)
-                .addGap(15, 15, 15)
-                .addComponent(txthanteraprojekt)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txthanteraprojekt)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnandraprojektuppgifter)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -280,7 +290,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblprojektkostnad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
         );
 
@@ -309,8 +319,13 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }//GEN-LAST:event_filterLandActionPerformed
 
     private void btnandraprojektuppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandraprojektuppgifterActionPerformed
-        // TODO add your handling code here:
+        Projektforandrare pi = new Projektforandrare(idb, inloggadAnvandare, pid);
+        pi.setVisible(true);
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,6 +359,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> filterLand;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblprojektkostnad;
     private javax.swing.JTable tblprojekt;
