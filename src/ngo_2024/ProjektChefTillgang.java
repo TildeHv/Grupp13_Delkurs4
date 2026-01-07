@@ -9,6 +9,13 @@ import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import java.awt.Color;
+import javax.swing.JTable;
+import static javax.swing.SwingConstants.CENTER;
+import static javax.swing.SwingConstants.LEFT;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,22 +29,59 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektChefTillgang.class.getName());
 
-    /**
-     * Creates new form ProjektChefTillgang
-     */
     public ProjektChefTillgang(InfDB idb, String inloggadAnvandare) {
         initComponents();
         this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;
-        tblprojekt.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Projektnamn", "Projektchef", "kostnad"}
-        ));
 
+        andraRubrik();
         getLandNamn();
     }
 
-    public void getLandNamn() {
+    private void andraRubrik() {
+        DefaultTableModel tabellModell = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Projektnamn", "Projektchef", "Kostnad"}
+        ) {
+            @Override
+            public boolean isCellEditable(int rad, int kolumn) {
+                return false;
+            }
+        };
+        tblprojekt.setModel(tabellModell);
+
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    JTable tabell, Object varde, boolean markerad,
+                    boolean fokus, int rad, int kolumn) {
+
+                super.getTableCellRendererComponent(
+                        tabell, varde, false, false, rad, kolumn);
+
+                Integer andraRubrikIndex
+                        = (Integer) tabell.getClientProperty("rubrik2Index");
+
+                if (andraRubrikIndex != null && rad == andraRubrikIndex) {
+                    setFont(tabell.getTableHeader().getFont());
+                    setBackground(UIManager.getColor("TableHeader.background"));
+                    setHorizontalAlignment(CENTER);
+                } else {
+                    setFont(tabell.getFont());
+                    setBackground(Color.WHITE);
+                    setHorizontalAlignment(LEFT);
+                }
+
+                return this;
+            }
+        };
+
+        for (int i = 0; i < tblprojekt.getColumnCount(); i++) {
+            tblprojekt.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+    }
+
+    private void getLandNamn() {
         try {
             ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT namn FROM land");
             filterLand.removeAllItems();
@@ -56,32 +100,34 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
             String sqlFraga = "SELECT projektnamn, projektchef, kostnad "
                     + "FROM projekt "
-                    + "JOIN land ON projekt.land = land.lid "
-                    + "WHERE land.lid = '" + landId + "'";
+                    + "WHERE land = " + landId;
 
-            ArrayList<HashMap<String, String>> projects = idb.fetchRows(sqlFraga);
+            ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
 
-            for (HashMap<String, String> project : projects) {
+            for (HashMap<String, String> projekt : projektLista) {
                 modell.addRow(new Object[]{
-                    project.get("projektnamn"),
-                    project.get("projektchef"),
-                    project.get("kostnad"),});
+                    projekt.get("projektnamn"),
+                    projekt.get("projektchef"),
+                    projekt.get("kostnad"),});
             }
+
+            modell.addRow(new Object[]{"", "", ""});
+
+            int rubrik2Index = modell.getRowCount();
 
             modell.addRow(new Object[]{
                 "Land",
                 "Totala projekt",
-                "Totala kostnad"
+                "Total kostnad"
             });
-
-            int totalaProjekt = raknaProjekt(landId);
-            double totalaKostnad = raknaTotalKostnad(landId);
 
             modell.addRow(new Object[]{
                 landNamn,
-                totalaProjekt,
-                totalaKostnad
+                raknaProjekt(landId),
+                raknaTotalKostnad(landId)
             });
+
+            tblprojekt.putClientProperty("rubrik2Index", rubrik2Index);
 
         } catch (Exception e) {
             e.printStackTrace();
