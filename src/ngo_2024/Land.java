@@ -39,14 +39,31 @@ public class Land extends javax.swing.JFrame {
 
     public void getLandNamn() {
         try {
-            ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT lid, namn FROM land");
+            ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT lid, namn FROM land ORDER BY namn");
             filterLand.removeAllItems();
             namnTillId.clear();
+
+            String valtNamn = null;
+            if (landId != null) {
+                for (HashMap<String, String> land : lander) {
+                    if (land.get("lid").equals(landId)) {
+                        valtNamn = land.get("namn");
+                        break;
+                    }
+                }
+            }
+
             for (HashMap<String, String> land : lander) {
                 String lid = land.get("lid");
                 String namn = land.get("namn");
                 filterLand.addItem(namn);
                 namnTillId.put(namn, lid);
+            }
+
+            if (valtNamn != null) {
+                filterLand.setSelectedItem(valtNamn);
+            } else if (!lander.isEmpty()) {
+                filterLand.setSelectedIndex(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,10 +172,11 @@ public class Land extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
-        String landId = (String) filterLand.getSelectedItem();
-        if (landId != null) {
+        String valtLandNamn = (String) filterLand.getSelectedItem();
+        if (valtLandNamn != null) {
             try {
-                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE lid = '" + landId + "'");
+                String lid = namnTillId.get(valtLandNamn);
+                HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE lid = '" + lid + "'");
                 if (landInfo != null) {
                     landId = landInfo.get("lid");
                     txtSprak.setText(landInfo.get("sprak"));
