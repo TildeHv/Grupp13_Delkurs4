@@ -7,6 +7,8 @@ package ngo_2024;
 import oru.inf.InfDB;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.awt.Font;
+import javax.swing.JTable;
 
 public class PartnersFonster extends javax.swing.JFrame {
 
@@ -15,12 +17,33 @@ public class PartnersFonster extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
+    private ArrayList<Partners> visadePartners = new ArrayList<>();
 
     public PartnersFonster(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
 
         initComponents();
+        
+    jtPartners.setFont(new Font("SansSerif", Font.PLAIN, 12));
+    jtPartners.setRowHeight(22);
+
+    jtPartners.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
+
+
+    jtPartners.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+
+    jtPartners.getColumnModel().getColumn(0).setPreferredWidth(190); // Namn
+    jtPartners.getColumnModel().getColumn(1).setPreferredWidth(130); // Kontaktperson
+    jtPartners.getColumnModel().getColumn(2).setPreferredWidth(190); // Kontaktepost
+    jtPartners.getColumnModel().getColumn(3).setPreferredWidth(120); // Telefon
+    jtPartners.getColumnModel().getColumn(4).setPreferredWidth(150); // Adress
+    jtPartners.getColumnModel().getColumn(5).setPreferredWidth(160); // Branch
+    jtPartners.getColumnModel().getColumn(6).setPreferredWidth(50); // Stad
+
+
+        
         
         cbPartners.removeAllItems();
         
@@ -43,9 +66,9 @@ public class PartnersFonster extends javax.swing.JFrame {
         boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
         boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
-        btnLaggtillPartners.setVisible(arAdmin);
-        btnTabortPartners.setVisible(arAdmin);
-        btnAndraPartners.setVisible(arAdmin);
+       btnLaggtillPartners.setVisible(arAdmin || arProjektchef);
+       btnTabortPartners.setVisible(arAdmin || arProjektchef);
+       btnAndraPartners.setVisible(arAdmin);
 
         cbPartners.setVisible(arProjektchef);
 
@@ -54,43 +77,55 @@ public class PartnersFonster extends javax.swing.JFrame {
         }
     }
 
-    private void fyllPartnersTabell() {
-        DefaultTableModel model = (DefaultTableModel) jtPartners.getModel();
-        model.setRowCount(0);
+private void fyllPartnersTabell() {
+    DefaultTableModel model = (DefaultTableModel) jtPartners.getModel();
+    model.setRowCount(0);
 
-        ArrayList<Partners> lista;
+    visadePartners.clear(); 
 
-        boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
-        boolean arHandlaggare = ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
-        boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+    ArrayList<Partners> lista;
 
-        if (arAdmin) {
-            lista = Partners.hamtaAlla(idb);
-        } else if (arHandlaggare) {
-            lista = Partners.hamtaForHandlaggare(idb, inloggadAnvandare);
-        } else if (arProjektchef) {
-            String valtPid = (String) cbPartners.getSelectedItem();
-            if (valtPid == null) {
-                lista = new ArrayList<>();
-            } else {
-                lista = Partners.hamtaForProjekt(idb, valtPid);
-            }
-        } else {
-            lista = new ArrayList<>();
-        }
+if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
 
-        for (Partners p : lista) {
-            model.addRow(new Object[]{
-                p.getNamn(),
-                p.getKontaktperson(),
-                p.getKontaktepost(),
-                p.getTelefon(),
-                p.getAdress(),
-                p.getBranch(),
-                p.getStad()
-            });
-        }
+    // Admin ser alla partners
+    lista = Partners.hamtaAlla(idb);
+
+} else if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+
+    // Projektchef ser partners för valt projekt
+    String projektPid = (String) cbPartners.getSelectedItem();
+    lista = (projektPid == null)
+            ? new ArrayList<>()
+            : Partners.hamtaForProjekt(idb, projektPid);
+
+} else if (ValAvRoll.arHandlaggare(idb, inloggadAnvandare)) {
+
+    lista = Partners.hamtaForHandlaggare(idb, inloggadAnvandare);
+
+} else {
+    lista = new ArrayList<>();
+}
+
+
+    for (Partners p : lista) {
+        visadePartners.add(p);   
+
+        model.addRow(new Object[]{
+            p.getNamn(),
+            p.getKontaktperson(),
+            p.getKontaktepost(),
+            p.getTelefon(),
+            p.getAdress(),
+            p.getBranch(),
+            p.getStad()
+        });
     }
+}
+
+        public void laddaOmPartners() {
+        fyllPartnersTabell();
+        }
+
 
     private void fyllProjektCombo() {
         cbPartners.removeAllItems();
@@ -99,7 +134,14 @@ public class PartnersFonster extends javax.swing.JFrame {
         for (String pid : pc.hamtaEgnaProjekt()) {
             cbPartners.addItem(pid);
         }
+        
+        if (cbPartners.getItemCount() > 0) {
+    cbPartners.setSelectedIndex(0);
+}
     }
+   
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,63 +185,131 @@ public class PartnersFonster extends javax.swing.JFrame {
         btnAndraPartners.addActionListener(this::btnAndraPartnersActionPerformed);
 
         btnTabortPartners.setText("Ta bort");
+        btnTabortPartners.addActionListener(this::btnTabortPartnersActionPerformed);
 
         btnLaggtillPartners.setText("Lägg till");
+        btnLaggtillPartners.addActionListener(this::btnLaggtillPartnersActionPerformed);
 
         btnTbPartners.setText("Tillbaka");
+        btnTbPartners.addActionListener(this::btnTbPartnersActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTbPartners)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLaggtillPartners)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnTabortPartners)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnAndraPartners))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblPartners)
-                            .addGap(585, 585, 585))
-                        .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(41, 41, 41))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblPartners)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(31, 31, 31)
                 .addComponent(lblPartners)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLaggtillPartners)
-                            .addComponent(btnTabortPartners)
-                            .addComponent(btnAndraPartners))
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTbPartners)
-                        .addGap(25, 25, 25))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAndraPartners)
+                    .addComponent(btnTabortPartners)
+                    .addComponent(btnLaggtillPartners)
+                    .addComponent(btnTbPartners))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAndraPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraPartnersActionPerformed
-        // TODO add your handling code here:
+            int rad = jtPartners.getSelectedRow();
+
+    if (rad == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Välj en partner först.");
+        return;
+    }
+
+    Partners valdPartner = visadePartners.get(rad);
+    String pid = valdPartner.getPid();
+
+    new RedigeraPartners(this, idb, pid).setVisible(true);
+    
     }//GEN-LAST:event_btnAndraPartnersActionPerformed
+
+    private void btnLaggtillPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaggtillPartnersActionPerformed
+        new RedigeraPartners(this, idb, null).setVisible(true);
+   
+    }//GEN-LAST:event_btnLaggtillPartnersActionPerformed
+
+    private void btnTabortPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTabortPartnersActionPerformed
+
+    int rad = jtPartners.getSelectedRow();
+
+    if (rad == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Välj en partner först.");
+        return;
+    }
+
+    Partners valdPartner = visadePartners.get(rad);
+    String partnerPid = valdPartner.getPid();
+
+    int svar = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "Vill du verkligen ta bort '" + valdPartner.getNamn() + "'?",
+            "Bekräfta borttagning",
+            javax.swing.JOptionPane.YES_NO_OPTION
+    );
+
+    if (svar != javax.swing.JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    try {
+        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+
+            String projektPid = (String) cbPartners.getSelectedItem();
+            if (projektPid == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Välj ett projekt först.");
+                return;
+            }
+
+            idb.delete(
+                "DELETE FROM projekt_partner " +
+                "WHERE pid = '" + projektPid + "' " +
+                "AND partner_pid = '" + partnerPid + "'"
+            );
+
+        } else if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+
+            idb.delete("DELETE FROM projekt_partner WHERE partner_pid = '" + partnerPid + "'");
+            idb.delete("DELETE FROM partner WHERE pid = '" + partnerPid + "'");
+        }
+
+        laddaOmPartners();
+
+    } catch (Exception ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+    }
+
+    }//GEN-LAST:event_btnTabortPartnersActionPerformed
+
+    private void btnTbPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTbPartnersActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnTbPartnersActionPerformed
 
     /**
      * @param args the command line arguments

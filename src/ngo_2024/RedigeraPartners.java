@@ -4,6 +4,9 @@
  */
 package ngo_2024;
 
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /**
  *
  * @author tovehanssons
@@ -11,13 +14,136 @@ package ngo_2024;
 public class RedigeraPartners extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraPartners.class.getName());
-
+    private String pid;
+    private InfDB idb; //null = lägg till, annars ändra
+    private PartnersFonster partnersfonster; // uppdatera tabellen efter spara (valfritt)
+      
     /**
      * Creates new form RedigeraPartners
      */
-    public RedigeraPartners() {
+    public RedigeraPartners(PartnersFonster partnersfonster, InfDB idb, String pid) {
+        this.partnersfonster = partnersfonster;
+        this.idb = idb;
+        this.pid = pid; 
+        
+    
         initComponents();
+        
+        if (pid == null) {
+        lblRedigeraPartners.setText("Lägg till partner");
+        } else {
+        lblRedigeraPartners.setText("Redigera partner");
     }
+       
+        if (pid !=null) {
+            fyllFaltFranDB();
+    }
+        btnTBRedPartners.addActionListener(e -> dispose());
+    btnSparaRedPartners.addActionListener(e -> spara());
+    
+    }
+        
+          private void fyllFaltFranDB() {
+            Partners p = new Partners (idb, pid);
+            
+            tfRedNamn.setText(p.getNamn());
+            tfRedKontaktperson.setText(p.getKontaktperson());
+            tfRedKontaktepost.setText(p.getKontaktepost());
+            tfRedTelefon.setText(p.getTelefon());
+            tfRedAdress.setText(p.getAdress());
+            tfRedBranch.setText(p.getBranch());
+            tfRedStad.setText(p.getStad());
+            
+        }
+        
+        public void spara() {
+            String namn = tfRedNamn.getText();
+            String kontaktperson = tfRedKontaktperson.getText();
+            String epost = tfRedKontaktepost.getText();
+            String telefon = tfRedTelefon.getText();
+            String adress = tfRedAdress.getText();
+            String branch = tfRedBranch.getText();
+            String stad = tfRedStad.getText();
+         
+            //Validering
+            
+            if (!Validering.ValideraNamn(namn)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig namn");
+                return;
+            }
+            
+            if (!Validering.ValideraNamn(kontaktperson)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig kontaktperson");
+                return;
+                
+            }
+            
+            if (!Validering.ValideraEpost(epost)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig e-post");
+                return;
+            }
+            
+            if (!Validering.ValideraTelefon(telefon)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ogiltligt telefonnummer");
+            return;
+                    
+        }
+            if (!Validering.ValideraAdress(adress)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig epost");
+                return;
+            }
+            
+            try {
+                if (pid == null) {
+                    //Lägg till (ny pid)
+                    
+                    String maxId = idb.fetchSingle("SELECT MAX(pid) FROM partner");
+                           int nyttId = (maxId == null || maxId.isEmpty()) ? 1 : Integer.parseInt(maxId) + 1;
+                            
+                   String sql =
+                "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad) VALUES (" +
+                nyttId + ", '" + esc(namn) + "', '" + esc(kontaktperson) + "', '" + esc(epost) + "', '" +
+                esc(telefon) + "', '" + esc(adress) + "', '" + esc(branch) + "', " +
+                (stad == null || stad.isEmpty() ? "NULL" : "'" + esc(stad) + "'") + ")";
+
+            idb.insert(sql);
+                      
+                    
+             } else {
+               //ÄNDRA
+                     
+                     String sqlFraga = 
+                             "UPDATE partner SET " + 
+                             "namn = '" + esc(namn) + "', " +
+                             "kontaktperson = '" + esc(kontaktperson) + "', " +
+                             "kontaktepost = '" +  esc(epost) + "', " +
+                             "telefon = '" + esc(telefon) + "', " +
+                             "adress = '" + esc(adress) + "', " +
+                             "branch = '" + esc(branch) + "', " +
+                             "stad = " + (stad == null || stad.isEmpty() ? "NULL" : "'" + esc(stad) + "'") + " " +
+                             "WHERE pid = '" + esc(pid) + "'";
+                     
+                     
+                              idb.update(sqlFraga);
+                                     
+                      }
+             
+             //uppdatera listfönstret
+             if (partnersfonster != null) {
+                 partnersfonster.laddaOmPartners();
+                 
+             }
+             
+                 dispose();
+                 
+            } catch (InfException ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+                    
+             }
+            
+            
+        }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,6 +204,7 @@ public class RedigeraPartners extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,23 +221,20 @@ public class RedigeraPartners extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lblStadRedPartners, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfRedNamn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfRedKontaktperson, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfRedKontaktepost, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfRedStad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfRedAdress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfRedTelefon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfRedBranch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRedigeraPartners)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnTBRedPartners)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
-                                .addComponent(btnSparaRedPartners)))))
+                            .addComponent(tfRedBranch)
+                            .addComponent(tfRedAdress)
+                            .addComponent(tfRedStad)
+                            .addComponent(tfRedTelefon)
+                            .addComponent(tfRedNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfRedKontaktperson)
+                            .addComponent(tfRedKontaktepost))
+                        .addGap(42, 42, 42))
+                    .addComponent(lblRedigeraPartners)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTBRedPartners)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSparaRedPartners)))
                 .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
@@ -136,12 +260,12 @@ public class RedigeraPartners extends javax.swing.JFrame {
                     .addComponent(lblTelefonRedPartners))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfRedBranch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBranchRedPartners))
+                    .addComponent(tfRedAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAdressRedPartners))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAdressRedPartners)
-                    .addComponent(tfRedAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfRedBranch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBranchRedPartners))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfRedStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,8 +310,15 @@ public class RedigeraPartners extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RedigeraPartners().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new RedigeraPartners().setVisible(true));
     }
+    
+       private static String esc(String s) {
+                if (s == null) return "";
+                return s.replace("'", "''").trim();
+             
+                             
+            }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSparaRedPartners;

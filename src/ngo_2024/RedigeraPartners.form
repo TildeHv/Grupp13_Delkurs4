@@ -24,8 +24,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
@@ -44,28 +45,22 @@
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="tfRedNamn" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="tfRedKontaktperson" min="-2" pref="124" max="-2" attributes="0"/>
-                              <Component id="tfRedKontaktepost" min="-2" pref="124" max="-2" attributes="0"/>
-                              <Component id="tfRedStad" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
-                              <Component id="tfRedAdress" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
-                              <Component id="tfRedTelefon" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
-                              <Component id="tfRedBranch" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblRedigeraPartners" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnTBRedPartners" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="271" max="32767" attributes="0"/>
-                              <Component id="btnSparaRedPartners" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="tfRedBranch" max="32767" attributes="0"/>
+                          <Component id="tfRedAdress" max="32767" attributes="0"/>
+                          <Component id="tfRedStad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tfRedTelefon" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tfRedNamn" min="-2" pref="234" max="-2" attributes="0"/>
+                          <Component id="tfRedKontaktperson" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tfRedKontaktepost" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="lblRedigeraPartners" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnTBRedPartners" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnSparaRedPartners" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -99,13 +94,13 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="tfRedBranch" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblBranchRedPartners" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfRedAdress" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblAdressRedPartners" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblAdressRedPartners" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfRedAdress" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfRedBranch" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblBranchRedPartners" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
