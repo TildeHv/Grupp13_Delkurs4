@@ -19,8 +19,10 @@ public class ProjektFlik extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private String projektnamn;
+    private int projektId;
     private ArrayList<String> projektLista = new ArrayList<>();
     private String aktuellSql;
+    private int aktuellPid;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
@@ -88,18 +90,18 @@ public class ProjektFlik extends javax.swing.JFrame {
 
     public void getProjektInfo(String sqlFraga) {
         try {
-            DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
-            model.setRowCount(0);
+            DefaultTableModel modell = (DefaultTableModel) projektTabell.getModel();
+            modell.setRowCount(0);
 
-            ArrayList<HashMap<String, String>> projects = idb.fetchRows(sqlFraga);
+            ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
 
-            for (HashMap<String, String> project : projects) {
-                model.addRow(new Object[]{
-                    project.get("projektnamn"),
-                    project.get("status"),
-                    project.get("prioritet"),
-                    project.get("startdatum"),
-                    project.get("slutdatum")
+            for (HashMap<String, String> projekt : projektLista) {
+                modell.addRow(new Object[]{
+                    projekt.get("projektnamn"),
+                    projekt.get("status"),
+                    projekt.get("prioritet"),
+                    projekt.get("startdatum"),
+                    projekt.get("slutdatum")
                 });
             }
         } catch (Exception e) {
@@ -108,7 +110,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     }
 
     private void openProjektInfo(String projektnamn) {
-        ProjektInfo projektInfo = new ProjektInfo(idb, projektnamn, inloggadAnvandare);
+        ProjektInfo projektInfo = new ProjektInfo(idb, projektId, inloggadAnvandare);
         projektInfo.setVisible(true);
     }
 
@@ -118,6 +120,15 @@ public class ProjektFlik extends javax.swing.JFrame {
                 int rad = projektTabell.getSelectedRow();
                 if (rad >= 0) {
                     projektnamn = (String) projektTabell.getValueAt(rad, 0);
+                    try {
+                        String pidStr = idb.fetchSingle(
+                                "SELECT pid FROM projekt WHERE projektnamn = '" + projektnamn + "'"
+                        );
+                        projektId = Integer.parseInt(pidStr);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        projektId = -1;
+                    }
                     projInfoKnapp.setEnabled(true);
                 }
             }
@@ -273,9 +284,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     }//GEN-LAST:event_AvdProjKnappActionPerformed
 
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
-        if (projektnamn != null && !projektnamn.isEmpty()) {
-            new ProjektInfo(idb, projektnamn, inloggadAnvandare).setVisible(true);
-        }
+        new ProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);
     }//GEN-LAST:event_projInfoKnappActionPerformed
 
     /**
