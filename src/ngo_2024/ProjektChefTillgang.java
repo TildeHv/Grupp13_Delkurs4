@@ -386,6 +386,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     private void btnandraprojektuppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandraprojektuppgifterActionPerformed
         String valtProjekt = (String) boxprojekt.getSelectedItem();
+        /*z-- Hämtar valt projekt frnå en dropdown, kontrollerar att de inte är tomt, hämtar id, öppnar fönster med det id:et*/
         if (valtProjekt == null) {
             System.out.println("Kunda ej hitta projekt");
             return;

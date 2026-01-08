@@ -35,7 +35,7 @@ public class ProjektKlass {
         hamtaProjekt();
     }
 
-    private void hamtaProjekt() {
+    private void hamtaProjekt() { /*Metod för getters*/
 
         try {
 
