@@ -28,6 +28,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private String landNamn;
     private int pid;
     private int landId;
+    private String aktuellSql;
     private HashMap<String, Integer> projektMap = new HashMap<>();
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektChefTillgang.class.getName());
@@ -40,6 +41,9 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         andraRubrik();
         getLandNamn();
         fyllDropdown();
+
+        this.aktuellSql = minaProjektSql();
+        filterLand(aktuellSql);
     }
 
     private void andraRubrik() {
@@ -106,7 +110,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     private String allaProjektSql() {
         return "SELECT projektnamn, projektchef, kostnad "
-                + "FROM projekt";
+                + "FROM projekt "
+                + "WHERE land = " + landId;
     }
 
     private void fyllProjektTabell(int landId, String sqlFraga) {
@@ -192,9 +197,30 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     private void filterLand(String sqlFraga) {
-        
+        landNamn = (String) filterLand.getSelectedItem();
+        if (landNamn != null && !landNamn.isEmpty()) {
+            try {
+                HashMap<String, String> landInfo = idb.fetchRow(
+                        "SELECT * FROM land WHERE namn = '" + landNamn + "'"
+                );
+                if (landInfo != null) {
+                    this.landId = Integer.parseInt(landInfo.get("lid"));
+                    fyllProjektTabell(landId, sqlFraga);
+
+                    if (aktuellSql.equals(minaProjektSql())) {
+                        aktuellSql = minaProjektSql();
+                    } else {
+                        aktuellSql = allaProjektSql();
+                    }
+
+                    fyllProjektTabell(landId, aktuellSql);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -329,24 +355,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
-        // TODO add your handling code here:
+        this.aktuellSql = minaProjektSql();
+        filterLand(aktuellSql);
     }//GEN-LAST:event_btnMinaProjektActionPerformed
 
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
-        landNamn = (String) filterLand.getSelectedItem();
-        if (landNamn != null && !landNamn.isEmpty()) {
-            try {
-                HashMap<String, String> landInfo = idb.fetchRow(
-                        "SELECT * FROM land WHERE namn = '" + landNamn + "'"
-                );
-                if (landInfo != null) {
-                    this.landId = Integer.parseInt(landInfo.get("lid"));
-                    fyllProjektTabell(landId, minaProjektSql());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        filterLand(aktuellSql);
     }//GEN-LAST:event_filterLandActionPerformed
 
     private void btnandraprojektuppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandraprojektuppgifterActionPerformed
@@ -369,7 +383,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }//GEN-LAST:event_boxprojektActionPerformed
 
     private void btnAllaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjektActionPerformed
-        // TODO add your handling code here:
+        this.aktuellSql = allaProjektSql();
+        filterLand(aktuellSql);
     }//GEN-LAST:event_btnAllaProjektActionPerformed
 
     /**
