@@ -100,7 +100,7 @@ public class ProjektFlik extends javax.swing.JFrame {
                 + "WHERE (anstalld.avdelning = (SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "') "
                 + "OR projekt.projektchef IN (SELECT aid FROM anstalld "
                 + "WHERE avdelning = (SELECT avdelning FROM anstalld "
-                + "WHERE epost = '" + inloggadAnvandare + "')))";
+                +"WHERE epost = '" + inloggadAnvandare + "')))";
     }
 
     //Hämta och lägg in projektinformation i tabellen
