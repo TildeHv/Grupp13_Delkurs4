@@ -35,17 +35,19 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         skapaProjektTabell();
 
+        //Lägg in text i status filter
         filterBox.removeAllItems();
         filterBox.addItem("Alla statusar");
         filterBox.addItem("Planerat");
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
 
-        aktuellSql = getAnstalldSql();
+        this.aktuellSql = getAnstalldSql();
         filtreraDatum();
         addTabellLyssnare();
     }
 
+    //Skapar tabell för projekten
     private void skapaProjektTabell() {
         projektTabell.setModel(new DefaultTableModel(
                 new Object[][]{},
@@ -78,6 +80,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         slutDatumSpinner.addChangeListener(e -> filtreraDatum());
     }
 
+    //Sql som visar projekt kopplade till den inloggade anställda
     public String getAnstalldSql() {
         return "SELECT DISTINCT projekt.* "
                 + "FROM projekt "
@@ -88,6 +91,7 @@ public class ProjektFlik extends javax.swing.JFrame {
                 + "WHERE epost = '" + inloggadAnvandare + "'))";
     }
 
+    //Sql som visar alla projekt som är kopplade till den inloggade anställdas avdelning
     public String getAvdelningsProjektSql() {
         return "SELECT DISTINCT projekt.* "
                 + "FROM projekt "
@@ -99,6 +103,7 @@ public class ProjektFlik extends javax.swing.JFrame {
                 + "WHERE epost = '" + inloggadAnvandare + "')))";
     }
 
+    //Hämta och lägg in projektinformation i tabellen
     public void getProjektInfo(String sqlFraga) {
         try {
             DefaultTableModel modell = (DefaultTableModel) projektTabell.getModel();
@@ -121,11 +126,13 @@ public class ProjektFlik extends javax.swing.JFrame {
         }
     }
 
+    //Öppna specifikt projekt
     private void openProjektInfo(String projektnamn) {
         ProjektInfo projektInfo = new ProjektInfo(idb, projektId, inloggadAnvandare);
         projektInfo.setVisible(true);
     }
 
+    //Lägg till tabell lyssnare
     private void addTabellLyssnare() {
         projektTabell.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
@@ -140,6 +147,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         });
     }
 
+    //Filtrera projekt på datum
     private void filtreraDatum() {
         if (aktuellSql == null) {
             return;
@@ -274,20 +282,24 @@ public class ProjektFlik extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Knapp som visar den inloggades projekt
     private void MinaProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinaProjKnappActionPerformed
         aktuellSql = getAnstalldSql();
         filtreraDatum();
     }//GEN-LAST:event_MinaProjKnappActionPerformed
 
+    //kod för filter av status
     private void filterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBoxActionPerformed
         filtreraDatum();
     }//GEN-LAST:event_filterBoxActionPerformed
 
+    //Knapp som visar avdelningens projekt
     private void AvdProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvdProjKnappActionPerformed
         aktuellSql = getAvdelningsProjektSql();
         filtreraDatum();
     }//GEN-LAST:event_AvdProjKnappActionPerformed
 
+    //Knapp för att öppna specifikt projekt
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
         if (projektId > 0) {
             new ProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);

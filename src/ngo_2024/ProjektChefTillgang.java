@@ -42,10 +42,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         getLandNamn();
         fyllDropdown();
 
+        //Fyll tabellen med statistik
         this.aktuellSql = minaProjektSql();
         filterLand(aktuellSql);
     }
 
+    //Visuell kod för statistik tabellen
     private void andraRubrik() {
         DefaultTableModel tabellModell = new DefaultTableModel(
                 new Object[][]{},
@@ -89,6 +91,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         }
     }
 
+    //Hämta och lägg in namn på länder för filter
     private void getLandNamn() {
         try {
             ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT namn FROM land");
@@ -101,6 +104,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         }
     }
 
+    //Sql som bara visar projekt kopplade till den inloggade projektchefen och valt land
     private String minaProjektSql() {
         return "SELECT projektnamn, projektchef, kostnad "
                 + "FROM projekt "
@@ -108,12 +112,14 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
     }
 
+    //Sql som visar alla projekt kopplade till valt land
     private String allaProjektSql() {
         return "SELECT projektnamn, projektchef, kostnad "
                 + "FROM projekt "
                 + "WHERE land = " + landId;
     }
 
+    //Fyll statistik tabellen med projekt
     private void fyllProjektTabell(int landId, String sqlFraga) {
         try {
             DefaultTableModel modell = (DefaultTableModel) tblprojekt.getModel();
@@ -151,6 +157,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         }
     }
 
+    //Räkna ihop projekt för valt land
     private int raknaProjekt(int landId) {
         try {
             String sql = "SELECT COUNT(*) AS antal FROM projekt WHERE land = " + landId;
@@ -164,6 +171,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         return 0;
     }
 
+    //Räkna ihop totala kostanden för valt land
     private double raknaTotalKostnad(int landId) {
         try {
             String sql = "SELECT SUM(kostnad) AS total FROM projekt WHERE land = " + landId;
@@ -177,6 +185,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         return 0;
     }
 
+    //Fyll filter för projekt med projektnamn
     private void fyllDropdown() {
         try {
             boxprojekt.removeAllItems();
@@ -198,6 +207,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         }
     }
 
+    //Filtrera statistik utefter land och sql
     private void filterLand(String sqlFraga) {
         landNamn = (String) filterLand.getSelectedItem();
         if (landNamn != null && !landNamn.isEmpty()) {
@@ -354,11 +364,13 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Knapp som fyller tabell med egna projekt
     private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
         this.aktuellSql = minaProjektSql();
         filterLand(aktuellSql);
     }//GEN-LAST:event_btnMinaProjektActionPerformed
 
+    //Filtrerar projekt på land
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
         filterLand(aktuellSql);
     }//GEN-LAST:event_filterLandActionPerformed
@@ -382,6 +394,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_boxprojektActionPerformed
 
+    //Knapp som fyller tabell med alla projekt kopplade till land
     private void btnAllaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjektActionPerformed
         this.aktuellSql = allaProjektSql();
         filterLand(aktuellSql);

@@ -31,12 +31,14 @@ public class Land extends javax.swing.JFrame {
 
         getLandNamn();
 
+        //Visar bara knapp för att ändra information om ett land för admin
         btnAndraLand.setVisible(false);
         if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
             btnAndraLand.setVisible(true);
         }
     }
 
+    //Hämta och lägg in namn på land i filter
     public void getLandNamn() {
         try {
             ArrayList<HashMap<String, String>> lander = idb.fetchRows("SELECT lid, namn FROM land ORDER BY namn");
@@ -171,6 +173,7 @@ public class Land extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Lägg in text utefter valt land
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
         String valtLandNamn = (String) filterLand.getSelectedItem();
         if (valtLandNamn != null) {
@@ -195,6 +198,7 @@ public class Land extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTidszonActionPerformed
 
+    //Knapp för att kunna ändra information om ett land
     private void btnAndraLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLandActionPerformed
         LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landId, this);
         landUppgifter.setVisible(true);
