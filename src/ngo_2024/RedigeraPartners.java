@@ -15,11 +15,11 @@ public class RedigeraPartners extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraPartners.class.getName());
     private String pid;
-    private InfDB idb; //null = lägg till, annars ändra
-    private PartnersFonster partnersfonster; // uppdatera tabellen efter spara (valfritt)
+    private InfDB idb;
+    private PartnersFonster partnersfonster;
       
     /**
-     * Creates new form RedigeraPartners
+     * //Klassen RedigeraPartners gör att man kan skapa eller lägga till en partner.
      */
     public RedigeraPartners(PartnersFonster partnersfonster, InfDB idb, String pid) {
         this.partnersfonster = partnersfonster;
@@ -100,13 +100,13 @@ public class RedigeraPartners extends javax.swing.JFrame {
                     String maxId = idb.fetchSingle("SELECT MAX(pid) FROM partner");
                            int nyttId = (maxId == null || maxId.isEmpty()) ? 1 : Integer.parseInt(maxId) + 1;
                             
-                   String sql =
+                   String sqlFraga =
                 "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad) VALUES (" +
                 nyttId + ", '" + esc(namn) + "', '" + esc(kontaktperson) + "', '" + esc(epost) + "', '" +
                 esc(telefon) + "', '" + esc(adress) + "', '" + esc(branch) + "', " +
                 (stad == null || stad.isEmpty() ? "NULL" : "'" + esc(stad) + "'") + ")";
 
-            idb.insert(sql);
+            idb.insert(sqlFraga);
                       
                     
              } else {

@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @author tovehanssons
  */
 
-public class Partners {
+public class Partners { //Klassen Partners hämtar partnerdata från databasen
 
     private InfDB idb;
 
@@ -35,7 +35,7 @@ public class Partners {
         hamtaUppgifter();
     }
 
-    private void hamtaUppgifter() {
+    private void hamtaUppgifter() { //Hämtar uppgifter och information för en specifik partner
         try {
             String sqlFraga =
                     "SELECT pid, namn, kontaktperson, kontaktepost, telefon, "
@@ -109,7 +109,7 @@ public class Partners {
     }
     
 
-    // Hämta alla partner (admin / generell vy)
+    // Hämta alla partner (Detta gäller endast för en inloggad Admin)
     public static ArrayList<Partners> hamtaAlla(InfDB idb) {
         ArrayList<Partners> lista = new ArrayList<>();
         try {
@@ -149,7 +149,7 @@ public class Partners {
         return lista;
     }
 
-    // Hämta partners för en handläggare: partners i projekt där handläggaren deltar
+    // Hämta partners för en handläggare
     public static ArrayList<Partners> hamtaForHandlaggare(InfDB idb, String inloggadEpost) {
         ArrayList<Partners> lista = new ArrayList<>();
         try {
