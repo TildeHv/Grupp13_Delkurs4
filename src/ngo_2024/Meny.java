@@ -228,7 +228,8 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_btnminaprojektActionPerformed
 
     private void btnavdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavdelningActionPerformed
-       new AvdelningJframe(idb, inloggadAnvandare).setVisible(true);
+     AvdelningJframe AvdJframe =  new AvdelningJframe(idb, inloggadAnvandare);
+AvdJframe.setVisible(true);
     }//GEN-LAST:event_btnavdelningActionPerformed
     /*if (ValAvRoll.arProjektchef(idb, InloggadAnvandare)  {
             btnminaprojekt.setVisible(true);

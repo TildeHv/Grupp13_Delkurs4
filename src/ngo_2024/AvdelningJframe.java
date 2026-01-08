@@ -5,10 +5,7 @@
 package ngo_2024;
 
 import oru.inf.InfDB;
-import oru.inf.InfException;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 
@@ -30,9 +27,10 @@ public class AvdelningJframe extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        tblVisaHandlaggare.setVisible(true);
+        tblVisaAnstallda.setVisible(true);
 
         fyllAvdelningsInfo();
+        visaAvdAnstallda();
     }
 
     private void fyllAvdelningsInfo() {
@@ -45,19 +43,44 @@ public class AvdelningJframe extends javax.swing.JFrame {
             AvdelningSQL avdSQL = new AvdelningSQL(idb);
             Avdelning avd = avdSQL.hamtaAvdelningMedId(avdid);
 
-            lblAvdid.setText(String.valueOf(avd.getAvdid()));
+            lblAvdid.setText("AVDid: " + String.valueOf(avd.getAvdid()));
             lblAvdNamn.setText(avd.getNamn());
-            lblAvdAdress.setText(avd.getAdress());
-            lblAvdStad.setText(avd.getStad());
-            lblAvdEpost.setText(avd.getEpost());
-            lblAvdTelefon.setText(avd.getTelefon());
-            lblAvdChef.setText(avd.getChef());
-            lblAvdBeskrivning.setText(avd.getBeskrivning());
+            lblAvdAdress.setText("Adress: " + avd.getAdress());
+            lblAvdStad.setText("Stad: " + avd.getStad());
+            lblAvdEpost.setText("Epost: " + avd.getEpost());
+            lblAvdTelefon.setText("TelNr: " + avd.getTelefon());
+            lblAvdChef.setText("Chef: " + avd.getChef());
+            lblAvdBeskrivning.setText("Beskrivning: " + avd.getBeskrivning());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    private void visaAvdAnstallda() { // visar alla anstallda (samt deras info) på avdelningen i en tabell.
+        
+        try {
+            String sql = "SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "'";
+            String avdidString = idb.fetchSingle(sql);
+            int avdid = Integer.parseInt (idb.fetchSingle(sql));
+            
+            AvdelningSQL avdSQL = new AvdelningSQL(idb);
+            var visaAnstallda = avdSQL.getPersonalForAvdelning(avdid);
+            
+            DefaultTableModel modell = (DefaultTableModel) tblVisaAnstallda.getModel();
+            modell.setRowCount(0);
+            
+            for (var person : visaAnstallda) {
+                 modell.addRow(new Object[]{
+                     person.get("aid"), person.get("fornamn"), person.get("efternamn"), person.get("epost"), person.get("telefon")});
+            }
+                 tblVisaAnstallda.setVisible(!visaAnstallda.isEmpty());
+           
+            } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Anstallda från avdelningen kunde inte hämtas.");
+            }
+        }
+    
     
   
     /**
@@ -90,14 +113,16 @@ public class AvdelningJframe extends javax.swing.JFrame {
         lblAvdBeskrivning = new javax.swing.JLabel();
         btnSokHandlaggare = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVisaHandlaggare = new javax.swing.JTable();
+        tblVisaAnstallda = new javax.swing.JTable();
         btnRedigeraAvdelning = new javax.swing.JButton();
+        lblAvdAnstallda = new javax.swing.JLabel();
+        btnTillbaka = new javax.swing.JButton();
 
         jToggleButton1.setText("jToggleButton1");
 
         lblAvdEpost1.setText("epost");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblAvdelning.setText("Avdelning:");
 
@@ -122,7 +147,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
         btnSokHandlaggare.setText("Sök");
         btnSokHandlaggare.addActionListener(this::btnSokHandlaggareActionPerformed);
 
-        tblVisaHandlaggare.setModel(new javax.swing.table.DefaultTableModel(
+        tblVisaAnstallda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -133,10 +158,15 @@ public class AvdelningJframe extends javax.swing.JFrame {
                 "aid", "fornamn", "efternamn", "epost", "telefon"
             }
         ));
-        jScrollPane1.setViewportView(tblVisaHandlaggare);
+        jScrollPane1.setViewportView(tblVisaAnstallda);
 
         btnRedigeraAvdelning.setText("Redigera avdelning");
         btnRedigeraAvdelning.addActionListener(this::btnRedigeraAvdelningActionPerformed);
+
+        lblAvdAnstallda.setText("Anställda på avdelningen:");
+
+        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,30 +180,34 @@ public class AvdelningJframe extends javax.swing.JFrame {
                             .addComponent(lblAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAvdNamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addComponent(lblAvdNamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnRedigeraAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 174, Short.MAX_VALUE))))
+                            .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 380, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblSokHandlaggare, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnRedigeraAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAvdAnstallda, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,53 +220,57 @@ public class AvdelningJframe extends javax.swing.JFrame {
                 .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRedigeraAvdelning))
+                .addGap(13, 13, 13)
+                .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(lblAvdAnstallda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblSokHandlaggare)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSokHandlaggare))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSokHandlaggare)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRedigeraAvdelning))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnTillbaka)
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSokHandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokHandlaggareActionPerformed
-        // TODO add your handling code here:
-     String sokterm = txtSokHandlaggare.getText();
-        
+        /* när en användare trycker på knappen ändras visaAnstallda tabellen till att endast 
+           visa handläggare vars namn (eller epost) matchar det användaren skrev in i sökrutan.
+        */
+                String sokterm = txtSokHandlaggare.getText();
         try {
-            String sql = "SELECT avdelning FROM anstalld WHERE epost = '" +
-                          inloggadAnvandare + "'";
+            String sql = "SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "'";
             int avdid = Integer.parseInt(idb.fetchSingle(sql));
             
             AvdelningSQL avdSQL = new AvdelningSQL(idb); 
-            var resultat = avdSQL.sokHandlaggare(avdid, sokterm);
+            var sokResultat = avdSQL.sokHandlaggare(avdid, sokterm);
             
-             DefaultTableModel modell = (DefaultTableModel) tblVisaHandlaggare.getModel();
+             DefaultTableModel modell = (DefaultTableModel) tblVisaAnstallda.getModel();
              modell.setRowCount(0);
              
-             for (var person : resultat) {
+             for (var person : sokResultat) {
                  modell.addRow(new Object[]{
                      person.get("aid"), person.get("fornamn"), person.get("efternamn"), person.get("epost"), person.get("telefon")});
              }
-            tblVisaHandlaggare.setVisible(!resultat.isEmpty());
+            tblVisaAnstallda.setVisible(!sokResultat.isEmpty());
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,22 +278,29 @@ public class AvdelningJframe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSokHandlaggareActionPerformed
 
     private void btnRedigeraAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraAvdelningActionPerformed
-        // TODO add your handling code here:
+        //Endast admin har behörigheten att ändra avdelningar, här kontrolleras det att den inloggade användaren är en admin.
         if (ValAvRoll.arAdmin(idb, inloggadAnvandare)){
         new AdminKontrollPanelAvdelning(idb).setVisible(true);
         } else {
         JOptionPane.showMessageDialog(this, "Endast administratörer har behörigheten att redigera avdelningar.");
         }
     }//GEN-LAST:event_btnRedigeraAvdelningActionPerformed
+
+    private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnTillbakaActionPerformed
  
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRedigeraAvdelning;
     private javax.swing.JButton btnSokHandlaggare;
+    private javax.swing.JButton btnTillbaka;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblAvdAdress;
+    private javax.swing.JLabel lblAvdAnstallda;
     private javax.swing.JLabel lblAvdBeskrivning;
     private javax.swing.JLabel lblAvdChef;
     private javax.swing.JLabel lblAvdEpost;
@@ -266,7 +311,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
     private javax.swing.JLabel lblAvdelning;
     private javax.swing.JLabel lblAvdid;
     private javax.swing.JLabel lblSokHandlaggare;
-    private javax.swing.JTable tblVisaHandlaggare;
+    private javax.swing.JTable tblVisaAnstallda;
     private javax.swing.JTextField txtSokHandlaggare;
     // End of variables declaration//GEN-END:variables
 }

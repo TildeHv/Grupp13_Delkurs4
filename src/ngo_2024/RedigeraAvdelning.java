@@ -6,9 +6,6 @@ package ngo_2024;
 
 import oru.inf.InfDB;
 import oru.inf.InfException;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 /**
  *
@@ -40,7 +37,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             txtAvdStad.setText(avd.getStad());
             txtAvdEpost.setText(avd.getEpost());
             txtAvdTelefon.setText(avd.getTelefon());
-            txtAvdChef.setText(avd.getChef());
+            txtAvdChef.setText(String.valueOf(avd.getChef()));
             txtAvdBeskrivning.setText(avd.getBeskrivning());
             
         } catch (Exception e) {
@@ -76,8 +73,9 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
         txtAvdChef = new javax.swing.JTextField();
         txtAvdBeskrivning = new javax.swing.JTextField();
         btnSparaAndringar = new javax.swing.JButton();
+        btnTillbaka = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblRedigeraAvdelning.setText("Redigera avdelning:");
 
@@ -91,7 +89,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
 
         lblAvdEpost.setText("Epost:");
 
-        lblAvdTelefon.setText("TelefonNr:");
+        lblAvdTelefon.setText("Telefon:");
 
         lblAvdChef.setText("Chef:");
 
@@ -99,6 +97,9 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
 
         btnSparaAndringar.setText("Spara ändringar");
         btnSparaAndringar.addActionListener(this::btnSparaAndringarActionPerformed);
+
+        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,9 +109,6 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSparaAndringar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -146,7 +144,12 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
                                 .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(36, 36, 36))))
+                        .addGap(36, 36, 36))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSparaAndringar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,16 +188,18 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdBeskrivning)
                     .addComponent(txtAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSparaAndringar)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSparaAndringar)
+                    .addComponent(btnTillbaka))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSparaAndringarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaAndringarActionPerformed
-        // TODO add your handling code here:
+        // Sparar admins ändringar, validerar namn, epost, telefonnummer och adress. 
         try {
             int avdid = Integer.parseInt(txtAvdid.getText());
             String namn = txtAvdNamn.getText();
@@ -202,17 +207,38 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             String stad = txtAvdStad.getText();
             String epost = txtAvdEpost.getText();
             String telefon = txtAvdTelefon.getText();
-            String chef = txtAvdChef.getText();
+            int chef = Integer.parseInt(txtAvdChef.getText());
             String beskrivning = txtAvdBeskrivning.getText();
             
+          if (!Validering.ValideraNamn(namn)) {
+              JOptionPane.showMessageDialog(this, "Ogiltigt namn.");
+              return;
+          }
+          if (!Validering.ValideraEpost(epost)) {
+              JOptionPane.showMessageDialog(this, "ogiltig e-postadress.");
+              return;
+          }
+          if (!Validering.ValideraTelefon(telefon)) {
+              JOptionPane.showMessageDialog(this, "Ogiltigt telefonnummer.");
+              return;
+          }
+          if (!Validering.ValideraAdress(adress)) {
+              JOptionPane.showMessageDialog(this, "Ogiltig adress.");
+              return;
+          }
             AvdelningSQL avdSQL = new AvdelningSQL(idb);
-            avdSQL.redigeraAvdelning(avdid, namn, adress, stad, epost, telefon, chef, beskrivning);
+            avdSQL.redigeraAvdelning(avdid, namn, beskrivning, adress, epost, telefon, stad, chef);
             
             JOptionPane.showMessageDialog(this, "Avdelningen har uppdaterats.");
         } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Redigering misslyckades: " + e.getMessage());
         }
     }//GEN-LAST:event_btnSparaAndringarActionPerformed
+
+    private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnTillbakaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,6 +267,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSparaAndringar;
+    private javax.swing.JButton btnTillbaka;
     private javax.swing.JLabel lblAvdAdress;
     private javax.swing.JLabel lblAvdBeskrivning;
     private javax.swing.JLabel lblAvdChef;

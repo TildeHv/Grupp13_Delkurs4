@@ -39,13 +39,21 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
 
         lblKontrollPanel = new javax.swing.JLabel();
         btnRedigeraBefintligAvd = new javax.swing.JButton();
+        btnTillbaka = new javax.swing.JButton();
+        btnNyAvdelning = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblKontrollPanel.setText("Kontroll panel för avdelningar");
+        lblKontrollPanel.setText("Kontrollpanel för avdelningar");
 
         btnRedigeraBefintligAvd.setText("Redigera befintlig avdelning");
         btnRedigeraBefintligAvd.addActionListener(this::btnRedigeraBefintligAvdActionPerformed);
+
+        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
+
+        btnNyAvdelning.setText("Lägg till ny avdelning");
+        btnNyAvdelning.addActionListener(this::btnNyAvdelningActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,9 +61,11 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRedigeraBefintligAvd, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblKontrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRedigeraBefintligAvd, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .addComponent(lblKontrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNyAvdelning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -65,7 +75,11 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
                 .addComponent(lblKontrollPanel)
                 .addGap(34, 34, 34)
                 .addComponent(btnRedigeraBefintligAvd)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnNyAvdelning)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addComponent(btnTillbaka)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -101,6 +115,16 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnRedigeraBefintligAvdActionPerformed
 
+    private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnTillbakaActionPerformed
+
+    private void btnNyAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyAvdelningActionPerformed
+        // TODO add your handling code here:
+         new LaggTillAvdelning(idb).setVisible(true);
+    }//GEN-LAST:event_btnNyAvdelningActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -127,7 +151,9 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNyAvdelning;
     private javax.swing.JButton btnRedigeraBefintligAvd;
+    private javax.swing.JButton btnTillbaka;
     private javax.swing.JLabel lblKontrollPanel;
     // End of variables declaration//GEN-END:variables
 
