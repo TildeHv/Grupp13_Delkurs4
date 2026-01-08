@@ -9,10 +9,6 @@ import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
-/**
- *
- * @author Tilde
- */
 public class LandUppgifter extends javax.swing.JFrame {
 
     private InfDB idb;
