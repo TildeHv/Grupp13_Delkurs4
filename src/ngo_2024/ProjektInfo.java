@@ -62,8 +62,11 @@ public class ProjektInfo extends javax.swing.JFrame {
     public static boolean arProjektchefForProjekt(InfDB idb, String inloggadAnvandare, int projektID) {
         try {
             String sqlFraga =
-            "SELECT projekt.pid FROM projekt JOIN anstalld ON projekt.projektchef = anstalld.aid WHERE anstalld.epost = '" + inloggadAnvandare + "'";
-
+                   "SELECT projekt.pid FROM projekt "
+                   + "JOIN anstalld ON projekt.projektchef = anstalld.aid "
+                   + "WHERE projekt.pid = " + projektID
+                   + " AND anstalld.epost = '" + inloggadAnvandare + "'";
+            
             ArrayList<HashMap<String, String>> result = idb.fetchRows(sqlFraga);
             return result != null && !result.isEmpty();
         } catch (Exception e) {
