@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 
 
 /**
- *
- * @author Albin Malmquist
+ * en jFrame klass som ger användare en överblick över deras avdelning.
+ * Finns även en sökfunktion för att hitta specifika handläggare. 
  */
 public class AvdelningJframe extends javax.swing.JFrame {
 
@@ -34,7 +34,6 @@ public class AvdelningJframe extends javax.swing.JFrame {
     }
 
     private void fyllAvdelningsInfo() {
-
         try {
             String sql = "SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "'";
             String avdidString = idb.fetchSingle(sql);
@@ -58,7 +57,6 @@ public class AvdelningJframe extends javax.swing.JFrame {
     }
     
     private void visaAvdAnstallda() { // visar alla anstallda (samt deras info) på avdelningen i en tabell.
-        
         try {
             String sql = "SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "'";
             String avdidString = idb.fetchSingle(sql);
@@ -82,7 +80,6 @@ public class AvdelningJframe extends javax.swing.JFrame {
         }
     
     
-  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

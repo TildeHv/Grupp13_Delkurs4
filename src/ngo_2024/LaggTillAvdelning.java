@@ -9,10 +9,10 @@ import oru.inf.InfException;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Albin Malmquist
+ * den här klassen låter administratörer lägga till nya avdelningar i databasen.
  */
 public class LaggTillAvdelning extends javax.swing.JFrame {
+
     private InfDB idb;
     private int avdid;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LaggTillAvdelning.class.getName());
@@ -22,7 +22,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
      */
     public LaggTillAvdelning(InfDB idb) {
         this.idb = idb;
-        initComponents();    
+        initComponents();
     }
 
     /**
@@ -149,13 +149,13 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
-        // TODO add your handling code here:
+        // Tillbakaknapp
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnSparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaActionPerformed
         // Sparar det användaren har angett och validerar namn, epost, telefon och adress.
-         try {
+        try {
             String namn = txtAvdNamn.getText();
             String adress = txtAvdAdress.getText();
             int stad = Integer.parseInt(txtAvdStad.getText());
@@ -163,40 +163,40 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
             String telefon = txtAvdTelefon.getText();
             int chef = Integer.parseInt(txtAvdChef.getText());
             String beskrivning = txtAvdBeskrivning.getText();
-            
-          if (!Validering.ValideraNamn(namn)) {
-              JOptionPane.showMessageDialog(this, "Ogiltigt namn.");
-              return;
-          }
-          if (!Validering.ValideraEpost(epost)) {
-              JOptionPane.showMessageDialog(this, "ogiltig e-postadress.");
-              return;
-          }
-          if (!Validering.ValideraTelefon(telefon)) {
-              JOptionPane.showMessageDialog(this, "Ogiltigt telefonnummer.");
-              return;
-          }
-          if (!Validering.ValideraAdress(adress)) {
-              JOptionPane.showMessageDialog(this, "Ogiltig adress.");
-              return;
-          }
-          
-            AvdelningSQL avdSQL = new AvdelningSQL(idb);
+
+            if (!Validering.ValideraNamn(namn)) {
+                JOptionPane.showMessageDialog(this, "Ogiltigt namn.");
+                return;
+            }
+            if (!Validering.ValideraEpost(epost)) {
+                JOptionPane.showMessageDialog(this, "ogiltig e-postadress.");
+                return;
+            }
+            if (!Validering.ValideraTelefon(telefon)) {
+                JOptionPane.showMessageDialog(this, "Ogiltigt telefonnummer.");
+                return;
+            }
+            if (!Validering.ValideraAdress(adress)) {
+                JOptionPane.showMessageDialog(this, "Ogiltig adress.");
+                return;
+            }
+
+            AvdelningSQL avdSQL = new AvdelningSQL(idb); // kontrollerar att användare inte anger en stad som inte finns i databasen. 
             if (!avdSQL.stadKontroll(stad)) {
                 JOptionPane.showMessageDialog(null, "stad " + stad + " finns inte i databasen. Tillåtna värden är 1-6.");
                 return;
             }
-           int nyttAvdid = avdSQL.skapaNyttAvdid();
-           System.out.println("Nytt avdid: " + nyttAvdid);
-           
+            int nyttAvdid = avdSQL.skapaNyttAvdid();
+            System.out.println("Nytt avdid: " + nyttAvdid);
+
             avdSQL.laggTillAvdelning(nyttAvdid, namn, beskrivning, adress, epost, telefon, stad, chef);
-            
+
             JOptionPane.showMessageDialog(this, "Ny avdelning med namn " + namn + " har skapats.");
             dispose();
-         } catch (Exception e) {
-           JOptionPane.showMessageDialog(this, "Fel vid skapandet av ny avdelning: " + e.getMessage());
-         }
-        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Fel vid skapandet av ny avdelning: " + e.getMessage());
+        }
+
     }//GEN-LAST:event_btnSparaActionPerformed
 
     /**

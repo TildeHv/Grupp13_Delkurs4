@@ -7,6 +7,7 @@ package ngo_2024;
 /**
  *
  * @author Albin Malmquist
+ * en logisk klass för avdelning 
  */
 public class Avdelning {
     //fält

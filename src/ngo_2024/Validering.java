@@ -7,8 +7,6 @@ package ngo_2024;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 /**
- *
- * @author AlbinMalmquist
  */
 public class Validering {
     public static boolean ValideraEpost(String ePost) { 

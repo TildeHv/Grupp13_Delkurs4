@@ -11,8 +11,7 @@ import javax.swing.JOptionPane;
      
 
 /**
- *
- * @author Albin Malmquist
+ * en kontrollpanel för adminer (avdelningar)
  */
 public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
     private InfDB idb;
@@ -86,9 +85,8 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRedigeraBefintligAvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraBefintligAvdActionPerformed
-        // TODO add your handling code here:
-       try {
-           
+        // När en admin trycker på knappen kommer en lista upp där de kan välja en avdelning att redigera. 
+       try { 
            AvdelningSQL avdSQL = new AvdelningSQL(idb);
            var avdelningar = avdSQL.hamtaAllaAvdelningar();
            
@@ -108,20 +106,17 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
           
            } catch (Exception e) {
            JOptionPane.showMessageDialog(this, "Kunde inte hämta avdelningar: " + e.getMessage());
-           }
-                
-        
-        
+           }     
         
     }//GEN-LAST:event_btnRedigeraBefintligAvdActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
-        // TODO add your handling code here:
+        // gå tillbaka
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnNyAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyAvdelningActionPerformed
-        // TODO add your handling code here:
+        //öppnar Jframeklassen LaggTillAvdelning (Lägg till avdelning). 
          new LaggTillAvdelning(idb).setVisible(true);
     }//GEN-LAST:event_btnNyAvdelningActionPerformed
 

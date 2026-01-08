@@ -8,8 +8,7 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
 /**
- *
- * @author Albin Malmquist
+ * Gör det möjligt för adminer att redigera befintliga avdelningar. 
  */
 public class RedigeraAvdelning extends javax.swing.JFrame {
         private InfDB idb;
@@ -34,7 +33,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             txtAvdid.setText(String.valueOf(avd.getAvdid()));
             txtAvdNamn.setText(avd.getNamn());
             txtAvdAdress.setText(avd.getAdress());
-            txtAvdStad.setText(avd.getStad());
+            txtAvdStad.setText(String.valueOf(avd.getStad()));
             txtAvdEpost.setText(avd.getEpost());
             txtAvdTelefon.setText(avd.getTelefon());
             txtAvdChef.setText(String.valueOf(avd.getChef()));
@@ -204,7 +203,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             int avdid = Integer.parseInt(txtAvdid.getText());
             String namn = txtAvdNamn.getText();
             String adress = txtAvdAdress.getText();
-            String stad = txtAvdStad.getText();
+            int stad = Integer.parseInt(txtAvdStad.getText());
             String epost = txtAvdEpost.getText();
             String telefon = txtAvdTelefon.getText();
             int chef = Integer.parseInt(txtAvdChef.getText());
@@ -236,7 +235,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSparaAndringarActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
-        // TODO add your handling code here:
+        // en enkel tillbakaknapp.
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
