@@ -24,14 +24,14 @@ public class ProjektInfo extends javax.swing.JFrame {
         initComponents();
         HamtaProjektinfo();
 
-        btnAndraKnapp.setVisible(false);
+        btnAndraKnapp.setVisible(false); /*z--Sätter knappen till false om man inte är projektchef*/
 
         if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
             btnAndraKnapp.setVisible(true);
             btnAndraKnapp.setEnabled(true);
         }
 
-        btnAndraKnapp.setEnabled(false);
+        btnAndraKnapp.setEnabled(false); /*Sätter tillgången till false om man inte är projektchef för det projektet*/
 
         boolean arProjektchef = arProjektchefForProjekt(idb, inloggadAnvandare, projektId);
 
@@ -42,6 +42,7 @@ public class ProjektInfo extends javax.swing.JFrame {
     }
 
     private void HamtaProjektinfo() {
+        /*<--- Hämtar information från projektklass och sätter i den i respektive fält */
 
         ProjektKlass projekt = new ProjektKlass(idb, inloggadAnvandare, projektId);
 
@@ -55,14 +56,14 @@ public class ProjektInfo extends javax.swing.JFrame {
         lblland.setText(projekt.getLand());
     }
 
-    public static boolean arProjektchefForProjekt(InfDB idb, String inloggadAnvandare, int projektID) {
+    public static boolean arProjektchefForProjekt(InfDB idb, String inloggadAnvandare, int projektID) { /*<-- Använder sql fråga för att titta att  projekt pid och projektchefens aid är samma*/
         try {
-            String sqlFraga =
-                   "SELECT projekt.pid FROM projekt "
-                   + "JOIN anstalld ON projekt.projektchef = anstalld.aid "
-                   + "WHERE projekt.pid = " + projektID
-                   + " AND anstalld.epost = '" + inloggadAnvandare + "'";
-            
+            String sqlFraga
+                    = "SELECT projekt.pid FROM projekt "
+                    + "JOIN anstalld ON projekt.projektchef = anstalld.aid "
+                    + "WHERE projekt.pid = " + projektID
+                    + " AND anstalld.epost = '" + inloggadAnvandare + "'";
+
             ArrayList<HashMap<String, String>> result = idb.fetchRows(sqlFraga);
             return result != null && !result.isEmpty();
         } catch (Exception e) {

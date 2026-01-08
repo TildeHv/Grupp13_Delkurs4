@@ -7,7 +7,6 @@ package ngo_2024;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 public class Projektforandrare extends javax.swing.JFrame {
@@ -24,7 +23,7 @@ public class Projektforandrare extends javax.swing.JFrame {
         this.idb = idb;
         this.pid = pid;
 
-        try {
+        try { /*F<--- yller alla fält*/
             ProjektKlass projekt = new ProjektKlass(idb, InloggadAnvandare, pid);
 
             lblbeskrivning.setText(projekt.getBeskrivning());
@@ -200,7 +199,7 @@ public class Projektforandrare extends javax.swing.JFrame {
         String nyttStartdatum = lblstartdatum.getText();
         String nyttSlutdatum = lblslutdatum.getText();
 
-        if (!Validering.ValideraDatum(nyttStartdatum)) {
+        if (!Validering.ValideraDatum(nyttStartdatum)) { /*<--- Validerar*/
             JOptionPane.showMessageDialog(this,
                     "Ogiltigt datum! Måste skrivas som ÅÅÅÅ-MM-DD",
                     "Fel",
@@ -217,7 +216,7 @@ public class Projektforandrare extends javax.swing.JFrame {
         }
 
         try {
-            String sqlFraga
+            String sqlFraga /*<--- Hittar fälten i databasen och ändrar det till det nya*/
                     = "UPDATE projekt SET "
                     + "projektnamn = '" + nyttNamn.replace("'", "''") + "', "
                     + "kostnad = '" + nyKostnad.replace("'", "''") + "', "
