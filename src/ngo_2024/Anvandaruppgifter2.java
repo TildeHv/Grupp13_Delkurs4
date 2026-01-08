@@ -47,7 +47,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         lblavdelning = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblanvandarnamn.setText("Anvandarnamn");
 

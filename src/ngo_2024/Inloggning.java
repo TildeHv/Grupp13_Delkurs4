@@ -42,7 +42,7 @@ public class Inloggning extends javax.swing.JFrame {
         btnlogin = new javax.swing.JButton();
         lblFelMeddelande = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblepost.setText("Epost:");
 

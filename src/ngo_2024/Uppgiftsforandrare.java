@@ -56,7 +56,7 @@ private Anvandare anv;
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtadress.setText("Adress");
         txtadress.addActionListener(this::txtadressActionPerformed);
