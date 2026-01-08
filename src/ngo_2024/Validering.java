@@ -26,6 +26,10 @@ public class Validering {
    public static boolean ValideraNamn(String namn){
        return namn.matches ("^[A-Za-zÅÄÖåäö'\\ -]{2,40}$");
    }
+   
+   public static boolean ValideraDatum(String datum) {
+       return datum.matches ("\\d{4}-\\d{2}-\\d{2}");
+   }
     
 }
 
