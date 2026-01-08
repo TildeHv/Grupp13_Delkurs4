@@ -41,8 +41,9 @@ public class ProjektKlass {
 
             String sqlFraga
                     = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land "
-                    + "FROM projekt "
-                    + "WHERE pid = " + pid;
+                    + // OBS: mellanslag här
+                    "FROM projekt "
+                    + "WHERE projektnamn = '" + projektnamn + "'";
 
             HashMap<String, String> rad = idb.fetchRow(sqlFraga);
 
