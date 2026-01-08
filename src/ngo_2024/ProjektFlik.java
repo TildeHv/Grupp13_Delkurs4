@@ -49,12 +49,8 @@ public class ProjektFlik extends javax.swing.JFrame {
     private void skapaProjektTabell() {
         projektTabell.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"pid", "Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
+                new String[]{"Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
         ));
-
-        projektTabell.getColumnModel().getColumn(0).setMinWidth(0);
-        projektTabell.getColumnModel().getColumn(0).setMaxWidth(0);
-        projektTabell.getColumnModel().getColumn(0).setPreferredWidth(0);
 
         Calendar cal = Calendar.getInstance();
         Date idag = cal.getTime();
@@ -105,7 +101,6 @@ public class ProjektFlik extends javax.swing.JFrame {
 
             for (HashMap<String, String> projekt : projektLista) {
                 modell.addRow(new Object[]{
-                    projekt.get("pid"),
                     projekt.get("projektnamn"),
                     projekt.get("status"),
                     projekt.get("prioritet"),
@@ -128,9 +123,8 @@ public class ProjektFlik extends javax.swing.JFrame {
             if (!e.getValueIsAdjusting()) {
                 int rad = projektTabell.getSelectedRow();
                 if (rad >= 0) {
-                    projektId = Integer.parseInt(
-                            projektTabell.getValueAt(rad, 0).toString()
-                    );
+                    projektId = Integer.parseInt(projektTabell.getValueAt(rad, 0).toString());
+                    projektnamn = projektTabell.getValueAt(rad, 1).toString();
                     projInfoKnapp.setEnabled(true);
                 }
             }
