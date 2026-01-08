@@ -19,10 +19,8 @@ public class ProjektFlik extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private String projektnamn;
-    private int projektId;
     private ArrayList<String> projektLista = new ArrayList<>();
     private String aktuellSql;
-    private int aktuellPid;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
@@ -33,20 +31,6 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         projInfoKnapp.setEnabled(false);
 
-        skapaProjektTabell();
-
-        filterBox.removeAllItems();
-        filterBox.addItem("Alla statusar");
-        filterBox.addItem("Planerat");
-        filterBox.addItem("Pågående");
-        filterBox.addItem("Avslutat");
-
-        aktuellSql = getAnstalldSql();
-        filtreraDatum();
-        addTabellLyssnare();
-    }
-
-    private void skapaProjektTabell() {
         projektTabell.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
@@ -72,40 +56,50 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         startDatumSpinner.addChangeListener(e -> filtreraDatum());
         slutDatumSpinner.addChangeListener(e -> filtreraDatum());
+
+        filterBox.removeAllItems();
+        filterBox.addItem("Alla statusar");
+        filterBox.addItem("Planerat");
+        filterBox.addItem("Pågående");
+        filterBox.addItem("Avslutat");
+
+        aktuellSql = getAnstalldSql();
+        filtreraDatum();
+        addTabellLyssnare();
     }
 
-    private String getAnstalldSql() {
-        return "SELECT DISTINCT projekt.* "
+    public String getAnstalldSql() {
+        return "SELECT * "
                 + "FROM projekt "
-                + "LEFT JOIN ans_proj ON projekt.pid = ans_proj.pid "
-                + "LEFT JOIN anstalld ON ans_proj.aid = anstalld.aid "
-                + "WHERE (anstalld.epost = '" + inloggadAnvandare + "' "
-                + "OR projekt.projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "'))";
+                + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
+                + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
+                + "WHERE anstalld.epost = '" + inloggadAnvandare + "'";
     }
 
-    private String getAvdelningsProjektSql() {
+    public String getAvdelningsProjektSql() {
         return "SELECT DISTINCT projekt.* "
                 + "FROM projekt "
-                + "LEFT JOIN ans_proj ON projekt.pid = ans_proj.pid "
-                + "LEFT JOIN anstalld ON ans_proj.aid = anstalld.aid "
-                + "WHERE (anstalld.avdelning = (SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "') "
-                + "OR projekt.projektchef IN (SELECT aid FROM anstalld WHERE avdelning = (SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "')))";
+                + "JOIN ans_proj ON projekt.pid = ans_proj.pid "
+                + "JOIN anstalld ON ans_proj.aid = anstalld.aid "
+                + "WHERE anstalld.avdelning = ("
+                + "SELECT avdelning FROM anstalld "
+                + "WHERE epost = '" + inloggadAnvandare + "')";
     }
 
     public void getProjektInfo(String sqlFraga) {
         try {
-            DefaultTableModel modell = (DefaultTableModel) projektTabell.getModel();
-            modell.setRowCount(0);
+            DefaultTableModel model = (DefaultTableModel) projektTabell.getModel();
+            model.setRowCount(0);
 
-            ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
+            ArrayList<HashMap<String, String>> projects = idb.fetchRows(sqlFraga);
 
-            for (HashMap<String, String> projekt : projektLista) {
-                modell.addRow(new Object[]{
-                    projekt.get("projektnamn"),
-                    projekt.get("status"),
-                    projekt.get("prioritet"),
-                    projekt.get("startdatum"),
-                    projekt.get("slutdatum")
+            for (HashMap<String, String> project : projects) {
+                model.addRow(new Object[]{
+                    project.get("projektnamn"),
+                    project.get("status"),
+                    project.get("prioritet"),
+                    project.get("startdatum"),
+                    project.get("slutdatum")
                 });
             }
         } catch (Exception e) {
@@ -114,7 +108,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     }
 
     private void openProjektInfo(String projektnamn) {
-        ProjektInfo projektInfo = new ProjektInfo(idb, projektId, inloggadAnvandare);
+        ProjektInfo projektInfo = new ProjektInfo(idb, projektnamn, inloggadAnvandare);
         projektInfo.setVisible(true);
     }
 
@@ -123,8 +117,7 @@ public class ProjektFlik extends javax.swing.JFrame {
             if (!e.getValueIsAdjusting()) {
                 int rad = projektTabell.getSelectedRow();
                 if (rad >= 0) {
-                    projektId = Integer.parseInt(projektTabell.getValueAt(rad, 0).toString());
-                    projektnamn = projektTabell.getValueAt(rad, 1).toString();
+                    projektnamn = (String) projektTabell.getValueAt(rad, 0);
                     projInfoKnapp.setEnabled(true);
                 }
             }
@@ -280,8 +273,8 @@ public class ProjektFlik extends javax.swing.JFrame {
     }//GEN-LAST:event_AvdProjKnappActionPerformed
 
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
-        if (projektId > 0) {
-            new ProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);
+        if (projektnamn != null && !projektnamn.isEmpty()) {
+            new ProjektInfo(idb, projektnamn, inloggadAnvandare).setVisible(true);
         }
     }//GEN-LAST:event_projInfoKnappActionPerformed
 
