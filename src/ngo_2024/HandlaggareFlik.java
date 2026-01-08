@@ -20,14 +20,16 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         this.idb = idb;
         initComponents();
 
+        //Lägg in tabell namn
         tabellHandlaggare.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Fornamn", "Efternamn", "Epost", "Telefon", "Ansvarighetsomrade", "Mentor"}
         ));
-        
+
         fyllHandlaggareTabell();
     }
 
+    //Fyll tabellen med information om handläggare
     private void fyllHandlaggareTabell() {
         try {
             DefaultTableModel modell = (DefaultTableModel) tabellHandlaggare.getModel();
