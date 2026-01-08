@@ -15,36 +15,32 @@ public class ProjektInfo extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
-    private String projektnamn;
+    private int projektId;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektInfo.class.getName());
 
-    public ProjektInfo(InfDB idb, String projektnamn, String inloggadAnvandare) {
+    public ProjektInfo(InfDB idb, int projektId, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
-        this.projektnamn = projektnamn;
+        this.projektId = projektId;
         initComponents();
-        
-        txtprojekt.setText(projektnamn);
-        
         HamtaProjektinfo();
     }
 
     private void HamtaProjektinfo() {
-      
-     ProjektKlass projekt = new ProjektKlass(idb, inloggadAnvandare, projektnamn);
-                            
-                lblprojektnamn.setText(projekt.getProjektnamn());
-                lblprojektchef.setText(projekt.getProjektchef());
-                lblstartdatum.setText(projekt.getStartdatum());
-                lblslutdatum.setText(projekt.getSlutdatum());
-                lblbudget.setText(projekt.getKostnad());   
-                lblstatus.setText(projekt.getStatus());
-                txtbeskrivning.setText(projekt.getBeskrivning());
-                lblland.setText(projekt.getLand());
-    }        
-    
-            
+
+        ProjektKlass projekt = new ProjektKlass(idb, inloggadAnvandare, projektId);
+
+        lblprojektnamn.setText(projekt.getProjektnamn());
+        lblprojektchef.setText(projekt.getProjektchef());
+        lblstartdatum.setText(projekt.getStartdatum());
+        lblslutdatum.setText(projekt.getSlutdatum());
+        lblbudget.setText(projekt.getKostnad());
+        lblstatus.setText(projekt.getStatus());
+        txtbeskrivning.setText(projekt.getBeskrivning());
+        lblland.setText(projekt.getLand());
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
