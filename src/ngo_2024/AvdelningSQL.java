@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
- * @author Albin Malmquist
+ * den här klassen hanterar SQL frågor relaterade till avdelning(ar). 
  */
 public class AvdelningSQL {
 
@@ -106,8 +105,7 @@ public class AvdelningSQL {
     }
 
     public boolean redigeraAvdelning(int avdid, String namn, String beskrivning,
-            String adress, String epost, String telefon,
-            String stad, int chef) {
+            String adress, String epost, String telefon, int stad, int chef) {
 
         try {
             String sql
@@ -117,7 +115,7 @@ public class AvdelningSQL {
                     + "adress = '" + adress + "', "
                     + "epost = '" + epost + "', "
                     + "telefon = '" + telefon + "', "
-                    + "stad = '" + stad + "', "
+                    + "stad = " + stad + ", "
                     + "chef = " + chef + " "
                     + "WHERE avdid = '" + avdid + "' ";
             idb.update(sql);
