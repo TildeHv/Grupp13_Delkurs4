@@ -11,6 +11,10 @@ import java.awt.Font;
 import javax.swing.JTable;
 
 public class PartnersFonster extends javax.swing.JFrame {
+    //Klassen PartnersFonster är ett fönster som visar vilka partner beroende på roll.
+    //Admin: Ser alla partners och kan lägga till/ta bort/ändra i systemet.
+    // Projektchef: Ser alla partners kopplade till valt projekt och kan ta bort från projekt.
+    // Handläggare: Ser endast partners som finns i projekten handläggaren deltar i.
 
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(PartnersFonster.class.getName());
@@ -24,7 +28,8 @@ public class PartnersFonster extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
 
         initComponents();
-        
+       
+        //Anpassar utseendet för gränssnittet (typsnitt, radstorlek, header)
     jtPartners.setFont(new Font("SansSerif", Font.PLAIN, 12));
     jtPartners.setRowHeight(22);
 
@@ -43,7 +48,7 @@ public class PartnersFonster extends javax.swing.JFrame {
     jtPartners.getColumnModel().getColumn(6).setPreferredWidth(50); // Stad
 
 
-        
+        //Rollstyrning för Admin och Projektchef när det gäller ta bort/ändra/lägg till
         
         cbPartners.removeAllItems();
         
@@ -61,21 +66,34 @@ public class PartnersFonster extends javax.swing.JFrame {
             }
         });
     }
-
+//Adminen och Projektchefens behörigheter
     private void sattBehorighet() {
-        boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
-        boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+    boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
+    boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
-       btnLaggtillPartners.setVisible(arAdmin || arProjektchef);
-       btnTabortPartners.setVisible(arAdmin || arProjektchef);
-       btnAndraPartners.setVisible(arAdmin);
+    
+    btnLaggtillPartners.setVisible(arAdmin || arProjektchef);
+    btnTabortPartners.setVisible(arAdmin || arProjektchef);
+    btnAndraPartners.setVisible(arAdmin);
 
-        cbPartners.setVisible(arProjektchef);
-
-        if (!arProjektchef) {
-            cbPartners.removeAllItems();
-        }
+   
+    if (arAdmin) {
+        btnTabortPartners.setText("Ta bort partner");
+    } else if (arProjektchef) {
+        btnTabortPartners.setText("Ta bort från projekt");
     }
+
+    //Projektchefen får välja projekt i combobox.
+    
+    cbPartners.setVisible(arProjektchef);
+
+    if (!arProjektchef) {
+        cbPartners.removeAllItems();
+    }
+
+    }
+    
+    //Fyller tabellen för partners beroende på användarens roll.
 
 private void fyllPartnersTabell() {
     DefaultTableModel model = (DefaultTableModel) jtPartners.getModel();
@@ -267,9 +285,30 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     Partners valdPartner = visadePartners.get(rad);
     String partnerPid = valdPartner.getPid();
 
+    boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
+    boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+
+    if (!arAdmin && !arProjektchef) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Du har inte behörighet att ta bort.");
+        return;
+    }
+
+    String projektPid = null;
+    if (arProjektchef) {
+        projektPid = (String) cbPartners.getSelectedItem();
+        if (projektPid == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Välj ett projekt först.");
+            return;
+        }
+    }
+    
+    String text = arAdmin
+            ? "Vill du radera '" + valdPartner.getNamn() + "'?\nDen kommer isåfall bli borttagen från systemet helt och hållet."
+            : "Vill du ta bort '" + valdPartner.getNamn() + "' från projektet?";
+
     int svar = javax.swing.JOptionPane.showConfirmDialog(
             this,
-            "Vill du verkligen ta bort '" + valdPartner.getNamn() + "'?",
+            text,
             "Bekräfta borttagning",
             javax.swing.JOptionPane.YES_NO_OPTION
     );
@@ -279,24 +318,18 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     }
 
     try {
-        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+        if (arAdmin) {
+            // Adminen tar bort partner helt
+            idb.delete("DELETE FROM projekt_partner WHERE partner_pid = '" + partnerPid + "'");
+            idb.delete("DELETE FROM partner WHERE pid = '" + partnerPid + "'");
 
-            String projektPid = (String) cbPartners.getSelectedItem();
-            if (projektPid == null) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Välj ett projekt först.");
-                return;
-            }
-
+        } else {
+            // Projektchef tar bort koppling från valt projekt
             idb.delete(
                 "DELETE FROM projekt_partner " +
                 "WHERE pid = '" + projektPid + "' " +
                 "AND partner_pid = '" + partnerPid + "'"
             );
-
-        } else if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
-
-            idb.delete("DELETE FROM projekt_partner WHERE partner_pid = '" + partnerPid + "'");
-            idb.delete("DELETE FROM partner WHERE pid = '" + partnerPid + "'");
         }
 
         laddaOmPartners();
@@ -304,6 +337,7 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     } catch (Exception ex) {
         javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
     }
+
 
     }//GEN-LAST:event_btnTabortPartnersActionPerformed
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author tovehanssons
+ * @author tovehanssons //Denna klass kan eventuellt vara överflödig.
  */
 public class Projektchef {
     

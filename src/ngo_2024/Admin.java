@@ -10,7 +10,7 @@ import oru.inf.InfException;
 /**
  *
  * @author tovehanssons
- */
+ */ //Denna klass kan eventuellt vara överflödig.
 public class Admin {
     
     private InfDB idb;

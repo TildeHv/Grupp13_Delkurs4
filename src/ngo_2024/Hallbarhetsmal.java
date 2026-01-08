@@ -22,12 +22,14 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
     private String inloggadAnvandare;
     private java.util.ArrayList<String> beskrivningar = new java.util.ArrayList<>();
     /**
-     * Creates new form Hallbarhetsmal
+     *  //Klassen Hållbarhetsmål visar en lista för hållbarhetsmål och beskrivningar.
      */
    public Hallbarhetsmal(InfDB idb, String inloggadAnvandare) {
     this.idb = idb;
     this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
+        
+        // Anpassning för utseende i gränssnittet
         
     jtHallbarhetsmal.setFont(new Font("SansSerif", Font.PLAIN, 14));
     jtHallbarhetsmal.setRowHeight(22);
@@ -52,6 +54,8 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
     txtaHallbarhetsmal.setEditable(false);
     
     }
+   
+   // Hämtar hållbarhetsmålen med tillhörande beskrivningar från databasen
    
    private void fyllHallbarhetsmalTabell() {
     DefaultTableModel modell =

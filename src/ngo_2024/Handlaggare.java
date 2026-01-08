@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author tovehanssons
+ * @author tovehanssons //Klassen kan eventuellt vara överflödig.
  */
 public class Handlaggare {
     

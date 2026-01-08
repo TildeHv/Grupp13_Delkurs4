@@ -29,14 +29,14 @@
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblanvandarnamn" min="-2" pref="73" max="-2" attributes="0"/>
-                                  <Component id="lblroll" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="253" max="32767" attributes="0"/>
+                              <Component id="lblroll" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="304" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblanvandare" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="lblanvandare" max="32767" attributes="0"/>
+                                  <Component id="lblanvandarnamn" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnminaprojekt" min="-2" pref="112" max="-2" attributes="0"/>
                           </Group>
@@ -45,30 +45,19 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnpartner" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnmedarbetare" min="-2" pref="112" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnProjekt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnavdelning" min="-2" pref="112" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jToggleButton3" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace pref="79" max="32767" attributes="0"/>
-                              <Component id="jToggleButton8" min="-2" pref="112" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="btnhallbarhetsmal" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnland" min="-2" pref="112" max="-2" attributes="0"/>
+                              <Component id="btnhallbarhetsmal" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jToggleButton2" min="-2" pref="112" max="-2" attributes="0"/>
+                              <Component id="btnpartner" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jToggleButton7" min="-2" pref="112" max="-2" attributes="0"/>
+                              <Component id="btnland" min="-2" pref="112" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -97,24 +86,11 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnpartner" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnmedarbetare" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnhallbarhetsmal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnland" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jToggleButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jToggleButton7" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jToggleButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jToggleButton8" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <Component id="btnhallbarhetsmal" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="101" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -157,16 +133,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnhallbarhetsmalActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jToggleButton2"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jToggleButton3"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JToggleButton" name="btnavdelning">
       <Properties>
         <Property name="text" type="java.lang.String" value="Avdelning"/>
@@ -175,11 +141,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnavdelningActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="btnmedarbetare">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Medarbetare"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JToggleButton" name="btnland">
       <Properties>
         <Property name="text" type="java.lang.String" value="Land"/>
@@ -187,16 +148,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnlandActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton7">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jToggleButton7"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton8">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jToggleButton8"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblroll">
       <Properties>

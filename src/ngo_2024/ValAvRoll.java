@@ -11,8 +11,11 @@ import oru.inf.InfException;
  *
  * @author tovehanssons
  */
-public class ValAvRoll {
+public class ValAvRoll { 
+//Klassen ValAvRoll är en hjälpklass för att avgöra vilken roll som är inloggad
+//baserat på e-postadress    
     
+    //Kontollerar om användaren är en adminstratör
     public static boolean arAdmin(InfDB idb, String inloggadAnvandare) {
         
         try {
@@ -30,6 +33,7 @@ public class ValAvRoll {
         }
     }
     
+    //Kontrollerar om användaren är en handläggare
     public static boolean arHandlaggare(InfDB idb, String inloggadAnvandare) {
         try {
             String sqlFraga =
@@ -46,6 +50,7 @@ public class ValAvRoll {
         }
     }
     
+    //Kontrollerar om användaren är en projektchef
     public static boolean arProjektchef(InfDB idb, String inloggadAnvandare) {
         
        try {

@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author tovehanssons
  */
-public class Anvandare {
+public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgifter
     
     private InfDB idb;
     private String inloggadAnvandare;
@@ -32,8 +32,8 @@ public class Anvandare {
         hamtaUppgifter();
         System.out.println("Skapar Anvandare med aid: " + aid);
     }
-    
-    private void hamtaUppgifter() {
+    //Hämtar och lagrar användarens uppgifter från databasen via e-postadress
+    private void hamtaUppgifter() {  
 
         
         try {
