@@ -27,6 +27,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private String inloggadAnvandare;
     private String landNamn;
     private int pid;
+    private int landId;
+    private String aktuellSql;
     private HashMap<String, Integer> projektMap = new HashMap<>();
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektChefTillgang.class.getName());
@@ -39,6 +41,9 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         andraRubrik();
         getLandNamn();
         fyllDropdown();
+
+        this.aktuellSql = minaProjektSql();
+        filterLand(aktuellSql);
     }
 
     private void andraRubrik() {
@@ -96,14 +101,23 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         }
     }
 
-    private void fyllProjektTabell(int landId) {
+    private String minaProjektSql() {
+        return "SELECT projektnamn, projektchef, kostnad "
+                + "FROM projekt "
+                + "WHERE land = " + landId + " "
+                + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
+    }
+
+    private String allaProjektSql() {
+        return "SELECT projektnamn, projektchef, kostnad "
+                + "FROM projekt "
+                + "WHERE land = " + landId;
+    }
+
+    private void fyllProjektTabell(int landId, String sqlFraga) {
         try {
             DefaultTableModel modell = (DefaultTableModel) tblprojekt.getModel();
             modell.setRowCount(0);
-
-            String sqlFraga = "SELECT projektnamn, projektchef, kostnad "
-                    + "FROM projekt "
-                    + "WHERE land = " + landId;
 
             ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
 
@@ -167,20 +181,45 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         try {
             boxprojekt.removeAllItems();
 
-            String sqlFraga = 
-                "SELECT p.projektnamn " + 
-                "FROM projekt p " +
-                "JOIN anstalld an ON p.projektchef = an.aid " +
-                "WHERE an.epost = '" + inloggadAnvandare + "'";
+            String sqlFraga
+                    = "SELECT p.projektnamn "
+                    + "FROM projekt p "
+                    + "JOIN anstalld an ON p.projektchef = an.aid "
+                    + "WHERE an.epost = '" + inloggadAnvandare + "'";
 
             ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
 
-            for (HashMap<String, String> projekt: projektLista) {
+            for (HashMap<String, String> projekt : projektLista) {
                 String projektnamn = projekt.get("projektnamn");
                 boxprojekt.addItem(projektnamn);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void filterLand(String sqlFraga) {
+        landNamn = (String) filterLand.getSelectedItem();
+        if (landNamn != null && !landNamn.isEmpty()) {
+            try {
+                HashMap<String, String> landInfo = idb.fetchRow(
+                        "SELECT * FROM land WHERE namn = '" + landNamn + "'"
+                );
+                if (landInfo != null) {
+                    this.landId = Integer.parseInt(landInfo.get("lid"));
+                    fyllProjektTabell(landId, sqlFraga);
+
+                    if (aktuellSql.equals(minaProjektSql())) {
+                        aktuellSql = minaProjektSql();
+                    } else {
+                        aktuellSql = allaProjektSql();
+                    }
+
+                    fyllProjektTabell(landId, aktuellSql);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -191,8 +230,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         txthanteraprojekt = new javax.swing.JLabel();
         txtprojektstatistik = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        txtallaprojekt = new javax.swing.JButton();
+        btnMinaProjekt = new javax.swing.JButton();
+        btnAllaProjekt = new javax.swing.JButton();
         filterLand = new javax.swing.JComboBox<>();
         btnandraprojektuppgifter = new javax.swing.JButton();
         btnandrapartner = new javax.swing.JButton();
@@ -203,16 +242,17 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         tblprojekt = new javax.swing.JTable();
         boxprojekt = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txthanteraprojekt.setText("Hantera projekt");
 
         txtprojektstatistik.setText("Projektstatistik");
 
-        jButton1.setText("Mina projekt");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnMinaProjekt.setText("Mina projekt");
+        btnMinaProjekt.addActionListener(this::btnMinaProjektActionPerformed);
 
-        txtallaprojekt.setText("Alla projekt");
+        btnAllaProjekt.setText("Alla projekt");
+        btnAllaProjekt.addActionListener(this::btnAllaProjektActionPerformed);
 
         filterLand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         filterLand.addActionListener(this::filterLandActionPerformed);
@@ -271,9 +311,9 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                     .addComponent(btnandraprojektuppgifter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnandrahandlaggare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnMinaProjekt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtallaprojekt)
+                        .addComponent(btnAllaProjekt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(80, Short.MAX_VALUE))
@@ -301,8 +341,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 .addComponent(txtprojektstatistik)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(txtallaprojekt)
+                    .addComponent(btnMinaProjekt)
+                    .addComponent(btnAllaProjekt)
                     .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblprojektkostnad)
@@ -314,45 +354,38 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
+        this.aktuellSql = minaProjektSql();
+        filterLand(aktuellSql);
+    }//GEN-LAST:event_btnMinaProjektActionPerformed
 
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
-        landNamn = (String) filterLand.getSelectedItem();
-        if (landNamn != null && !landNamn.isEmpty()) {
-            try {
-                HashMap<String, String> landInfo = idb.fetchRow(
-                        "SELECT * FROM land WHERE namn = '" + landNamn + "'"
-                );
-                if (landInfo != null) {
-                    int landId = Integer.parseInt(landInfo.get("lid"));
-                    fyllProjektTabell(landId);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        filterLand(aktuellSql);
     }//GEN-LAST:event_filterLandActionPerformed
 
     private void btnandraprojektuppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandraprojektuppgifterActionPerformed
-        
+
         String valtProjekt = (String) boxprojekt.getSelectedItem();
         if (valtProjekt == null) {
             System.out.println("Kunda ej hitta projekt");
             return;
         }
-        
+
         Integer valtPid = projektMap.get(valtProjekt);
-        
+
         //Projektforandrare pi = new Projektforandrare(idb, inloggadAnvandare, valtPid);
         //pi.setVisible(true);
-                              
+
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
 
     private void boxprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxprojektActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxprojektActionPerformed
+
+    private void btnAllaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjektActionPerformed
+        this.aktuellSql = allaProjektSql();
+        filterLand(aktuellSql);
+    }//GEN-LAST:event_btnAllaProjektActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,16 +414,16 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxprojekt;
+    private javax.swing.JButton btnAllaProjekt;
+    private javax.swing.JButton btnMinaProjekt;
     private javax.swing.JButton btnandrahandlaggare;
     private javax.swing.JButton btnandrapartner;
     private javax.swing.JButton btnandraprojektuppgifter;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> filterLand;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblprojektkostnad;
     private javax.swing.JTable tblprojekt;
-    private javax.swing.JButton txtallaprojekt;
     private javax.swing.JLabel txthanteraprojekt;
     private javax.swing.JLabel txtprojektchef;
     private javax.swing.JLabel txtprojektstatistik;
