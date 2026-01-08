@@ -28,8 +28,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private String landNamn;
     private int pid;
     private int landId;
-    private String aktuellSql;
     private HashMap<String, Integer> projektMap = new HashMap<>();
+    private boolean visarMinaProjekt = true;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektChefTillgang.class.getName());
 
@@ -43,8 +43,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         fyllDropdown();
 
         //Fyll tabellen med statistik
-        this.aktuellSql = minaProjektSql();
-        filterLand(aktuellSql);
+        filterLand();
     }
 
     //Visuell kod för statistik tabellen
@@ -58,6 +57,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 return false;
             }
         };
+
         tblprojekt.setModel(tabellModell);
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
@@ -208,28 +208,33 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }
 
     //Filtrera statistik utefter land och sql
-    private void filterLand(String sqlFraga) {
+    private void filterLand() {
         landNamn = (String) filterLand.getSelectedItem();
-        if (landNamn != null && !landNamn.isEmpty()) {
-            try {
-                HashMap<String, String> landInfo = idb.fetchRow(
-                        "SELECT * FROM land WHERE namn = '" + landNamn + "'"
-                );
-                if (landInfo != null) {
-                    this.landId = Integer.parseInt(landInfo.get("lid"));
-                    fyllProjektTabell(landId, sqlFraga);
 
-                    if (aktuellSql.equals(minaProjektSql())) {
-                        aktuellSql = minaProjektSql();
-                    } else {
-                        aktuellSql = allaProjektSql();
-                    }
+        if (landNamn == null || landNamn.isEmpty()) {
+            return;
+        }
 
-                    fyllProjektTabell(landId, aktuellSql);
+        try {
+            HashMap<String, String> landInfo = idb.fetchRow(
+                    "SELECT lid FROM land WHERE namn = '" + landNamn + "'"
+            );
+
+            if (landInfo != null) {
+                landId = Integer.parseInt(landInfo.get("lid"));
+
+                String sql;
+                if (visarMinaProjekt) {
+                    sql = minaProjektSql();
+                } else {
+                    sql = allaProjektSql();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                fyllProjektTabell(landId, sql);
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -366,17 +371,16 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     //Knapp som fyller tabell med egna projekt
     private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
-        this.aktuellSql = minaProjektSql();
-        filterLand(aktuellSql);
+        visarMinaProjekt = true;
+        filterLand();
     }//GEN-LAST:event_btnMinaProjektActionPerformed
 
     //Filtrerar projekt på land
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
-        filterLand(aktuellSql);
+        filterLand();
     }//GEN-LAST:event_filterLandActionPerformed
 
     private void btnandraprojektuppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandraprojektuppgifterActionPerformed
-
         String valtProjekt = (String) boxprojekt.getSelectedItem();
         if (valtProjekt == null) {
             System.out.println("Kunda ej hitta projekt");
@@ -396,8 +400,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     //Knapp som fyller tabell med alla projekt kopplade till land
     private void btnAllaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjektActionPerformed
-        this.aktuellSql = allaProjektSql();
-        filterLand(aktuellSql);
+        visarMinaProjekt = false;
+        filterLand();
     }//GEN-LAST:event_btnAllaProjektActionPerformed
 
     /**
