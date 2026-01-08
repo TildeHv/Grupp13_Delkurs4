@@ -180,9 +180,10 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private void fyllDropdown() {
         try {
             boxprojekt.removeAllItems();
+            projektMap.clear();
 
             String sqlFraga
-                    = "SELECT p.projektnamn "
+                    = "SELECT p.projektnamn, p.pid "
                     + "FROM projekt p "
                     + "JOIN anstalld an ON p.projektchef = an.aid "
                     + "WHERE an.epost = '" + inloggadAnvandare + "'";
@@ -191,7 +192,9 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
             for (HashMap<String, String> projekt : projektLista) {
                 String projektnamn = projekt.get("projektnamn");
+                Integer pid = Integer.parseInt(projekt.get("pid"));
                 boxprojekt.addItem(projektnamn);
+                projektMap.put(projektnamn, pid);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -373,8 +376,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
         Integer valtPid = projektMap.get(valtProjekt);
 
-        //Projektforandrare pi = new Projektforandrare(idb, inloggadAnvandare, valtPid);
-        //pi.setVisible(true);
+        ProjektInfo projekt = new ProjektInfo(idb, valtPid, inloggadAnvandare);
+        projekt.setVisible(true);
 
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
 
