@@ -68,9 +68,11 @@ public class AvdelningSQL {
 
         try {
             String sql
-                    = "SELECT aid, fornamn, efternamn, epost, telefon " + "FROM anstalld "
-                    + "Where avdelning = " + avdid + " " + "AND (fornamn LIKE '%" + sokterm + "%' "
-                    + "OR efternamn LIKE '%" + sokterm + "%' " + "OR epost LIKE '%" + sokterm + "%');";
+                    = "SELECT an.aid, an.fornamn, an.efternamn, an.epost, an.telefon " + "FROM anstalld an "
+                    + "JOIN handlaggare h ON an.aid = h.aid " + "WHERE an.avdelning = " + avdid + " "
+                    + "AND (an.fornamn LIKE '%" + sokterm + "%' " + "OR an.efternamn LIKE '%" + sokterm + "%' "
+                    + "OR an.epost LIKE '%" + sokterm + "%')";
+
             resultat = idb.fetchRows(sql);
 
         } catch (InfException e) {
@@ -79,16 +81,18 @@ public class AvdelningSQL {
         return resultat;
     }
 
-    public boolean laggTillAvdelning(String namn, String beskrivning,
+    public boolean laggTillAvdelning(int avdid, String namn, String beskrivning,
             String adress, String epost, String telefon,
-            String stad, String chef) {
+            String stad, int chef) {
 
         try {
             String sql
-                    = "INSERT INTO avdelning (namn, beskrivning, adress, epost, telefon, stad, chef)"
-                    + "VALUES ('" + namn + "', '" + beskrivning + "','" + adress + "','" + epost + "','" + telefon + "', '" + stad + "','" + chef + "');";
-            idb.update(sql);
+                    = "INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) "
+                    + "VALUES (" + avdid + ", '" + namn + "', '" + beskrivning + "','" + adress + "','" + epost + "','" + telefon + "', '" + stad + "', " + chef + ");";
+            idb.insert(sql);
+              System.out.println("SQL: " + sql);
             return true;
+          
 
         } catch (InfException e) {
             System.out.println("Skapandet av avdelning misslyckades: " + e.getMessage());
@@ -96,9 +100,14 @@ public class AvdelningSQL {
         return false;
     }
 
+    public int skapaNyttAvdid() throws InfException {
+        String maxId = idb.fetchSingle("SELECT MAX(avdid) FROM avdelning");
+        return (maxId == null || maxId.isEmpty()) ? 1 : Integer.parseInt(maxId) + 1;
+    }
+
     public boolean redigeraAvdelning(int avdid, String namn, String beskrivning,
             String adress, String epost, String telefon,
-            String stad, String chef) {
+            String stad, int chef) {
 
         try {
             String sql
@@ -109,7 +118,7 @@ public class AvdelningSQL {
                     + "epost = '" + epost + "', "
                     + "telefon = '" + telefon + "', "
                     + "stad = '" + stad + "', "
-                    + "chef = '" + chef + "' "
+                    + "chef = " + chef + " "
                     + "WHERE avdid = '" + avdid + "' ";
             idb.update(sql);
             return true;
@@ -119,10 +128,10 @@ public class AvdelningSQL {
         }
         return false;
     }
-    
+
     public ArrayList<HashMap<String, String>> hamtaAllaAvdelningar() throws InfException {
         String sql = "SELECT avdid, namn FROM avdelning ORDER BY avdid";
         return idb.fetchRows(sql);
     }
-    
+
 }
