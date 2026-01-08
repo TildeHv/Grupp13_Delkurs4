@@ -83,7 +83,7 @@ public class AvdelningSQL {
 
     public boolean laggTillAvdelning(int avdid, String namn, String beskrivning,
             String adress, String epost, String telefon,
-            String stad, int chef) {
+            int stad, int chef) {
 
         try {
             String sql
@@ -132,6 +132,17 @@ public class AvdelningSQL {
     public ArrayList<HashMap<String, String>> hamtaAllaAvdelningar() throws InfException {
         String sql = "SELECT avdid, namn FROM avdelning ORDER BY avdid";
         return idb.fetchRows(sql);
+    }
+    
+    public boolean stadKontroll(int stadId) {
+        try {
+            String sql = "SELECT sid FROM stad WHERE sid = " + stadId + ";";
+            String resultat = idb.fetchSingle(sql);
+            return resultat != null; 
+        } catch (Exception e) {
+            System.out.println("Fel vid kontroll av stad: " + e.getMessage());
+            return false;
+        }
     }
 
 }
