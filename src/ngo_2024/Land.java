@@ -8,10 +8,6 @@ import oru.inf.InfDB;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author Tilde
- */
 public class Land extends javax.swing.JFrame {
 
     private InfDB idb;

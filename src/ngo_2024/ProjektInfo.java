@@ -9,10 +9,6 @@ import oru.inf.InfException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author Tilde
- */
 public class ProjektInfo extends javax.swing.JFrame {
 
     private InfDB idb;
