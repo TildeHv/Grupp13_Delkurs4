@@ -345,8 +345,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         
         Integer valtPid = projektMap.get(valtProjekt);
         
-        Projektforandrare pi = new Projektforandrare(idb, inloggadAnvandare, valtPid);
-        pi.setVisible(true);
+        //Projektforandrare pi = new Projektforandrare(idb, inloggadAnvandare, valtPid);
+        //pi.setVisible(true);
                               
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
 
