@@ -7,10 +7,6 @@ package ngo_2024;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
-/**
- *
- * @author Tilde
- */
 public class ProjektInfo extends javax.swing.JFrame {
 
     private InfDB idb;
