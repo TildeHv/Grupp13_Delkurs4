@@ -32,10 +32,12 @@ public class LandUppgifter extends javax.swing.JFrame {
         this.huvudFonster = huvudFonster;
         initComponents();
 
-        jLabel1.setText(valtLandId);
+        //Rubrik för land
+        landRubrik.setText(valtLandId);
         laggTillUppgifter();
     }
 
+    //Få information om ett land
     private void laggTillUppgifter() {
         try {
             HashMap<String, String> landInfo = idb.fetchRow("SELECT * FROM land WHERE lid = '" + valtLandId + "'");
@@ -60,7 +62,7 @@ public class LandUppgifter extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        landRubrik = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSprak = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -71,11 +73,11 @@ public class LandUppgifter extends javax.swing.JFrame {
         txtEkonomi = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPolitiskStruktur = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAndraUppgifter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Landnamn");
+        landRubrik.setText("Landnamn");
 
         jLabel2.setText("Språk");
 
@@ -87,8 +89,8 @@ public class LandUppgifter extends javax.swing.JFrame {
 
         jLabel6.setText("Politisk struktur");
 
-        jButton1.setText("Ändra uppgifter");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnAndraUppgifter.setText("Ändra uppgifter");
+        btnAndraUppgifter.addActionListener(this::btnAndraUppgifterActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,7 +101,7 @@ public class LandUppgifter extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(landRubrik, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -122,14 +124,14 @@ public class LandUppgifter extends javax.swing.JFrame {
                         .addComponent(txtValuta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btnAndraUppgifter)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(landRubrik)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -151,20 +153,23 @@ public class LandUppgifter extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPolitiskStruktur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAndraUppgifter)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    //Knapp för att ändra och uppdatera information om ett land
+    private void btnAndraUppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraUppgifterActionPerformed
+        //Hämta text
         String sprak = txtSprak.getText().trim();
         String valuta = txtValuta.getText().trim();
         String tidszon = txtTidszon.getText().trim();
         String ekonomi = txtEkonomi.getText().trim();
         String politiskStruktur = txtPolitiskStruktur.getText().trim();
 
+        //Uppdatera databasen
         try {
             String sqlFraga = "UPDATE land SET "
                     + "sprak = '" + sprak + "', "
@@ -186,7 +191,7 @@ public class LandUppgifter extends javax.swing.JFrame {
         } catch (InfException e) {
             System.out.println("Fel vid uppdatering av land uppgifter: " + e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAndraUppgifterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,13 +222,13 @@ public class LandUppgifter extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnAndraUppgifter;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel landRubrik;
     private javax.swing.JTextField txtEkonomi;
     private javax.swing.JTextField txtPolitiskStruktur;
     private javax.swing.JTextField txtSprak;
