@@ -50,7 +50,6 @@ public class Inloggning extends javax.swing.JFrame {
 
         txtepost.addActionListener(this::txtepostActionPerformed);
 
-        txtlosenord.setText("passwordabc");
         txtlosenord.addActionListener(this::txtlosenordActionPerformed);
 
         btnlogin.setText("Logga in");
