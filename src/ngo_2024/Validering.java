@@ -26,4 +26,11 @@ public class Validering {
         return datum.matches("\\d{4}-\\d{2}-\\d{2}");
     }
 
+    public static boolean ValideraKostnad(String kostnad) {
+        if (kostnad == null) {
+            return false;
+        }
+        return kostnad.trim().matches("\\d+");
+    }
+
 }
