@@ -23,7 +23,8 @@ public class Projektforandrare extends javax.swing.JFrame {
         this.idb = idb;
         this.pid = pid;
 
-        try { /*F<--- yller alla fält*/
+        try {
+            /*F<--- yller alla fält*/
             ProjektKlass projekt = new ProjektKlass(idb, InloggadAnvandare, pid);
 
             lblbeskrivning.setText(projekt.getBeskrivning());
@@ -199,12 +200,31 @@ public class Projektforandrare extends javax.swing.JFrame {
         String nyttStartdatum = lblstartdatum.getText();
         String nyttSlutdatum = lblslutdatum.getText();
 
-        if (!Validering.ValideraDatum(nyttStartdatum)) { /*<--- Validerar*/
+        boolean harFel = false;
+
+        if (nyttNamn.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Projektnamn får inte vara tomt!",
+                    "Fel",
+                    JOptionPane.ERROR_MESSAGE);
+            harFel = true;
+        }
+
+        if (nyBeskrivning.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Beskrivning får inte vara tomt!",
+                    "Fel",
+                    JOptionPane.ERROR_MESSAGE);
+            harFel = true;
+        }
+
+        if (!Validering.ValideraDatum(nyttStartdatum)) {
+            /*<--- Validerar*/
             JOptionPane.showMessageDialog(this,
                     "Ogiltigt datum! Måste skrivas som ÅÅÅÅ-MM-DD",
                     "Fel",
                     JOptionPane.ERROR_MESSAGE);
-            return;
+            harFel = true;
         }
 
         if (!Validering.ValideraDatum(nyttSlutdatum)) {
@@ -212,6 +232,18 @@ public class Projektforandrare extends javax.swing.JFrame {
                     "Ogiltigt datum! Måste skrivas som ÅÅÅÅ-MM-DD",
                     "Fel",
                     JOptionPane.ERROR_MESSAGE);
+            harFel = true;
+        }
+        
+        if (!Validering.ValideraKostnad(nyKostnad)) {
+            JOptionPane.showMessageDialog(this,
+                    "Kostnad får endast vara positivt och utan mellanrum",
+                    "Fel",
+                    JOptionPane.ERROR_MESSAGE);
+            harFel = true;
+        }
+        
+        if (harFel) {
             return;
         }
 
