@@ -42,9 +42,9 @@
                   <Component id="btnandraprojektuppgifter" max="32767" attributes="0"/>
                   <Component id="btnandrahandlaggare" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMinaProjekt" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtallaprojekt" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAllaProjekt" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="filterLand" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
@@ -78,8 +78,8 @@
               <Component id="txtprojektstatistik" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtallaprojekt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnMinaProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAllaProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="filterLand" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -102,18 +102,21 @@
         <Property name="text" type="java.lang.String" value="Projektstatistik"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnMinaProjekt">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mina projekt"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMinaProjektActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="txtallaprojekt">
+    <Component class="javax.swing.JButton" name="btnAllaProjekt">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alla projekt"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAllaProjektActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="filterLand">
       <Properties>
