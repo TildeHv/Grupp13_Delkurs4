@@ -122,14 +122,16 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
         String epost = txtepost.getText().trim();
         String telefon = txttelefon.getText().trim();
         String adress = txtadress.getText().trim();
-
+        
+        boolean harFel = false;
+                
         if (!Validering.ValideraEpost(epost)) {
             /* <-- Kollar valideringen*/
             JOptionPane.showMessageDialog(this,
                     "Ogiltig E-postadress",
                     "Fel",
                     JOptionPane.ERROR_MESSAGE);
-            return;
+            harFel = true;
         }
 
         if (!Validering.ValideraTelefon(telefon)) {
@@ -137,7 +139,7 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
                     "Ogiltigt Telefonnummer",
                     "Fel",
                     JOptionPane.ERROR_MESSAGE);
-            return;
+            harFel = true;
         }
 
         if (!Validering.ValideraAdress(adress)) {
@@ -145,7 +147,12 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
                     "Ogiltig adress",
                     "Fel",
                     JOptionPane.ERROR_MESSAGE);
+            harFel = true;
+        }
+        
+        if (harFel){
             return;
+            
         }
 
         try {
@@ -163,7 +170,7 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
                     "Uppdatering lyckades!",
                     "Lyckad Uppdatering",
                     JOptionPane.INFORMATION_MESSAGE);
-                    
+
         } catch (InfException e) {
             System.out.println("Fel vid uppdatering: " + e.getMessage());
         }
