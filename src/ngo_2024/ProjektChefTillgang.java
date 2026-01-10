@@ -58,7 +58,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             }
         };
 
-        tblprojekt.setModel(tabellModell);
+        tblMinaProjekt.setModel(tabellModell);
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
             @Override
@@ -86,8 +86,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             }
         };
 
-        for (int i = 0; i < tblprojekt.getColumnCount(); i++) {
-            tblprojekt.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        for (int i = 0; i < tblMinaProjekt.getColumnCount(); i++) {
+            tblMinaProjekt.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
     }
 
@@ -124,7 +124,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     //Fyll statistik tabellen med projekt
     private void fyllProjektTabell(int landId, String sqlFraga) {
         try {
-            DefaultTableModel modell = (DefaultTableModel) tblprojekt.getModel();
+            DefaultTableModel modell = (DefaultTableModel) tblMinaProjekt.getModel();
             modell.setRowCount(0);
 
             ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
@@ -155,7 +155,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 raknaMedelKostnad(landId)
             });
 
-            tblprojekt.putClientProperty("rubrik2Index", rubrik2Index);
+            tblMinaProjekt.putClientProperty("rubrik2Index", rubrik2Index);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -282,6 +282,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    tpStatistik.addChangeListener(e ->)
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -298,9 +300,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         btnandrahandlaggare = new javax.swing.JButton();
         lblprojektkostnad = new javax.swing.JLabel();
         txtprojektchef = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblprojekt = new javax.swing.JTable();
         boxprojekt = new javax.swing.JComboBox<>();
+        tpStatistik = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMinaProjekt = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAllaProjekt = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -329,30 +334,56 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
         txtprojektchef.setText("Inloggad som projektchef");
 
-        tblprojekt.setModel(new javax.swing.table.DefaultTableModel(
+        boxprojekt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxprojekt.addActionListener(this::boxprojektActionPerformed);
+
+        tblMinaProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Projektnamn", "Projektchef", "Kostnad"
+                "Land", "Projektnamn", "Projektchef", "Kostnad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblprojekt);
+        jScrollPane1.setViewportView(tblMinaProjekt);
 
-        boxprojekt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        boxprojekt.addActionListener(this::boxprojektActionPerformed);
+        tpStatistik.addTab("tab1", jScrollPane1);
+
+        tblAllaProjekt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Land", "Projektnamn", "Projektchef", "Kostnad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblAllaProjekt);
+
+        tpStatistik.addTab("tab2", jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -380,7 +411,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 .addContainerGap(80, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -408,7 +439,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblprojektkostnad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
         );
 
@@ -491,8 +522,11 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> filterLand;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblprojektkostnad;
-    private javax.swing.JTable tblprojekt;
+    private javax.swing.JTable tblAllaProjekt;
+    private javax.swing.JTable tblMinaProjekt;
+    private javax.swing.JTabbedPane tpStatistik;
     private javax.swing.JLabel txthanteraprojekt;
     private javax.swing.JLabel txtprojektchef;
     private javax.swing.JLabel txtprojektstatistik;
