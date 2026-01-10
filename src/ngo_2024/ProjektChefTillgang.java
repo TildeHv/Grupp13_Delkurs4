@@ -29,7 +29,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private int pid;
     private int landId;
     private HashMap<String, Integer> projektMap = new HashMap<>();
-    private boolean visarMinaProjekt = true;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektChefTillgang.class.getName());
 
@@ -150,7 +149,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             }
 
             modell.setRowCount(0);
-            
+
             ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
             if (modell != null) {
                 for (HashMap<String, String> projekt : projektLista) {
@@ -324,10 +323,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             int valtIndex = tpStatistik.getSelectedIndex();
             if (valtIndex == 0) {
                 filterLand();
-                visarMinaProjekt = true;
             } else if (valtIndex == 1) {
                 filterLand();
-                visarMinaProjekt = false;
             }
         });
     }
@@ -351,7 +348,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAllaProjekt = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txthanteraprojekt.setText("Hantera projekt");
 
