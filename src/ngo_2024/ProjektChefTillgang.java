@@ -50,7 +50,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private void andraRubrik() {
         DefaultTableModel tabellModell = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Projektnamn", "Projektchef", "Kostnad"}
+                new String[]{"Land", "Projektnamn", "Projektchef", "Kostnad"}
         ) {
             @Override
             public boolean isCellEditable(int rad, int kolumn) {
@@ -106,16 +106,18 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     //Sql som bara visar projekt kopplade till den inloggade projektchefen och valt land
     private String minaProjektSql() {
-        return "SELECT projektnamn, projektchef, kostnad "
+        return "SELECT land.namn, projektnamn, projektchef, kostnad "
                 + "FROM projekt "
+                + "JOIN land ON projekt.land = land.lid "
                 + "WHERE land = " + landId + " "
                 + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
     }
 
     //Sql som visar alla projekt kopplade till valt land
     private String allaProjektSql() {
-        return "SELECT projektnamn, projektchef, kostnad "
+        return "SELECT land.namn, projektnamn, projektchef, kostnad "
                 + "FROM projekt "
+                + "JOIN land ON projekt.land = land.lid "
                 + "WHERE land = " + landId;
     }
 
@@ -129,6 +131,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
             for (HashMap<String, String> projekt : projektLista) {
                 modell.addRow(new Object[]{
+                    projekt.get("land"),
                     projekt.get("projektnamn"),
                     projekt.get("projektchef"),
                     projekt.get("kostnad"),});
@@ -141,13 +144,15 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             modell.addRow(new Object[]{
                 "Land",
                 "Totala projekt",
-                "Total kostnad"
+                "Total kostnad",
+                "Medel kostnad"
             });
 
             modell.addRow(new Object[]{
                 landNamn,
                 raknaProjekt(landId),
-                raknaTotalKostnad(landId)
+                raknaTotalKostnad(landId),
+                raknaMedelKostnad(landId)
             });
 
             tblprojekt.putClientProperty("rubrik2Index", rubrik2Index);
@@ -160,7 +165,13 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     //Räkna ihop projekt för valt land
     private int raknaProjekt(int landId) {
         try {
-            String sql = "SELECT COUNT(*) AS antal FROM projekt WHERE land = " + landId;
+            String sql;
+            if (visarMinaProjekt) {
+                sql = "SELECT COUNT(*) AS antal FROM projekt WHERE land = " + landId + " "
+                        + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
+            } else {
+                sql = "SELECT COUNT(*) AS antal FROM projekt WHERE land = " + landId;
+            }
             HashMap<String, String> rad = idb.fetchRow(sql);
             if (rad != null && rad.get("antal") != null) {
                 return Integer.parseInt(rad.get("antal"));
@@ -174,10 +185,41 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     //Räkna ihop totala kostanden för valt land
     private double raknaTotalKostnad(int landId) {
         try {
-            String sql = "SELECT SUM(kostnad) AS total FROM projekt WHERE land = " + landId;
+            String sql;
+            if (visarMinaProjekt) {
+                sql = "SELECT SUM(kostnad) AS total FROM projekt WHERE land = " + landId + " "
+                        + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
+            } else {
+                sql = "SELECT SUM(kostnad) AS total FROM projekt WHERE land = " + landId;
+            }
             HashMap<String, String> rad = idb.fetchRow(sql);
+
             if (rad != null && rad.get("total") != null) {
                 return Double.parseDouble(rad.get("total"));
+            }
+        } catch (InfException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private double raknaMedelKostnad(int landId) {
+        try {
+            String sql;
+            if (visarMinaProjekt) {
+                sql = "SELECT SUM(kostnad) AS total, COUNT(*) AS antal FROM projekt WHERE land = " + landId + " "
+                        + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
+            } else {
+                sql = "SELECT SUM(kostnad) AS total, COUNT(*) AS antal FROM projekt WHERE land = " + landId;
+            }
+            HashMap<String, String> rad = idb.fetchRow(sql);
+
+            if (rad != null && rad.get("total") != null && rad.get("antal") != null) {
+                double kostnad = Double.parseDouble(rad.get("total"));
+                int antal = Integer.parseInt(rad.get("antal"));
+
+                double medelKostnad = kostnad / antal;
+                return medelKostnad;
             }
         } catch (InfException e) {
             e.printStackTrace();
@@ -260,7 +302,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         tblprojekt = new javax.swing.JTable();
         boxprojekt = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txthanteraprojekt.setText("Hantera projekt");
 
@@ -281,7 +323,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         btnandrapartner.setText("Lägg till/Ta bort partners");
 
         btnandrahandlaggare.setText("Lägg till/Ta bort handläggare");
-        btnandrahandlaggare.addActionListener(this::btnandrahandlaggareActionPerformed);
 
         lblprojektkostnad.setText("Kostnader för projekt");
 
