@@ -153,6 +153,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="L&#xe4;gg till/Ta bort handl&#xe4;ggare"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnandrahandlaggareActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblprojektkostnad">
       <Properties>
