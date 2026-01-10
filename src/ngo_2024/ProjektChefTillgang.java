@@ -38,6 +38,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;
 
+        addChangeListener();
         andraRubrik();
         getLandNamn();
         fyllDropdown();
@@ -48,17 +49,25 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     //Visuell kod för statistik tabellen
     private void andraRubrik() {
-        DefaultTableModel tabellModell = new DefaultTableModel(
+        tblMinaProjekt.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Land", "Projektnamn", "Projektchef", "Kostnad"}
         ) {
             @Override
-            public boolean isCellEditable(int rad, int kolumn) {
+            public boolean isCellEditable(int row, int col) {
                 return false;
             }
-        };
+        });
 
-        tblMinaProjekt.setModel(tabellModell);
+        tblAllaProjekt.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Land", "Projektnamn", "Projektchef", "Kostnad"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        });
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
             @Override
@@ -89,6 +98,13 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         for (int i = 0; i < tblMinaProjekt.getColumnCount(); i++) {
             tblMinaProjekt.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
+
+        for (int i = 0; i < tblAllaProjekt.getColumnCount(); i++) {
+            tblAllaProjekt.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        tpStatistik.setTitleAt(0, "Mina Projekt");
+        tpStatistik.setTitleAt(1, "Alla Projekt");
     }
 
     //Hämta och lägg in namn på länder för filter
@@ -124,22 +140,29 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     //Fyll statistik tabellen med projekt
     private void fyllProjektTabell(int landId, String sqlFraga) {
         try {
-            DefaultTableModel modell = (DefaultTableModel) tblMinaProjekt.getModel();
-            modell.setRowCount(0);
+            int valtIndex = tpStatistik.getSelectedIndex();
+            DefaultTableModel modell = null;
 
-            ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
-
-            for (HashMap<String, String> projekt : projektLista) {
-                modell.addRow(new Object[]{
-                    projekt.get("land"),
-                    projekt.get("projektnamn"),
-                    projekt.get("projektchef"),
-                    projekt.get("kostnad"),});
+            if (valtIndex == 0) {
+                modell = (DefaultTableModel) tblMinaProjekt.getModel();
+            } else if (valtIndex == 1) {
+                modell = (DefaultTableModel) tblAllaProjekt.getModel();
             }
 
-            modell.addRow(new Object[]{"", "", ""});
+            modell.setRowCount(0);
+            
+            ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
+            if (modell != null) {
+                for (HashMap<String, String> projekt : projektLista) {
+                    modell.addRow(new Object[]{
+                        projekt.get("namn"),
+                        projekt.get("projektnamn"),
+                        projekt.get("projektchef"),
+                        projekt.get("kostnad"),});
+                }
+            }
 
-            int rubrik2Index = modell.getRowCount();
+            modell.addRow(new Object[]{"", "", "", ""});
 
             modell.addRow(new Object[]{
                 "Land",
@@ -155,7 +178,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 raknaMedelKostnad(landId)
             });
 
-            tblMinaProjekt.putClientProperty("rubrik2Index", rubrik2Index);
+            int rubrik2Index = modell.getRowCount() - 2;
+            if (valtIndex == 0) {
+                tblMinaProjekt.putClientProperty("rubrik2Index", rubrik2Index);
+            } else if (valtIndex == 1) {
+                tblAllaProjekt.putClientProperty("rubrik2Index", rubrik2Index);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -165,11 +193,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     //Räkna ihop projekt för valt land
     private int raknaProjekt(int landId) {
         try {
-            String sql;
-            if (visarMinaProjekt) {
+            String sql = null;
+            int valtIndex = tpStatistik.getSelectedIndex();
+            if (valtIndex == 0) {
                 sql = "SELECT COUNT(*) AS antal FROM projekt WHERE land = " + landId + " "
                         + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
-            } else {
+            } else if (valtIndex == 1) {
                 sql = "SELECT COUNT(*) AS antal FROM projekt WHERE land = " + landId;
             }
             HashMap<String, String> rad = idb.fetchRow(sql);
@@ -185,11 +214,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     //Räkna ihop totala kostanden för valt land
     private double raknaTotalKostnad(int landId) {
         try {
-            String sql;
-            if (visarMinaProjekt) {
+            String sql = null;
+            int valtIndex = tpStatistik.getSelectedIndex();
+            if (valtIndex == 0) {
                 sql = "SELECT SUM(kostnad) AS total FROM projekt WHERE land = " + landId + " "
                         + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
-            } else {
+            } else if (valtIndex == 1) {
                 sql = "SELECT SUM(kostnad) AS total FROM projekt WHERE land = " + landId;
             }
             HashMap<String, String> rad = idb.fetchRow(sql);
@@ -205,11 +235,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     private double raknaMedelKostnad(int landId) {
         try {
-            String sql;
-            if (visarMinaProjekt) {
+            String sql = null;
+            int valtIndex = tpStatistik.getSelectedIndex();
+            if (valtIndex == 0) {
                 sql = "SELECT SUM(kostnad) AS total, COUNT(*) AS antal FROM projekt WHERE land = " + landId + " "
                         + "AND projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "')";
-            } else {
+            } else if (valtIndex == 1) {
                 sql = "SELECT SUM(kostnad) AS total, COUNT(*) AS antal FROM projekt WHERE land = " + landId;
             }
             HashMap<String, String> rad = idb.fetchRow(sql);
@@ -218,8 +249,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 double kostnad = Double.parseDouble(rad.get("total"));
                 int antal = Integer.parseInt(rad.get("antal"));
 
-                double medelKostnad = kostnad / antal;
-                return medelKostnad;
+                if (antal == 0) {
+                    return 0;
+                } else {
+                    double medelKostnad = kostnad / antal;
+                    return medelKostnad;
+                }
             }
         } catch (InfException e) {
             e.printStackTrace();
@@ -268,10 +303,11 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             if (landInfo != null) {
                 landId = Integer.parseInt(landInfo.get("lid"));
 
-                String sql;
-                if (visarMinaProjekt) {
+                int valtIndex = tpStatistik.getSelectedIndex();
+                String sql = null;
+                if (valtIndex == 0) {
                     sql = minaProjektSql();
-                } else {
+                } else if (valtIndex == 1) {
                     sql = allaProjektSql();
                 }
 
@@ -282,8 +318,19 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
-    tpStatistik.addChangeListener(e ->)
+
+    private void addChangeListener() {
+        tpStatistik.addChangeListener(e -> {
+            int valtIndex = tpStatistik.getSelectedIndex();
+            if (valtIndex == 0) {
+                filterLand();
+                visarMinaProjekt = true;
+            } else if (valtIndex == 1) {
+                filterLand();
+                visarMinaProjekt = false;
+            }
+        });
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -292,13 +339,10 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         txthanteraprojekt = new javax.swing.JLabel();
         txtprojektstatistik = new javax.swing.JLabel();
-        btnMinaProjekt = new javax.swing.JButton();
-        btnAllaProjekt = new javax.swing.JButton();
         filterLand = new javax.swing.JComboBox<>();
         btnandraprojektuppgifter = new javax.swing.JButton();
         btnandrapartner = new javax.swing.JButton();
         btnandrahandlaggare = new javax.swing.JButton();
-        lblprojektkostnad = new javax.swing.JLabel();
         txtprojektchef = new javax.swing.JLabel();
         boxprojekt = new javax.swing.JComboBox<>();
         tpStatistik = new javax.swing.JTabbedPane();
@@ -313,12 +357,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
         txtprojektstatistik.setText("Projektstatistik");
 
-        btnMinaProjekt.setText("Mina projekt");
-        btnMinaProjekt.addActionListener(this::btnMinaProjektActionPerformed);
-
-        btnAllaProjekt.setText("Alla projekt");
-        btnAllaProjekt.addActionListener(this::btnAllaProjektActionPerformed);
-
         filterLand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         filterLand.addActionListener(this::filterLandActionPerformed);
 
@@ -330,12 +368,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         btnandrahandlaggare.setText("Lägg till/Ta bort handläggare");
         btnandrahandlaggare.addActionListener(this::btnandrahandlaggareActionPerformed);
 
-        lblprojektkostnad.setText("Kostnader för projekt");
-
         txtprojektchef.setText("Inloggad som projektchef");
 
         boxprojekt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         boxprojekt.addActionListener(this::boxprojektActionPerformed);
+
+        tpStatistik.setName(""); // NOI18N
 
         tblMinaProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -390,28 +428,28 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txthanteraprojekt)
-                        .addGap(18, 18, 18)
-                        .addComponent(boxprojekt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtprojektchef)
-                    .addComponent(lblprojektkostnad)
-                    .addComponent(btnandrapartner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtprojektstatistik)
-                    .addComponent(btnandraprojektuppgifter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnandrahandlaggare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txthanteraprojekt)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(boxprojekt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtprojektchef)
+                                    .addComponent(btnandrapartner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnandraprojektuppgifter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnandrahandlaggare, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtprojektstatistik)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnMinaProjekt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAllaProjekt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -430,27 +468,16 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addComponent(btnandrahandlaggare)
                 .addGap(18, 18, 18)
-                .addComponent(txtprojektstatistik)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMinaProjekt)
-                    .addComponent(btnAllaProjekt)
+                    .addComponent(txtprojektstatistik)
                     .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lblprojektkostnad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+                .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    //Knapp som fyller tabell med egna projekt
-    private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
-        visarMinaProjekt = true;
-        filterLand();
-    }//GEN-LAST:event_btnMinaProjektActionPerformed
 
     //Filtrerar projekt på land
     private void filterLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterLandActionPerformed
@@ -475,12 +502,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private void boxprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxprojektActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxprojektActionPerformed
-
-    //Knapp som fyller tabell med alla projekt kopplade till land
-    private void btnAllaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjektActionPerformed
-        visarMinaProjekt = false;
-        filterLand();
-    }//GEN-LAST:event_btnAllaProjektActionPerformed
 
     private void btnandrahandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrahandlaggareActionPerformed
         HandlaggareFlik hf = new HandlaggareFlik(idb, inloggadAnvandare);
@@ -514,8 +535,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxprojekt;
-    private javax.swing.JButton btnAllaProjekt;
-    private javax.swing.JButton btnMinaProjekt;
     private javax.swing.JButton btnandrahandlaggare;
     private javax.swing.JButton btnandrapartner;
     private javax.swing.JButton btnandraprojektuppgifter;
@@ -523,7 +542,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> filterLand;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblprojektkostnad;
     private javax.swing.JTable tblAllaProjekt;
     private javax.swing.JTable tblMinaProjekt;
     private javax.swing.JTabbedPane tpStatistik;
