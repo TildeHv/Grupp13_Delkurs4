@@ -28,8 +28,8 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         lblanvandarnamn.setText(anv.getFullNamn());
         lbltelefon.setText(anv.getTelefon());
         lblepost.setText(anv.getEpost());
-        lblavdelning.setText(anv.getAvdelning());
-        lblaid.setText(anv.getAid());
+        lblavdelning.setText("Avdelning: " + anv.getAvdelning());
+        lblaid.setText("AID: " + anv.getAid());
         lbladress.setText(anv.getAdress());
         lblanstallningsdatum.setText(anv.getAnstallningsdatum());
     }
@@ -46,6 +46,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         lblanstallningsdatum = new javax.swing.JLabel();
         lblavdelning = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnTillbaka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,25 +67,31 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         jButton1.setText("Ändra uppgifter");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
+        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblanvandarnamn)
-                    .addComponent(lblavdelning)
-                    .addComponent(lblanstallningsdatum)
-                    .addComponent(lblaid)
-                    .addComponent(lbltelefon)
-                    .addComponent(lblepost)
-                    .addComponent(lbladress))
-                .addGap(170, 170, 170))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblanvandarnamn)
+                            .addComponent(lblanstallningsdatum)
+                            .addComponent(lblepost)
+                            .addComponent(lbladress)
+                            .addComponent(lbltelefon)
+                            .addComponent(lblaid)
+                            .addComponent(lblavdelning))
+                        .addGap(170, 170, 170))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,9 +110,11 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
                 .addComponent(lblanstallningsdatum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblavdelning)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTillbaka)
+                    .addComponent(jButton1))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -115,6 +124,11 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         Uppgiftsforandrare uppgifter = new Uppgiftsforandrare(idb, inloggadAnvandare);
         uppgifter.setVisible(true); //Öppnar en ny uppgiftsförändrare baserat på den inloggade användaren
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        // tillbakaknapp
+        dispose();
+    }//GEN-LAST:event_btnTillbakaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,6 +157,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTillbaka;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbladress;
     private javax.swing.JLabel lblaid;

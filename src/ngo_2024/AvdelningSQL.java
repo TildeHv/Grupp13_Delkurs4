@@ -13,21 +13,18 @@ import java.util.HashMap;
  * den här klassen hanterar SQL frågor relaterade till avdelning(ar). 
  */
 public class AvdelningSQL {
-
     //fält
     private InfDB idb;
 
     public AvdelningSQL(InfDB idb) {
         this.idb = idb;
     }
-
     public Avdelning hamtaAvdelningMedId(int avdid) {
-
         try {
-            String sql
+            String sqlFraga
                     = "SELECT * FROM avdelning WHERE avdid = " + avdid + ";";
 
-            HashMap<String, String> rad = idb.fetchRow(sql);
+            HashMap<String, String> rad = idb.fetchRow(sqlFraga);
 
             if (rad != null) {
                 return new Avdelning(
@@ -51,11 +48,11 @@ public class AvdelningSQL {
         ArrayList<HashMap<String, String>> resultat = new ArrayList<>();
 
         try {
-            String sql
+            String sqlFraga
                     = "SELECT aid, fornamn, efternamn, epost, telefon "
                     + "FROM anstalld WHERE avdelning = " + avdid + ";";
 
-            resultat = idb.fetchRows(sql);
+            resultat = idb.fetchRows(sqlFraga);
         } catch (InfException e) {
             System.out.println("Hämtning av personal misslyckades: " + e.getMessage());
         }
@@ -66,14 +63,13 @@ public class AvdelningSQL {
         ArrayList<HashMap<String, String>> resultat = new ArrayList<>();
 
         try {
-            String sql
+            String sqlFraga
                     = "SELECT an.aid, an.fornamn, an.efternamn, an.epost, an.telefon " + "FROM anstalld an "
                     + "JOIN handlaggare h ON an.aid = h.aid " + "WHERE an.avdelning = " + avdid + " "
                     + "AND (an.fornamn LIKE '%" + sokterm + "%' " + "OR an.efternamn LIKE '%" + sokterm + "%' "
                     + "OR an.epost LIKE '%" + sokterm + "%')";
 
-            resultat = idb.fetchRows(sql);
-
+            resultat = idb.fetchRows(sqlFraga);
         } catch (InfException e) {
             System.out.println("Sökning av handläggare misslyckades: " + e.getMessage());
         }
@@ -85,14 +81,12 @@ public class AvdelningSQL {
             int stad, int chef) {
 
         try {
-            String sql
+            String sqlFraga
                     = "INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) "
                     + "VALUES (" + avdid + ", '" + namn + "', '" + beskrivning + "','" + adress + "','" + epost + "','" + telefon + "', '" + stad + "', " + chef + ");";
-            idb.insert(sql);
-              System.out.println("SQL: " + sql);
+            idb.insert(sqlFraga);
+              System.out.println("SQL: " + sqlFraga);
             return true;
-          
-
         } catch (InfException e) {
             System.out.println("Skapandet av avdelning misslyckades: " + e.getMessage());
         }
@@ -104,11 +98,9 @@ public class AvdelningSQL {
         return (maxId == null || maxId.isEmpty()) ? 1 : Integer.parseInt(maxId) + 1;
     }
 
-    public boolean redigeraAvdelning(int avdid, String namn, String beskrivning,
-            String adress, String epost, String telefon, int stad, int chef) {
-
+    public boolean redigeraAvdelning(int avdid, String namn, String beskrivning, String adress, String epost, String telefon, int stad, int chef) {
         try {
-            String sql
+            String sqlFraga
                     = "UPDATE avdelning SET "
                     + "namn = '" + namn + "', "
                     + "beskrivning = '" + beskrivning + "', "
@@ -117,10 +109,9 @@ public class AvdelningSQL {
                     + "telefon = '" + telefon + "', "
                     + "stad = " + stad + ", "
                     + "chef = " + chef + " "
-                    + "WHERE avdid = '" + avdid + "' ";
-            idb.update(sql);
+                    + "WHERE avdid = " + avdid + ";";
+            idb.update(sqlFraga);
             return true;
-
         } catch (InfException e) {
             System.out.println("Redigering av avdelning misslyckades: " + e.getMessage());
         }
@@ -128,19 +119,19 @@ public class AvdelningSQL {
     }
 
     public ArrayList<HashMap<String, String>> hamtaAllaAvdelningar() throws InfException {
-        String sql = "SELECT avdid, namn FROM avdelning ORDER BY avdid";
-        return idb.fetchRows(sql);
+        String sqlFraga = "SELECT avdid, namn FROM avdelning ORDER BY avdid";
+        return idb.fetchRows(sqlFraga);
     }
     
-    public boolean stadKontroll(int stadId) {
-        try {
-            String sql = "SELECT sid FROM stad WHERE sid = " + stadId + ";";
-            String resultat = idb.fetchSingle(sql);
-            return resultat != null; 
-        } catch (Exception e) {
-            System.out.println("Fel vid kontroll av stad: " + e.getMessage());
-            return false;
-        }
+    public ArrayList<HashMap<String, String>> hamtaAllaHandlaggare() throws InfException {
+        String sqlFraga = "SELECT aid, fornamn, efternamn FROM anstalld " + "WHERE aid IN (SELECT aid FROM handlaggare)";     
+        return idb.fetchRows(sqlFraga);
     }
-
+    
+    public ArrayList<HashMap<String, String>> hamtaAllaStader() throws InfException {
+        String sqlFraga = "SELECT sid, namn, land FROM stad ORDER BY namn;";
+        return idb.fetchRows(sqlFraga);
+    }
 }
+    
+  

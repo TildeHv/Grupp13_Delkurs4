@@ -5,16 +5,15 @@
 package ngo_2024;
 
 import oru.inf.InfDB;
-import oru.inf.InfException;
 import javax.swing.JOptionPane;
 
 /**
  * den här klassen låter administratörer lägga till nya avdelningar i databasen.
  */
 public class LaggTillAvdelning extends javax.swing.JFrame {
-
     private InfDB idb;
     private int avdid;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LaggTillAvdelning.class.getName());
 
     /**
@@ -23,8 +22,48 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
     public LaggTillAvdelning(InfDB idb) {
         this.idb = idb;
         initComponents();
+        dropDownChef.removeAllItems();
+        dropDownChef.addItem("Välj chef...");
+        dropDownStad.removeAllItems();
+        dropDownStad.addItem("Välj stad...");
+        fyllChefDropDown();
+        fyllStadDropDown();
     }
 
+    private void fyllChefDropDown() { 
+      try { 
+          AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+          var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
+          
+          System.out.println("Antal handläggare: " + handlaggare.size());
+
+          for (var h : handlaggare) {
+              String item = h.get("aid") + " - " + h.get("fornamn") + " " + h.get("efternamn");
+              dropDownChef.addItem(item);
+          }
+          for (int i = 0; i < dropDownChef.getItemCount(); i++) {
+              String item = dropDownChef.getItemAt(i); 
+          }
+      } catch (Exception e) {
+          JOptionPane.showMessageDialog(this, "Kunde inte visa chefer: " + e.getMessage());
+      }
+    }
+    
+    private void fyllStadDropDown() {
+        try {
+           AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+           var stader = avdelningSQL.hamtaAllaStader();
+           
+           for (var stad : stader) {
+               String item = stad.get ("sid") + " - " + stad.get("namn");
+               dropDownStad.addItem(item);
+           }
+           for (int i = 0; i < dropDownStad.getItemCount(); i++) {
+       }
+       } catch (Exception e) {
+           System.out.println("Kunde inte visa städer: " + e.getMessage());
+       }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,12 +84,12 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
         lblAvdBeskrivning = new javax.swing.JLabel();
         txtAvdNamn = new javax.swing.JTextField();
         txtAvdAdress = new javax.swing.JTextField();
-        txtAvdStad = new javax.swing.JTextField();
         txtAvdEpost = new javax.swing.JTextField();
         txtAvdTelefon = new javax.swing.JTextField();
-        txtAvdChef = new javax.swing.JTextField();
         txtAvdBeskrivning = new javax.swing.JTextField();
         btnSpara = new javax.swing.JButton();
+        dropDownChef = new javax.swing.JComboBox<>();
+        dropDownStad = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,26 +121,26 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblAvdNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNyAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNyAvdelning, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTillbaka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtAvdNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtAvdNamn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addComponent(txtAvdAdress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addComponent(txtAvdEpost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addComponent(txtAvdTelefon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addComponent(txtAvdBeskrivning, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addComponent(dropDownChef, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dropDownStad, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnSpara, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
@@ -121,7 +160,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdStad)
-                    .addComponent(txtAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dropDownStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdEpost)
@@ -133,7 +172,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdChef)
-                    .addComponent(txtAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dropDownChef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdBeskrivning)
@@ -158,10 +197,12 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
         try {
             String namn = txtAvdNamn.getText();
             String adress = txtAvdAdress.getText();
-            int stad = Integer.parseInt(txtAvdStad.getText());
+            String valdStad = (String) dropDownStad.getSelectedItem();
+            int stad = Integer.parseInt(valdStad.split(" - ")[0]);
             String epost = txtAvdEpost.getText();
             String telefon = txtAvdTelefon.getText();
-            int chef = Integer.parseInt(txtAvdChef.getText());
+            String valdChef = (String) dropDownChef.getSelectedItem();
+            int chef = Integer.parseInt(valdChef.split(" - ")[0]);
             String beskrivning = txtAvdBeskrivning.getText();
 
             if (!Validering.ValideraNamn(namn)) {
@@ -181,22 +222,17 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
                 return;
             }
 
-            AvdelningSQL avdSQL = new AvdelningSQL(idb); // kontrollerar att användare inte anger en stad som inte finns i databasen. 
-            if (!avdSQL.stadKontroll(stad)) {
-                JOptionPane.showMessageDialog(null, "stad " + stad + " finns inte i databasen. Tillåtna värden är 1-6.");
-                return;
-            }
-            int nyttAvdid = avdSQL.skapaNyttAvdid();
+           AvdelningSQL avdelningSQL = new AvdelningSQL(idb); 
+            int nyttAvdid = avdelningSQL.skapaNyttAvdid();
             System.out.println("Nytt avdid: " + nyttAvdid);
 
-            avdSQL.laggTillAvdelning(nyttAvdid, namn, beskrivning, adress, epost, telefon, stad, chef);
+            avdelningSQL.laggTillAvdelning(nyttAvdid, namn, beskrivning, adress, epost, telefon, stad, chef);
 
             JOptionPane.showMessageDialog(this, "Ny avdelning med namn " + namn + " har skapats.");
             dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Fel vid skapandet av ny avdelning: " + e.getMessage());
         }
-
     }//GEN-LAST:event_btnSparaActionPerformed
 
     /**
@@ -227,6 +263,8 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSpara;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> dropDownChef;
+    private javax.swing.JComboBox<String> dropDownStad;
     private javax.swing.JLabel lblAvdAdress;
     private javax.swing.JLabel lblAvdBeskrivning;
     private javax.swing.JLabel lblAvdChef;
@@ -237,10 +275,8 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
     private javax.swing.JLabel lblNyAvdelning;
     private javax.swing.JTextField txtAvdAdress;
     private javax.swing.JTextField txtAvdBeskrivning;
-    private javax.swing.JTextField txtAvdChef;
     private javax.swing.JTextField txtAvdEpost;
     private javax.swing.JTextField txtAvdNamn;
-    private javax.swing.JTextField txtAvdStad;
     private javax.swing.JTextField txtAvdTelefon;
     // End of variables declaration//GEN-END:variables
 }
