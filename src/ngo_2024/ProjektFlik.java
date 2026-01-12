@@ -13,17 +13,15 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.*;
 
 public class ProjektFlik extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
-    private String projektnamn;
     private int projektId;
-    private ArrayList<String> projektLista = new ArrayList<>();
     private String aktuellSql;
-    private int aktuellPid;
-
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
     public ProjektFlik(InfDB idb, String inloggadAnvandare) {
@@ -42,21 +40,24 @@ public class ProjektFlik extends javax.swing.JFrame {
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
 
-        this.aktuellSql = getAnstalldSql();
+        aktuellSql = getAnstalldSql();
         filtreraDatum();
-        addTabellLyssnare();
+        addTabellLyssnare(tabellMinaProjekt);
+        addTabellLyssnare(tabellAllaProjekt);
+        addChangeListener();
     }
 
     //Skapar tabell för projekten
     private void skapaProjektTabell() {
-        projektTabell.setModel(new DefaultTableModel(
+        tabellMinaProjekt.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"pid", "Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
         ));
 
-        projektTabell.getColumnModel().getColumn(0).setMinWidth(0);
-        projektTabell.getColumnModel().getColumn(0).setMaxWidth(0);
-        projektTabell.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tabellAllaProjekt.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"pid", "Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
+        ));
 
         Calendar cal = Calendar.getInstance();
         Date idag = cal.getTime();
@@ -78,6 +79,9 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         startDatumSpinner.addChangeListener(e -> filtreraDatum());
         slutDatumSpinner.addChangeListener(e -> filtreraDatum());
+
+        tpProjekt.setTitleAt(0, "Mina Projekt");
+        tpProjekt.setTitleAt(1, "Alla Projekt");
     }
 
     //Sql som visar projekt kopplade till den inloggade anställda
@@ -100,13 +104,20 @@ public class ProjektFlik extends javax.swing.JFrame {
                 + "WHERE (anstalld.avdelning = (SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "') "
                 + "OR projekt.projektchef IN (SELECT aid FROM anstalld "
                 + "WHERE avdelning = (SELECT avdelning FROM anstalld "
-                +"WHERE epost = '" + inloggadAnvandare + "')))";
+                + "WHERE epost = '" + inloggadAnvandare + "')))";
     }
 
     //Hämta och lägg in projektinformation i tabellen
     public void getProjektInfo(String sqlFraga) {
         try {
-            DefaultTableModel modell = (DefaultTableModel) projektTabell.getModel();
+            int valtIndex = tpProjekt.getSelectedIndex();
+            DefaultTableModel modell = null;
+
+            if (valtIndex == 0) {
+                modell = (DefaultTableModel) tabellMinaProjekt.getModel();
+            } else if (valtIndex == 1) {
+                modell = (DefaultTableModel) tabellAllaProjekt.getModel();
+            }
             modell.setRowCount(0);
 
             ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(sqlFraga);
@@ -126,24 +137,32 @@ public class ProjektFlik extends javax.swing.JFrame {
         }
     }
 
-    //Öppna specifikt projekt
-    private void openProjektInfo(String projektnamn) {
-        ProjektInfo projektInfo = new ProjektInfo(idb, projektId, inloggadAnvandare);
-        projektInfo.setVisible(true);
-    }
-
     //Lägg till tabell lyssnare
-    private void addTabellLyssnare() {
-        projektTabell.getSelectionModel().addListSelectionListener(e -> {
+    private void addTabellLyssnare(JTable table) {
+        table.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                int rad = projektTabell.getSelectedRow();
+                int rad = table.getSelectedRow();
                 if (rad >= 0) {
                     projektId = Integer.parseInt(
-                            projektTabell.getValueAt(rad, 0).toString()
+                            table.getValueAt(rad, 0).toString()
                     );
                     projInfoKnapp.setEnabled(true);
                 }
             }
+        });
+    }
+
+    private void addChangeListener() {
+        tpProjekt.addChangeListener(e -> {
+            int valtIndex = tpProjekt.getSelectedIndex();
+
+            if (valtIndex == 0) {
+                aktuellSql = getAnstalldSql();
+            } else if (valtIndex == 1) {
+                aktuellSql = getAvdelningsProjektSql();
+            }
+
+            filtreraDatum();
         });
     }
 
@@ -179,22 +198,33 @@ public class ProjektFlik extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        projektTabell = new javax.swing.JTable();
-        MinaProjKnapp = new javax.swing.JButton();
         filterBox = new javax.swing.JComboBox<>();
-        AvdProjKnapp = new javax.swing.JButton();
         projInfoKnapp = new javax.swing.JButton();
         startDatumSpinner = new javax.swing.JSpinner();
         slutDatumSpinner = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        tpProjekt = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabellMinaProjekt = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabellAllaProjekt = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("PROJEKT");
 
-        projektTabell.setModel(new javax.swing.table.DefaultTableModel(
+        filterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        filterBox.addActionListener(this::filterBoxActionPerformed);
+
+        projInfoKnapp.setText("Öppna");
+        projInfoKnapp.addActionListener(this::projInfoKnappActionPerformed);
+
+        jLabel2.setText("Startdatum");
+
+        jLabel3.setText("Slutdatum");
+
+        tabellMinaProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -205,23 +235,24 @@ public class ProjektFlik extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(projektTabell);
+        jScrollPane1.setViewportView(tabellMinaProjekt);
 
-        MinaProjKnapp.setText("Mina projekt");
-        MinaProjKnapp.addActionListener(this::MinaProjKnappActionPerformed);
+        tpProjekt.addTab("tab1", jScrollPane1);
 
-        filterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        filterBox.addActionListener(this::filterBoxActionPerformed);
+        tabellAllaProjekt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabellAllaProjekt);
 
-        AvdProjKnapp.setText("Avdelningens projekt");
-        AvdProjKnapp.addActionListener(this::AvdProjKnappActionPerformed);
-
-        projInfoKnapp.setText("Öppna");
-        projInfoKnapp.addActionListener(this::projInfoKnappActionPerformed);
-
-        jLabel2.setText("Startdatum");
-
-        jLabel3.setText("Slutdatum");
+        tpProjekt.addTab("tab2", jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,6 +261,7 @@ public class ProjektFlik extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tpProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(34, 34, 34)
@@ -245,12 +277,9 @@ public class ProjektFlik extends javax.swing.JFrame {
                                 .addComponent(slutDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                                 .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(MinaProjKnapp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(AvdProjKnapp)))
+                        .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -268,13 +297,9 @@ public class ProjektFlik extends javax.swing.JFrame {
                             .addComponent(startDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(slutDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MinaProjKnapp)
-                    .addComponent(AvdProjKnapp))
+                .addGap(18, 18, 18)
+                .addComponent(tpProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(projInfoKnapp)
                 .addContainerGap())
         );
@@ -282,22 +307,10 @@ public class ProjektFlik extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Knapp som visar den inloggades projekt
-    private void MinaProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinaProjKnappActionPerformed
-        aktuellSql = getAnstalldSql();
-        filtreraDatum();
-    }//GEN-LAST:event_MinaProjKnappActionPerformed
-
     //kod för filter av status
     private void filterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBoxActionPerformed
         filtreraDatum();
     }//GEN-LAST:event_filterBoxActionPerformed
-
-    //Knapp som visar avdelningens projekt
-    private void AvdProjKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvdProjKnappActionPerformed
-        aktuellSql = getAvdelningsProjektSql();
-        filtreraDatum();
-    }//GEN-LAST:event_AvdProjKnappActionPerformed
 
     //Knapp för att öppna specifikt projekt
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
@@ -332,16 +345,17 @@ public class ProjektFlik extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AvdProjKnapp;
-    private javax.swing.JButton MinaProjKnapp;
     private javax.swing.JComboBox<String> filterBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton projInfoKnapp;
-    private javax.swing.JTable projektTabell;
     private javax.swing.JSpinner slutDatumSpinner;
     private javax.swing.JSpinner startDatumSpinner;
+    private javax.swing.JTable tabellAllaProjekt;
+    private javax.swing.JTable tabellMinaProjekt;
+    private javax.swing.JTabbedPane tpProjekt;
     // End of variables declaration//GEN-END:variables
 }
