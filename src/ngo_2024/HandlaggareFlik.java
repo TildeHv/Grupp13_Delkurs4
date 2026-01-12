@@ -264,7 +264,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnlaggtillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlaggtillActionPerformed
-     new LaggTillHandlaggare(idb, this).setVisible(true);
+     new LaggTillHandlaggare(idb, inloggadAnvandare, this).setVisible(true);
     }//GEN-LAST:event_btnlaggtillActionPerformed
 
     private void btntabortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntabortActionPerformed

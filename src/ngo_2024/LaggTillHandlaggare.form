@@ -23,62 +23,25 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="227" max="32767" attributes="0"/>
+              <Component id="btnTillbaka" min="-2" pref="82" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lblAnsvar" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblLosenord" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblTelefon" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblFornamn" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtFornamn" max="32767" attributes="0"/>
-                      <Component id="txtAdress" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtTelefon" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtLosenord" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblAdress" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAnsvar" alignment="0" pref="140" max="32767" attributes="0"/>
-                  </Group>
+              <Component id="btnSpara" min="-2" pref="75" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel2" min="-2" pref="86" max="-2" attributes="0"/>
                   <Component id="rubrikHandlaggare" min="-2" pref="165" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="lblEfternamn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtEfternamn" pref="140" max="32767" attributes="0"/>
-                                  <Component id="txtEpost" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblAnstallningsdatum" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtAnstallningsdatum" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblAvdelning" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lblEpost" min="-2" pref="37" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="filterHandlaggare" alignment="0" pref="133" max="32767" attributes="0"/>
+                      <Component id="filterProjekt" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnTillbaka" min="-2" pref="82" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnSpara" min="-2" pref="75" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel1" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="filterAvdelning" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="filterMentor" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel1" alignment="0" min="-2" pref="89" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -86,62 +49,21 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="rubrikHandlaggare" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="filterProjekt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="filterHandlaggare" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="124" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rubrikHandlaggare" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnTillbaka" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSpara" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblEfternamn" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblFornamn" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtFornamn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtEfternamn" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblAdress" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblEpost" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtEpost" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAdress" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblAnstallningsdatum" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblTelefon" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtTelefon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAnstallningsdatum" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblAvdelning" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblLosenord" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtLosenord" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterAvdelning" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblAnsvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtAnsvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterMentor" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -151,70 +73,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ny handl&#xe4;ggare"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblFornamn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Fornamn:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblEfternamn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Efternamn:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblAdress">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Adress:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblEpost">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Epost:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblTelefon">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Telefon:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblAnstallningsdatum">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Anstallningsdatum:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblLosenord">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Losenord:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblAvdelning">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Avdelning:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblAnsvar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ansvarighetsomrade:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtFornamn">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFornamnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEfternamn">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtAdress">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEpost">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtTelefon">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtAnstallningsdatum">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtLosenord">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtAnsvar">
     </Component>
     <Component class="javax.swing.JButton" name="btnSpara">
       <Properties>
@@ -232,46 +90,45 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTillbakaActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JComboBox" name="filterProjekt">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="filterHandlaggare">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Mentor:"/>
+        <Property name="text" type="java.lang.String" value="Projekt"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="filterAvdelning">
+    <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
+        <Property name="text" type="java.lang.String" value="Handl&#xe4;ggare"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterAvdelningActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="filterMentor">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterMentorActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
