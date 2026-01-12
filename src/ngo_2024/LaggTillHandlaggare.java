@@ -26,7 +26,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
     /**
      * Creates new form LaggTillHandlaggare
      */
-    public LaggTillHandlaggare(InfDB idb, String InloggadAnvandare, javax.swing.JFrame huvudFonster) {
+    public LaggTillHandlaggare(InfDB idb, String inloggadAnvandare, javax.swing.JFrame huvudFonster) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         this.huvudFonster = huvudFonster;
@@ -91,29 +91,34 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
             projektMap.clear();
 
             ArrayList<HashMap<String, String>> projektLista = idb.fetchRows(
-                    "SELECT pid, projektnamn "
+                    "SELECT projekt.pid, projekt.projektnamn "
                     + "FROM projekt "
-                    + "JOIN anstalld ON projektchef = anstalld.aid "
-                    + "WHERE epost = '" + inloggadAnvandare + "' "
-                    + "ORDER BY projektnamn"
+                    + "JOIN anstalld ON projekt.projektchef = anstalld.aid "
+                    + "WHERE anstalld.epost = '" + inloggadAnvandare + "'"
+                    + "ORDER BY projekt.projektnamn"
             );
 
-            for (HashMap<String, String> p : projektLista) {
-                String id = p.get("pid");
-                String namn = p.get("projektnamn");
-                filterProjekt.addItem(namn);
-                projektMap.put(namn, id);
+            if (projektLista != null) {
+                for (HashMap<String, String> p : projektLista) {
+                    String id = p.get("pid");
+                    String namn = p.get("projektnamn");
+                    filterProjekt.addItem(namn);
+                    projektMap.put(namn, id);
+                }
             }
 
             filterHandlaggare.removeAllItems();
             handlaggareMap.clear();
 
-            ArrayList<HashMap<String, String>> handlaggareLista = idb.fetchRows("SELECT aid, fornamn, efternamn FROM anstalld JOIN handlaggare ON anstalld.aid = handlaggare.aid ORDER BY fornamn, efternamn");
-            for (HashMap<String, String> h : handlaggareLista) {
-                String id = h.get("aid");
-                String namn = h.get("fornamn") + " " + h.get("efternamn");
-                filterHandlaggare.addItem(namn);
-                handlaggareMap.put(namn, id);
+            ArrayList<HashMap<String, String>> handlaggareLista = idb.fetchRows("SELECT anstalld.aid, fornamn, efternamn FROM anstalld JOIN handlaggare ON anstalld.aid = handlaggare.aid ORDER BY fornamn, efternamn");
+
+            if (handlaggareLista != null) {
+                for (HashMap<String, String> h : handlaggareLista) {
+                    String id = h.get("aid");
+                    String namn = h.get("fornamn") + " " + h.get("efternamn");
+                    filterHandlaggare.addItem(namn);
+                    handlaggareMap.put(namn, id);
+                }
             }
 
         } catch (Exception e) {
@@ -140,7 +145,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        rubrikHandlaggare.setText("Ny handläggare");
+        rubrikHandlaggare.setText("Lägg till handläggare i projekt");
 
         btnSpara.setText("Spara");
         btnSpara.addActionListener(this::btnSparaActionPerformed);
