@@ -38,7 +38,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
     }
 
     //Fyll tabellen med information om handläggare
-    private void fyllHandlaggareTabell() {
+    public void fyllHandlaggareTabell() {
         try {
             DefaultTableModel modell = (DefaultTableModel) tabellHandlaggare.getModel();
             modell.setRowCount(0);
@@ -264,7 +264,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnlaggtillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlaggtillActionPerformed
-
+     new LaggTillHandlaggare(idb, inloggadAnvandare, this).setVisible(true);
     }//GEN-LAST:event_btnlaggtillActionPerformed
 
     private void btntabortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntabortActionPerformed
