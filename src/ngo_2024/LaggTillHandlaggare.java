@@ -4,6 +4,8 @@
  */
 package ngo_2024;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
@@ -25,6 +27,8 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
         this.idb = idb;
         this.huvudFonster = huvudFonster;
         initComponents();
+
+        fyllComboBoxar();
     }
 
     private void laggTillUppgifter() {
@@ -36,9 +40,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
             String telefon = txtTelefon.getText().trim();
             String anstallningsdatum = txtAnstallningsdatum.getText().trim();
             String losenord = txtLosenord.getText().trim();
-            String avdelning = txtAvdelning.getText().trim();
             String ansvar = txtAnsvar.getText().trim();
-            String mentor = txtMentor.getText().trim();
 
             boolean harFel = false;
 
@@ -71,8 +73,25 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, JOptionPane.ERROR_MESSAGE);
                 harFel = true;
             }
-            
+
             if (harFel) {
+                return;
+            }
+
+            String avdelningVal = (String) filterAvdelning.getSelectedItem();
+            String mentorVal = (String) filterMentor.getSelectedItem();
+            
+            if (avdelningVal.equals("Ingen vald")) {
+                avdelningsVal = null;
+            } else {
+                 int avdelningId = Integer.parseInt(avdelningVal.split(" - ")[0]);
+            }
+
+            int mentorId = Integer.parseInt(mentorVal.split(" - ")[0]);
+
+          
+            if (idb.fetchSingle("SELECT aid FROM anstalld WHERE aid = " + mentorId) == null) {
+                JOptionPane.showMessageDialog(this, "Mentor finns inte");
                 return;
             }
 
@@ -81,12 +100,12 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
             String nyAnstalld
                     = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning) "
                     + "VALUES (" + nyttAid + ", '" + fornamn + "', '" + efternamn
-                    + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "', " + avdid + ")";
+                    + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "', " + avdelningId + ")";
             idb.insert(nyAnstalld);
 
             String nyHandlaggare
                     = "INSERT INTO handlaggare (aid, ansvarighetsomrade, mentor) "
-                    + "VALUES (" + nyttAid + ", '" + ansvar + "', '" + mentor + "')";
+                    + "VALUES (" + nyttAid + ", '" + ansvar + "', '" + mentorId + "')";
             idb.insert(nyHandlaggare);
 
             JOptionPane.showMessageDialog(this, "Ny handläggare tillagd");
@@ -99,6 +118,29 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
 
         } catch (Exception e) {
             System.out.println("Fel vid skapande av handläggare: " + e.getMessage());
+        }
+    }
+
+    private void fyllComboBoxar() {
+        try {
+            filterAvdelning.removeAllItems();
+            ArrayList<HashMap<String, String>> avdelningar = idb.fetchRows("SELECT namn FROM avdelning");
+            for (HashMap<String, String> avdelning : avdelningar) {
+                String namn = avdelning.get("namn");
+                filterAvdelning.addItem("Ingen vald");
+                filterAvdelning.addItem(namn);
+            }
+
+            filterMentor.removeAllItems();
+            ArrayList<HashMap<String, String>> mentorer = idb.fetchRows("SELECT anstalld.aid, fornamn, efternamn FROM anstalld JOIN handlaggare ON anstalld.aid = handlaggare.aid");
+            for (HashMap<String, String> mentor : mentorer) {
+                String fornamn = mentor.get("fornamn");
+                String efternamn = mentor.get("efternamn");
+                filterMentor.addItem("Ingen vald");
+                filterMentor.addItem(fornamn + " " + efternamn);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -128,12 +170,12 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
         txtTelefon = new javax.swing.JTextField();
         txtAnstallningsdatum = new javax.swing.JTextField();
         txtLosenord = new javax.swing.JTextField();
-        txtAvdelning = new javax.swing.JTextField();
         txtAnsvar = new javax.swing.JTextField();
         btnSpara = new javax.swing.JButton();
         btnTillbaka = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txtMentor = new javax.swing.JTextField();
+        filterAvdelning = new javax.swing.JComboBox<>();
+        filterMentor = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,6 +209,12 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
 
         jLabel1.setText("Mentor:");
 
+        filterAvdelning.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        filterAvdelning.addActionListener(this::filterAvdelningActionPerformed);
+
+        filterMentor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        filterMentor.addActionListener(this::filterMentorActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,23 +243,24 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEfternamn)
+                                    .addComponent(txtEfternamn, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                                     .addComponent(txtEpost)
                                     .addComponent(lblAnstallningsdatum)
                                     .addComponent(txtAnstallningsdatum)
-                                    .addComponent(lblAvdelning)
-                                    .addComponent(txtAvdelning, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                                    .addComponent(lblAvdelning))
                                 .addComponent(lblEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addContainerGap()))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnSpara, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtMentor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSpara, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(filterAvdelning, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(filterMentor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -253,7 +302,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filterAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAnsvar)
@@ -261,7 +310,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAnsvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMentor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filterMentor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -279,6 +328,14 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
+
+    private void filterAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterAvdelningActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterAvdelningActionPerformed
+
+    private void filterMentorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterMentorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterMentorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,6 +365,8 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSpara;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> filterAvdelning;
+    private javax.swing.JComboBox<String> filterMentor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAdress;
     private javax.swing.JLabel lblAnstallningsdatum;
@@ -322,12 +381,10 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
     private javax.swing.JTextField txtAdress;
     private javax.swing.JTextField txtAnstallningsdatum;
     private javax.swing.JTextField txtAnsvar;
-    private javax.swing.JTextField txtAvdelning;
     private javax.swing.JTextField txtEfternamn;
     private javax.swing.JTextField txtEpost;
     private javax.swing.JTextField txtFornamn;
     private javax.swing.JTextField txtLosenord;
-    private javax.swing.JTextField txtMentor;
     private javax.swing.JTextField txtTelefon;
     // End of variables declaration//GEN-END:variables
 }
