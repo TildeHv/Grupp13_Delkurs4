@@ -47,7 +47,7 @@ public class AvdelningSQL {
         return null;
     }
 
-    public ArrayList<HashMap<String, String>> getPersonalForAvdelning(int avdid) {
+    public ArrayList<HashMap<String, String>> hamtaPersonalForAvdelning(int avdid) {
         ArrayList<HashMap<String, String>> resultat = new ArrayList<>();
 
         try {
