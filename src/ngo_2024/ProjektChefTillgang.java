@@ -15,7 +15,6 @@ import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.LEFT;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,7 +25,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private String landNamn;
-    private int pid;
     private int landId;
     private HashMap<String, Integer> projektMap = new HashMap<>();
 
@@ -172,9 +170,9 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
             modell.addRow(new Object[]{
                 landNamn,
-                raknaProjekt(landId),
-                raknaTotalKostnad(landId),
-                raknaMedelKostnad(landId)
+                raknaProjekt(),
+                raknaTotalKostnad(),
+                raknaMedelKostnad()
             });
 
             int rubrik2Index = modell.getRowCount() - 2;
@@ -190,7 +188,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }
 
     //Räkna ihop projekt för valt land
-    private int raknaProjekt(int landId) {
+    private int raknaProjekt() {
         try {
             String sql = null;
             int valtIndex = tpStatistik.getSelectedIndex();
@@ -211,7 +209,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }
 
     //Räkna ihop totala kostanden för valt land
-    private double raknaTotalKostnad(int landId) {
+    private double raknaTotalKostnad() {
         try {
             String sql = null;
             int valtIndex = tpStatistik.getSelectedIndex();
@@ -232,7 +230,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         return 0;
     }
 
-    private double raknaMedelKostnad(int landId) {
+    private double raknaMedelKostnad() {
         try {
             String sql = null;
             int valtIndex = tpStatistik.getSelectedIndex();
@@ -319,14 +317,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }
 
     private void addChangeListener() {
-        tpStatistik.addChangeListener(e -> {
-            int valtIndex = tpStatistik.getSelectedIndex();
-            if (valtIndex == 0) {
-                filterLand();
-            } else if (valtIndex == 1) {
-                filterLand();
-            }
-        });
+        tpStatistik.addChangeListener(e -> filterLand());
     }
 
     @SuppressWarnings("unchecked")
@@ -497,7 +488,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
 
     private void boxprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxprojektActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_boxprojektActionPerformed
 
     private void btnandrahandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrahandlaggareActionPerformed

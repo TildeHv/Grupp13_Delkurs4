@@ -13,17 +13,15 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.*;
 
 public class ProjektFlik extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
-    private String projektnamn;
     private int projektId;
-    private ArrayList<String> projektLista = new ArrayList<>();
     private String aktuellSql;
-    private int aktuellPid;
-
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
 
     public ProjektFlik(InfDB idb, String inloggadAnvandare) {
@@ -42,9 +40,10 @@ public class ProjektFlik extends javax.swing.JFrame {
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
 
-        this.aktuellSql = getAnstalldSql();
+        aktuellSql = getAnstalldSql();
         filtreraDatum();
-        addTabellLyssnare();
+        addTabellLyssnare(tabellMinaProjekt);
+        addTabellLyssnare(tabellAllaProjekt);
         addChangeListener();
     }
 
@@ -138,38 +137,19 @@ public class ProjektFlik extends javax.swing.JFrame {
         }
     }
 
-    //Öppna specifikt projekt
-    private void openProjektInfo(String projektnamn) {
-        ProjektInfo projektInfo = new ProjektInfo(idb, projektId, inloggadAnvandare);
-        projektInfo.setVisible(true);
-    }
-
     //Lägg till tabell lyssnare
-    private void addTabellLyssnare() {
-        tabellMinaProjekt.getSelectionModel().addListSelectionListener(e -> {
+    private void addTabellLyssnare(JTable table) {
+        table.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                int rad = tabellMinaProjekt.getSelectedRow();
+                int rad = table.getSelectedRow();
                 if (rad >= 0) {
                     projektId = Integer.parseInt(
-                            tabellMinaProjekt.getValueAt(rad, 0).toString()
+                            table.getValueAt(rad, 0).toString()
                     );
                     projInfoKnapp.setEnabled(true);
                 }
             }
         });
-
-        tabellAllaProjekt.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int rad = tabellAllaProjekt.getSelectedRow();
-                if (rad >= 0) {
-                    projektId = Integer.parseInt(
-                            tabellAllaProjekt.getValueAt(rad, 0).toString()
-                    );
-                    projInfoKnapp.setEnabled(true);
-                }
-            }
-        });
-
     }
 
     private void addChangeListener() {
