@@ -41,8 +41,8 @@
                   <Component id="rubrikHandlaggare" min="-2" pref="165" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="54" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lblEfternamn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
@@ -63,9 +63,17 @@
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="btnTillbaka" min="-2" pref="82" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnSpara" min="-2" pref="75" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnTillbaka" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnSpara" min="-2" pref="75" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel1" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtMentor" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -76,7 +84,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="rubrikHandlaggare" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rubrikHandlaggare" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnTillbaka" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSpara" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblEfternamn" min="-2" max="-2" attributes="0"/>
@@ -117,23 +129,17 @@
                   <Component id="txtLosenord" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtAvdelning" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblAnsvar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtAnsvar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnSpara" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnTillbaka" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAnsvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtAnsvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMentor" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -225,6 +231,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTillbakaActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mentor:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMentor">
     </Component>
   </SubComponents>
 </Form>

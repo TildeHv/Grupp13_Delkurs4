@@ -38,6 +38,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
             String losenord = txtLosenord.getText().trim();
             String avdelning = txtAvdelning.getText().trim();
             String ansvar = txtAnsvar.getText().trim();
+            String mentor = txtMentor.getText().trim();
 
             boolean harFel = false;
 
@@ -60,19 +61,34 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, JOptionPane.ERROR_MESSAGE);
                 harFel = true;
             }
-            
+
             if (!Validering.ValideraTelefon(telefon)) {
                 JOptionPane.showMessageDialog(this, JOptionPane.ERROR_MESSAGE);
                 harFel = true;
             }
-            
+
             if (!Validering.ValideraDatum(anstallningsdatum)) {
                 JOptionPane.showMessageDialog(this, JOptionPane.ERROR_MESSAGE);
                 harFel = true;
             }
             
-            String nyttId = idb.getAutoIncrement("anstalld", "aid");
-            
+            if (harFel) {
+                return;
+            }
+
+            String nyttAid = idb.getAutoIncrement("anstalld", "aid");
+
+            String nyAnstalld
+                    = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning) "
+                    + "VALUES (" + nyttAid + ", '" + fornamn + "', '" + efternamn
+                    + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "', " + avdid + ")";
+            idb.insert(nyAnstalld);
+
+            String nyHandlaggare
+                    = "INSERT INTO handlaggare (aid, ansvarighetsomrade, mentor) "
+                    + "VALUES (" + nyttAid + ", '" + ansvar + "', '" + mentor + "')";
+            idb.insert(nyHandlaggare);
+
             JOptionPane.showMessageDialog(this, "Ny handläggare tillagd");
 
             if (huvudFonster instanceof HandlaggareFlik handlaggareFlik) {
@@ -80,9 +96,9 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
             }
 
             this.dispose();
-            
+
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Fel vid skapande av handläggare: " + e.getMessage());
         }
     }
 
@@ -116,6 +132,8 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
         txtAnsvar = new javax.swing.JTextField();
         btnSpara = new javax.swing.JButton();
         btnTillbaka = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtMentor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +165,8 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
         btnTillbaka.setText("Tillbaka");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
+        jLabel1.setText("Mentor:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,7 +187,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                         .addComponent(txtAnsvar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                     .addComponent(rubrikHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(lblEfternamn)
@@ -184,16 +204,24 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                                 .addComponent(lblEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addContainerGap()))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSpara, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnSpara, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMentor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rubrikHandlaggare)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rubrikHandlaggare)
+                    .addComponent(btnTillbaka)
+                    .addComponent(btnSpara))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEfternamn)
@@ -226,19 +254,15 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAnsvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAnsvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(24, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSpara)
-                            .addComponent(btnTillbaka))
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAnsvar)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAnsvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMentor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -284,6 +308,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSpara;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAdress;
     private javax.swing.JLabel lblAnstallningsdatum;
     private javax.swing.JLabel lblAnsvar;
@@ -302,6 +327,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
     private javax.swing.JTextField txtEpost;
     private javax.swing.JTextField txtFornamn;
     private javax.swing.JTextField txtLosenord;
+    private javax.swing.JTextField txtMentor;
     private javax.swing.JTextField txtTelefon;
     // End of variables declaration//GEN-END:variables
 }
