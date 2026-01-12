@@ -53,31 +53,4 @@ public class Handlaggare {
             return mentor;
             
         }
-        
-        public int skapaNyttAid() throws InfException {
-            String maxId = idb.fetchSingle("SELECT MAX(aid) FROM anstalld");
-            return (maxId == null || maxId.isEmpty()) ? 1 : Integer.parseInt(maxId) + 1;
-        }
-        public boolean laggTillHandlaggare(String fornamn, String efternamn, 
-                String adress, String epost, String telefon, String anstallningsdatum, String losenord,
-                int avdid, String mentor) {
-            try {
-                int nyttAid = skapaNyttAid();
-                
-                String nyAnstalld =
-                        "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning) "
-                        + "VALUES (" + nyttAid + ", '" + fornamn + "', '" + efternamn + 
-                                "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "', " + avdid + ")";
-                idb.insert(nyAnstalld);
-                
-                String nyHandlaggare = 
-                        "INSERT INTO handlaggare (aid, ansvarighetsomrade, mentor) " 
-                        + "VALUES (" + nyttAid + ", '" + ansvarighetsomrade + "', '" + mentor +"')";
-                idb.insert(nyHandlaggare);
-                return true;
-            } catch (InfException e) {
-                System.out.println("Fel vid skapande av handläggare: " + e.getMessage());
-                return false;
-            }
-        }
     }
