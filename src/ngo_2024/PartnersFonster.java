@@ -7,6 +7,7 @@ package ngo_2024;
 import oru.inf.InfDB;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.Font;
 import javax.swing.JTable;
 
@@ -78,9 +79,12 @@ public class PartnersFonster extends javax.swing.JFrame {
 
    
     if (arAdmin) {
-        btnTabortPartners.setText("Ta bort partner");
-    } else if (arProjektchef) {
-        btnTabortPartners.setText("Ta bort från projekt");
+    btnTabortPartners.setText("Ta bort partner");
+    btnLaggtillPartners.setText("Lägg till partner");
+} else if (arProjektchef) {
+    btnTabortPartners.setText("Ta bort från projekt");
+    btnLaggtillPartners.setText("Lägg till partner i projekt");
+    
     }
 
     //Projektchefen får välja projekt i combobox.
@@ -146,21 +150,73 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
 
 
     private void fyllProjektCombo() {
-        cbPartners.removeAllItems();
-        Projektchef pc = new Projektchef(idb, inloggadAnvandare);
+    cbPartners.removeAllItems();
+    Projektchef pc = new Projektchef(idb, inloggadAnvandare);
 
-        for (String pid : pc.hamtaEgnaProjekt()) {
-            cbPartners.addItem(pid);
+    for (String pid : pc.hamtaEgnaProjekt()) {
+        cbPartners.addItem(pid);
+    }
+
+    if (cbPartners.getItemCount() > 0) {
+        cbPartners.setSelectedIndex(0);
+    }
+    
+    }
+    
+    private String valjBefintligPartnerDialog(String projektPid) {
+    try {
+        String sql =
+            "SELECT p.pid, p.namn " +
+            "FROM partner p " +
+            "WHERE p.pid NOT IN (" +
+            "  SELECT pp.partner_pid FROM projekt_partner pp WHERE pp.pid = '" + projektPid + "'" +
+            ") " +
+            "ORDER BY p.namn";
+
+        ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+
+        if (rader == null || rader.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Det finns inga partners att lägga till (alla är redan kopplade)."
+            );
+            return null;
         }
-        
-        if (cbPartners.getItemCount() > 0) {
-    cbPartners.setSelectedIndex(0);
+
+        java.util.LinkedHashMap<String, String> namnTillPid = new java.util.LinkedHashMap<>();
+
+        for (HashMap<String, String> rad : rader) {
+            String pid = rad.get("pid");
+            String namn = rad.get("namn");
+
+            String uniktNamn = namn;
+            while (namnTillPid.containsKey(uniktNamn)) {
+                uniktNamn += " ";
+            }
+
+            namnTillPid.put(uniktNamn, pid);
+        }
+
+        Object valt = javax.swing.JOptionPane.showInputDialog(
+            this,
+            "Välj en partner att lägga till i projektet:",
+            "Lägg till partner i projekt",
+            javax.swing.JOptionPane.QUESTION_MESSAGE,
+            null,
+            namnTillPid.keySet().toArray(),
+            null
+        );
+
+        if (valt == null) return null;
+
+        return namnTillPid.get(valt.toString());
+
+    } catch (Exception ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+        return null;   
 }
     }
    
-    
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -269,7 +325,45 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     }//GEN-LAST:event_btnAndraPartnersActionPerformed
 
     private void btnLaggtillPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaggtillPartnersActionPerformed
+           
+    boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
+    boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+
+    if (arAdmin) {
+        // Admin: skapa helt ny partner i partner-tabellen
         new RedigeraPartners(this, idb, null).setVisible(true);
+        return;
+    }
+
+    if (arProjektchef) {
+        // Projektchef: koppla befintlig partner till valt projekt
+        String projektPid = (String) cbPartners.getSelectedItem();
+
+        if (projektPid == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Välj ett projekt först.");
+            return;
+        }
+
+        String valdPartnerPid = valjBefintligPartnerDialog(projektPid);
+        if (valdPartnerPid == null) return;
+
+        try {
+            idb.insert(
+                "INSERT INTO projekt_partner (pid, partner_pid) VALUES ('" +
+                projektPid + "', '" + valdPartnerPid + "')"
+            );
+
+            laddaOmPartners();
+
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+
+        return;
+    }
+
+    javax.swing.JOptionPane.showMessageDialog(this, "Du har inte behörighet att lägga till partners.");
+
    
     }//GEN-LAST:event_btnLaggtillPartnersActionPerformed
 
