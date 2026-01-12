@@ -71,11 +71,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
                 harFel = true;
             }
             
-            int aid = -1;
-            
-            for ()
-            
-            String sqlFraga = "INSERT INTO anstalld(aid, )";
+            String nyttId = idb.getAutoIncrement("anstalld", "aid");
             
             JOptionPane.showMessageDialog(this, "Ny handläggare tillagd");
 
