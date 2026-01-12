@@ -30,7 +30,7 @@ public class Validering {
         if (kostnad == null) {
             return false;
         }
-        return kostnad.trim().matches("\\d+");
+        return kostnad.trim().matches("\\d+([.,]\\d+)?");
     }
 
 }

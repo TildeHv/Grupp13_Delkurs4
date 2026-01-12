@@ -25,27 +25,27 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="lblAvdNamn" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                  <Component id="lblNyAvdelning" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                  <Component id="btnTillbaka" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="lblNyAvdelning" alignment="0" pref="109" max="32767" attributes="0"/>
                   <Component id="lblAvdAdress" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="lblAvdStad" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="lblAvdEpost" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="lblAvdTelefon" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="lblAvdChef" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="lblAvdBeskrivning" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
+                  <Component id="btnTillbaka" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="txtAvdNamn" min="-2" pref="237" max="-2" attributes="0"/>
-                      <Component id="txtAvdAdress" min="-2" pref="237" max="-2" attributes="0"/>
-                      <Component id="txtAvdStad" min="-2" pref="237" max="-2" attributes="0"/>
-                      <Component id="txtAvdEpost" min="-2" pref="237" max="-2" attributes="0"/>
-                      <Component id="txtAvdTelefon" min="-2" pref="237" max="-2" attributes="0"/>
-                      <Component id="txtAvdChef" min="-2" pref="237" max="-2" attributes="0"/>
-                      <Component id="txtAvdBeskrivning" min="-2" pref="237" max="-2" attributes="0"/>
+                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtAvdNamn" alignment="1" pref="237" max="32767" attributes="0"/>
+                      <Component id="txtAvdAdress" alignment="1" pref="237" max="32767" attributes="0"/>
+                      <Component id="txtAvdEpost" alignment="1" pref="237" max="32767" attributes="0"/>
+                      <Component id="txtAvdTelefon" alignment="1" pref="237" max="32767" attributes="0"/>
+                      <Component id="txtAvdBeskrivning" alignment="1" pref="237" max="32767" attributes="0"/>
+                      <Component id="dropDownChef" alignment="1" max="32767" attributes="0"/>
+                      <Component id="dropDownStad" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <Component id="btnSpara" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
               </Group>
@@ -71,7 +71,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblAvdStad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAvdStad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dropDownStad" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -86,7 +86,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblAvdChef" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAvdChef" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dropDownChef" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -156,13 +156,9 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtAvdAdress">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAvdStad">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtAvdEpost">
     </Component>
     <Component class="javax.swing.JTextField" name="txtAvdTelefon">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtAvdChef">
     </Component>
     <Component class="javax.swing.JTextField" name="txtAvdBeskrivning">
     </Component>
@@ -173,6 +169,26 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSparaActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="dropDownChef">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="dropDownStad">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

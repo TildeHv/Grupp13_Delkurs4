@@ -33,35 +33,40 @@
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtprojektnamn" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtStatus" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtprioritet" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtbeskrivning" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtkostnad" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtstartdatum" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtprojektnamn" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtprioritet" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtbeskrivning" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtkostnad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtstartdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="btnTillbaka" min="-2" pref="75" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblbeskrivning" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblprojektnamn" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="scrollstatus" alignment="0" pref="223" max="32767" attributes="0"/>
-                                  <Component id="scrollprioritet" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblkostnad" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblstartdatum" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblslutdatum" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblbeskrivning" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblprojektnamn" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="scrollstatus" alignment="0" pref="223" max="32767" attributes="0"/>
+                                      <Component id="scrollprioritet" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblkostnad" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblstartdatum" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblslutdatum" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="btnspara" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="txtandraprojektuppgifter" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
-                      <Component id="btnspara" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,7 +115,10 @@
                   <Component id="lblslutdatum" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnspara" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnspara" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnTillbaka" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -243,6 +251,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Slutdatum"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnTillbaka">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tillbaka"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTillbakaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
