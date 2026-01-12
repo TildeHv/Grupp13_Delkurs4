@@ -5,10 +5,7 @@
 package ngo_2024;
 
 import oru.inf.InfDB;
-import oru.inf.InfException;
 import javax.swing.JOptionPane;
-
-     
 
 /**
  * en kontrollpanel för adminer (avdelningar)
@@ -26,7 +23,6 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
         this.idb = idb;
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,15 +83,14 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
     private void btnRedigeraBefintligAvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraBefintligAvdActionPerformed
         // När en admin trycker på knappen kommer en lista upp där de kan välja en avdelning att redigera. 
        try { 
-           AvdelningSQL avdSQL = new AvdelningSQL(idb);
-           var avdelningar = avdSQL.hamtaAllaAvdelningar();
+           AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+           var avdelningar = avdelningSQL.hamtaAllaAvdelningar();
            
            String [] lista = new String[avdelningar.size()];
            for (int i = 0; i < avdelningar.size(); i++) {
                var rad = avdelningar.get(i);
                lista[i] = rad.get("avdid") + " - " + rad.get("namn");
            }
-           
            String val = (String) JOptionPane.showInputDialog(
                    this,"Välj avdelning att redigera: ", "Redigera avdelning",
                    JOptionPane.QUESTION_MESSAGE, null, lista, lista[0]);
@@ -103,11 +98,9 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
                int avdid = Integer.parseInt(val.split(" - ")[0]);
                new RedigeraAvdelning(idb, avdid).setVisible(true);
            }
-          
            } catch (Exception e) {
            JOptionPane.showMessageDialog(this, "Kunde inte hämta avdelningar: " + e.getMessage());
-           }     
-        
+           }          
     }//GEN-LAST:event_btnRedigeraBefintligAvdActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed

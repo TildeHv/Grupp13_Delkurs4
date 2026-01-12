@@ -60,6 +60,7 @@ public class Projektforandrare extends javax.swing.JFrame {
         btnspara = new javax.swing.JButton();
         lblstartdatum = new javax.swing.JTextField();
         lblslutdatum = new javax.swing.JTextField();
+        btnTillbaka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,6 +106,9 @@ public class Projektforandrare extends javax.swing.JFrame {
 
         lblslutdatum.setText("Slutdatum");
 
+        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,28 +122,31 @@ public class Projektforandrare extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtprojektnamn)
-                                    .addComponent(txtStatus)
-                                    .addComponent(txtprioritet)
-                                    .addComponent(txtbeskrivning)
-                                    .addComponent(txtkostnad)
-                                    .addComponent(txtstartdatum)
-                                    .addComponent(txtslutdatum))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtprojektnamn)
+                                        .addComponent(txtStatus)
+                                        .addComponent(txtprioritet)
+                                        .addComponent(txtbeskrivning)
+                                        .addComponent(txtkostnad)
+                                        .addComponent(txtstartdatum)
+                                        .addComponent(txtslutdatum))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(13, 13, 13)))
                                 .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblbeskrivning)
-                                    .addComponent(lblprojektnamn)
-                                    .addComponent(scrollstatus, 0, 223, Short.MAX_VALUE)
-                                    .addComponent(scrollprioritet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblkostnad)
-                                    .addComponent(lblstartdatum)
-                                    .addComponent(lblslutdatum)))
-                            .addComponent(txtandraprojektuppgifter)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(btnspara)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblbeskrivning)
+                                        .addComponent(lblprojektnamn)
+                                        .addComponent(scrollstatus, 0, 223, Short.MAX_VALUE)
+                                        .addComponent(scrollprioritet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblkostnad)
+                                        .addComponent(lblstartdatum)
+                                        .addComponent(lblslutdatum))
+                                    .addComponent(btnspara)))
+                            .addComponent(txtandraprojektuppgifter))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +185,9 @@ public class Projektforandrare extends javax.swing.JFrame {
                     .addComponent(txtslutdatum)
                     .addComponent(lblslutdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnspara)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnspara)
+                    .addComponent(btnTillbaka))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -277,6 +286,11 @@ public class Projektforandrare extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblkostnadActionPerformed
 
+    private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnTillbakaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -303,6 +317,7 @@ public class Projektforandrare extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTillbaka;
     private javax.swing.JButton btnspara;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField lblbeskrivning;

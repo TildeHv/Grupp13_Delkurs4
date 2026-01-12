@@ -5,7 +5,6 @@
 package ngo_2024;
 
 import oru.inf.InfDB;
-import oru.inf.InfException;
 import javax.swing.JOptionPane;
 /**
  * Gör det möjligt för adminer att redigera befintliga avdelningar. 
@@ -13,8 +12,10 @@ import javax.swing.JOptionPane;
 public class RedigeraAvdelning extends javax.swing.JFrame {
         private InfDB idb;
         private int avdid;
+        private int nuvarandeChefId;
+        private int nuvarandeStadId;
+        
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraAvdelning.class.getName());
-
     /**
      * Creates new form RedigeraAvdelning
      */
@@ -22,29 +23,77 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
         this.idb = idb;
         this.avdid = avdid;
         initComponents();
+ 
+        dropDownChef.removeAllItems();
         fyllFalt();
+        fyllChefDropDown();
+        fyllStadDropDown();
     }
     
     private void fyllFalt() {
         try {
-            AvdelningSQL avdSQL = new AvdelningSQL(idb);
-            Avdelning avd = avdSQL.hamtaAvdelningMedId(avdid);
-            
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            Avdelning avd = avdelningSQL.hamtaAvdelningMedId(avdid);
+             
             txtAvdid.setText(String.valueOf(avd.getAvdid()));
             txtAvdNamn.setText(avd.getNamn());
             txtAvdAdress.setText(avd.getAdress());
-            txtAvdStad.setText(String.valueOf(avd.getStad()));
             txtAvdEpost.setText(avd.getEpost());
             txtAvdTelefon.setText(avd.getTelefon());
-            txtAvdChef.setText(String.valueOf(avd.getChef()));
             txtAvdBeskrivning.setText(avd.getBeskrivning());
+            nuvarandeChefId = Integer.parseInt(avd.getChef());
+            nuvarandeStadId = Integer.parseInt(avd.getStad());
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    
+  private void fyllChefDropDown() {
+      try { 
+          AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+          var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
+          
+          System.out.println("Antal anställda: " + handlaggare.size());
+
+          for (var a : handlaggare) {
+              String item = a.get("aid") + " - " + a.get("fornamn") + " " + a.get("efternamn");
+              dropDownChef.addItem(item);
+          }
+          String nuvarandeChef = String.valueOf(nuvarandeChefId);
+          for (int i = 0; i < dropDownChef.getItemCount(); i++) {
+              String item = dropDownChef.getItemAt(i);
+              if (item.startsWith(nuvarandeChef + " -")) {
+                  dropDownChef.setSelectedIndex(i);
+                  break;
+              }
+          }
+      } catch (Exception e) {
+          JOptionPane.showMessageDialog(this, "Kunde inte visa chefer: " + e.getMessage());
+      }
+  }
+
+   private void fyllStadDropDown() {
+       try {
+           AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+           var stader = avdelningSQL.hamtaAllaStader();
+           
+           for (var s : stader) {
+               String item = s.get ("sid") + " - " + s.get("namn");
+               dropDownStad.addItem(item);
+           }
+           String nuvarandeStad = String.valueOf(nuvarandeStadId);
+           for (int i = 0; i < dropDownStad.getItemCount(); i++) {
+           String item = dropDownStad.getItemAt (i);
+           if (item.startsWith(nuvarandeStad + " -")) {
+               dropDownStad.setSelectedIndex(i);
+               break;
+           }
+       }
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Kunde inte visa städer: " + e.getMessage());
+       }
+   }  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,13 +115,13 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
         txtAvdid = new javax.swing.JTextField();
         txtAvdNamn = new javax.swing.JTextField();
         txtAvdAdress = new javax.swing.JTextField();
-        txtAvdStad = new javax.swing.JTextField();
         txtAvdEpost = new javax.swing.JTextField();
         txtAvdTelefon = new javax.swing.JTextField();
-        txtAvdChef = new javax.swing.JTextField();
         txtAvdBeskrivning = new javax.swing.JTextField();
         btnSparaAndringar = new javax.swing.JButton();
         btnTillbaka = new javax.swing.JButton();
+        dropDownChef = new javax.swing.JComboBox<>();
+        dropDownStad = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,25 +173,25 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dropDownChef, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtAvdBeskrivning, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dropDownStad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtAvdEpost, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))))
                         .addGap(36, 36, 36))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,7 +219,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdStad)
-                    .addComponent(txtAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dropDownStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdEpost)
@@ -182,7 +231,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdChef)
-                    .addComponent(txtAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dropDownChef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAvdBeskrivning)
@@ -203,10 +252,12 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             int avdid = Integer.parseInt(txtAvdid.getText());
             String namn = txtAvdNamn.getText();
             String adress = txtAvdAdress.getText();
-            int stad = Integer.parseInt(txtAvdStad.getText());
+            String valdStad = (String) dropDownStad.getSelectedItem();
+            int stad = Integer.parseInt(valdStad.split(" - ")[0]);
             String epost = txtAvdEpost.getText();
             String telefon = txtAvdTelefon.getText();
-            int chef = Integer.parseInt(txtAvdChef.getText());
+            String valdChef = (String) dropDownChef.getSelectedItem();
+            int chef = Integer.parseInt(valdChef.split(" - ")[0]);
             String beskrivning = txtAvdBeskrivning.getText();
             
           if (!Validering.ValideraNamn(namn)) {
@@ -225,8 +276,8 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(this, "Ogiltig adress.");
               return;
           }
-            AvdelningSQL avdSQL = new AvdelningSQL(idb);
-            avdSQL.redigeraAvdelning(avdid, namn, beskrivning, adress, epost, telefon, stad, chef);
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            avdelningSQL.redigeraAvdelning(avdid, namn, beskrivning, adress, epost, telefon, stad, chef);
             
             JOptionPane.showMessageDialog(this, "Avdelningen har uppdaterats.");
         } catch (Exception e) {
@@ -267,6 +318,8 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSparaAndringar;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> dropDownChef;
+    private javax.swing.JComboBox<String> dropDownStad;
     private javax.swing.JLabel lblAvdAdress;
     private javax.swing.JLabel lblAvdBeskrivning;
     private javax.swing.JLabel lblAvdChef;
@@ -278,10 +331,8 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
     private javax.swing.JLabel lblRedigeraAvdelning;
     private javax.swing.JTextField txtAvdAdress;
     private javax.swing.JTextField txtAvdBeskrivning;
-    private javax.swing.JTextField txtAvdChef;
     private javax.swing.JTextField txtAvdEpost;
     private javax.swing.JTextField txtAvdNamn;
-    private javax.swing.JTextField txtAvdStad;
     private javax.swing.JTextField txtAvdTelefon;
     private javax.swing.JTextField txtAvdid;
     // End of variables declaration//GEN-END:variables
