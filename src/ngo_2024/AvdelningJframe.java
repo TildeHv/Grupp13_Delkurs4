@@ -7,6 +7,7 @@ package ngo_2024;
 import oru.inf.InfDB;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import java.awt.Color;
 
 
 /**
@@ -18,7 +19,8 @@ public class AvdelningJframe extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private AvdelningSQL avdelningSQL;
-    //private int avdid;
+ 
+  
 
   //  private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AvdelningJframe.class.getName());
 
@@ -31,10 +33,19 @@ public class AvdelningJframe extends javax.swing.JFrame {
         this.avdelningSQL = new AvdelningSQL(idb);
         initComponents();
         tblVisaAnstallda.setVisible(true);
+        tblVisaAnstallda.getTableHeader().setBackground(new Color(61, 176, 75));
+        tblVisaAnstallda.getTableHeader().setForeground(Color.WHITE);
+       
 
         fyllAvdelningsInfo();
         visaAvdAnstallda();
-    }
+        
+        tblVisaAnstallda.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblVisaAnstallda.getColumnModel().getColumn(1).setPreferredWidth(10);
+        tblVisaAnstallda.getColumnModel().getColumn(2).setPreferredWidth(20);
+        tblVisaAnstallda.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tblVisaAnstallda.getColumnModel().getColumn(4).setPreferredWidth(20);
+    }   
 
     private void fyllAvdelningsInfo() {
         try {
@@ -45,14 +56,14 @@ public class AvdelningJframe extends javax.swing.JFrame {
             AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
             Avdelning avd = avdelningSQL.hamtaAvdelningMedId(avdid);
 
-            lblAvdid.setText("AVDid: " + String.valueOf(avd.getAvdid()));
+            lblAvdid.setText("avd-ID: " + String.valueOf(avd.getAvdid()));
             lblAvdNamn.setText(avd.getNamn());
-            lblAvdAdress.setText("Adress: " + avd.getAdress());
+            lblAvdAdress.setText(avd.getAdress());
             lblAvdStad.setText("Stad: " + avd.getStad());
-            lblAvdEpost.setText("Epost: " + avd.getEpost());
-            lblAvdTelefon.setText("TelNr: " + avd.getTelefon());
+            lblAvdEpost.setText(avd.getEpost());
+            lblAvdTelefon.setText(avd.getTelefon());
             lblAvdChef.setText("Chef: " + avd.getChef());
-            lblAvdBeskrivning.setText("Beskrivning: " + avd.getBeskrivning());
+            lblAvdBeskrivning.setText(avd.getBeskrivning());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,7 +103,6 @@ public class AvdelningJframe extends javax.swing.JFrame {
 
         jToggleButton1 = new javax.swing.JToggleButton();
         lblAvdEpost1 = new javax.swing.JLabel();
-        lblAvdelning = new javax.swing.JLabel();
         txtSokHandlaggare = new javax.swing.JTextField();
         lblSokHandlaggare = new javax.swing.JLabel();
         lblAvdid = new javax.swing.JLabel();
@@ -117,8 +127,6 @@ public class AvdelningJframe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblAvdelning.setText("Avdelning:");
-
         lblSokHandlaggare.setText("Sök efter handläggare:");
 
         lblAvdid.setText("avdid");
@@ -137,6 +145,9 @@ public class AvdelningJframe extends javax.swing.JFrame {
 
         lblAvdBeskrivning.setText("beskrivning");
 
+        btnSokHandlaggare.setBackground(new java.awt.Color(1, 174, 217));
+        btnSokHandlaggare.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSokHandlaggare.setForeground(new java.awt.Color(255, 255, 255));
         btnSokHandlaggare.setText("Sök");
         btnSokHandlaggare.addActionListener(this::btnSokHandlaggareActionPerformed);
 
@@ -151,17 +162,27 @@ public class AvdelningJframe extends javax.swing.JFrame {
                 "aid", "fornamn", "efternamn", "epost", "telefon"
             }
         ));
+        tblVisaAnstallda.setGridColor(new java.awt.Color(0, 0, 0));
+        tblVisaAnstallda.setMinimumSize(new java.awt.Dimension(1, 80));
+        tblVisaAnstallda.setRequestFocusEnabled(false);
+        tblVisaAnstallda.setRowSelectionAllowed(true);
         jScrollPane1.setViewportView(tblVisaAnstallda);
 
+        btnRedigeraAvdelning.setBackground(new java.awt.Color(1, 174, 217));
+        btnRedigeraAvdelning.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRedigeraAvdelning.setForeground(new java.awt.Color(255, 255, 255));
         btnRedigeraAvdelning.setText("Redigera avdelningar");
         btnRedigeraAvdelning.addActionListener(this::btnRedigeraAvdelningActionPerformed);
 
         lblAvdAnstallda.setText("Anställda på avdelningen:");
 
+        btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
+        btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
         btnTillbaka.setText("Tillbaka");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
-        btnAterstallTabell.setBackground(new java.awt.Color(255, 0, 0));
+        btnAterstallTabell.setBackground(new java.awt.Color(235, 28, 46));
         btnAterstallTabell.setForeground(new java.awt.Color(255, 255, 255));
         btnAterstallTabell.setText("X");
         btnAterstallTabell.addActionListener(this::btnAterstallTabellActionPerformed);
@@ -171,61 +192,55 @@ public class AvdelningJframe extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblSokHandlaggare, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnAterstallTabell)))
-                            .addComponent(btnRedigeraAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAvdAnstallda, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1)))
+                        .addContainerGap()
+                        .addComponent(lblAvdNamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAvdNamn, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                    .addComponent(lblAvdAnstallda, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblAvdChef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblAvdTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                        .addComponent(lblAvdEpost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblAvdStad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblAvdAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                                .addComponent(btnRedigeraAvdelning)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(177, 177, 177)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSokHandlaggare)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAterstallTabell))
+                    .addComponent(lblSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAvdelning)
-                    .addComponent(lblAvdNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblAvdNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
+                .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,24 +248,21 @@ public class AvdelningJframe extends javax.swing.JFrame {
                 .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblAvdAnstallda)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblSokHandlaggare)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAterstallTabell, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSokHandlaggare)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRedigeraAvdelning))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnTillbaka)
-                .addGap(23, 23, 23))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSokHandlaggare)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTillbaka)
+                    .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAterstallTabell, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRedigeraAvdelning))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSokHandlaggare)
+                .addContainerGap())
         );
 
         pack();
@@ -321,7 +333,6 @@ public class AvdelningJframe extends javax.swing.JFrame {
     private javax.swing.JLabel lblAvdNamn;
     private javax.swing.JLabel lblAvdStad;
     private javax.swing.JLabel lblAvdTelefon;
-    private javax.swing.JLabel lblAvdelning;
     private javax.swing.JLabel lblAvdid;
     private javax.swing.JLabel lblSokHandlaggare;
     private javax.swing.JTable tblVisaAnstallda;

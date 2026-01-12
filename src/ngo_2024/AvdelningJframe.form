@@ -36,59 +36,52 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnSokHandlaggare" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblSokHandlaggare" alignment="1" min="-2" pref="173" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="txtSokHandlaggare" min="-2" pref="127" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnAterstallTabell" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="btnRedigeraAvdelning" alignment="0" min="-2" pref="155" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblAvdAnstallda" min="-2" pref="295" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblAvdelning" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
-                                  <Component id="lblAvdid" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblAvdNamn" pref="623" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblAvdAdress" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
-                                  <Component id="lblAvdEpost" alignment="0" min="-2" pref="307" max="-2" attributes="0"/>
-                                  <Component id="lblAvdChef" alignment="0" min="-2" pref="315" max="-2" attributes="0"/>
-                                  <Component id="lblAvdStad" alignment="0" min="-2" pref="298" max="-2" attributes="0"/>
-                                  <Component id="lblAvdTelefon" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblAvdNamn" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="lblAvdBeskrivning" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblAvdAnstallda" min="-2" pref="295" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblAvdChef" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblAvdTelefon" alignment="0" pref="181" max="32767" attributes="0"/>
+                                      <Component id="lblAvdEpost" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblAvdStad" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblAvdid" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                                      <Component id="lblAvdAdress" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="btnTillbaka" min="-2" pref="120" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="107" max="32767" attributes="0"/>
+                              <Component id="btnRedigeraAvdelning" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-              <Component id="lblAvdBeskrivning" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnTillbaka" min="-2" pref="120" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnSokHandlaggare" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="txtSokHandlaggare" min="-2" pref="127" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnAterstallTabell" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="lblSokHandlaggare" min="-2" pref="173" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -97,17 +90,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblAvdelning" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblAvdNamn" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-              </Group>
+              <Component id="lblAvdNamn" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblAvdBeskrivning" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblAvdid" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="lblAvdAdress" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Component id="lblAvdAdress" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Component id="lblAvdStad" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblAvdEpost" min="-2" pref="16" max="-2" attributes="0"/>
@@ -115,37 +105,27 @@
               <Component id="lblAvdTelefon" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblAvdChef" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblAvdAnstallda" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="lblSokHandlaggare" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtSokHandlaggare" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAterstallTabell" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnSokHandlaggare" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnRedigeraAvdelning" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jScrollPane1" min="-2" pref="145" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="145" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblSokHandlaggare" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnTillbaka" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtSokHandlaggare" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAterstallTabell" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="btnRedigeraAvdelning" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnSokHandlaggare" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblAvdelning">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Avdelning:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="txtSokHandlaggare">
     </Component>
     <Component class="javax.swing.JLabel" name="lblSokHandlaggare">
@@ -195,6 +175,15 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSokHandlaggare">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="d9" green="ae" red="1" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="S&#xf6;k"/>
       </Properties>
       <Events>
@@ -248,6 +237,14 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1, 80]"/>
+            </Property>
+            <Property name="requestFocusEnabled" type="boolean" value="false"/>
+            <Property name="rowSelectionAllowed" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -257,6 +254,15 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnRedigeraAvdelning">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="d9" green="ae" red="1" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Redigera avdelningar"/>
       </Properties>
       <Events>
@@ -270,6 +276,15 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnTillbaka">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="12" green="b5" red="f9" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tillbaka"/>
       </Properties>
       <Events>
@@ -279,7 +294,7 @@
     <Component class="javax.swing.JButton" name="btnAterstallTabell">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="ff" type="rgb"/>
+          <Color blue="2e" green="1c" red="eb" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
