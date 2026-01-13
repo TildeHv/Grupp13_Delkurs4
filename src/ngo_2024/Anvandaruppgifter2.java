@@ -31,7 +31,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         lblavdelning.setText("Avdelning: " + anv.getAvdelning());
         lblaid.setText("AID: " + anv.getAid());
         lbladress.setText(anv.getAdress());
-        lblanstallningsdatum.setText(anv.getAnstallningsdatum());
+        lblanstallningsdatum.setText("Anställningsdatum: " + anv.getAnstallningsdatum());
     }
 
     @SuppressWarnings("unchecked")
