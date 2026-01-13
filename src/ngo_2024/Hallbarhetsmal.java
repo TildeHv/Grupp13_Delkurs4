@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.ArrayList;
@@ -19,96 +20,98 @@ import java.awt.Image;
  * @author tovehanssons
  */
 public class Hallbarhetsmal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Hallbarhetsmal.class.getName());
     private InfDB idb;
     private String inloggadAnvandare;
     private java.util.ArrayList<String> beskrivningar = new java.util.ArrayList<>();
+
     /**
-     *  //Klassen Hållbarhetsmål visar en lista för hållbarhetsmål och beskrivningar.
+     *  //Klassen Hållbarhetsmål visar en lista för hållbarhetsmål och
+     * beskrivningar.
      */
-   public Hallbarhetsmal(InfDB idb, String inloggadAnvandare) {
-    this.idb = idb;
-    this.inloggadAnvandare = inloggadAnvandare;
+    public Hallbarhetsmal(InfDB idb, String inloggadAnvandare) {
+        this.idb = idb;
+        this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        
+
         // Anpassning för utseende i gränssnittet
-        
-    jtHallbarhetsmal.setFont(new Font("SansSerif", Font.PLAIN, 14));
-    jtHallbarhetsmal.setRowHeight(22);
+        jtHallbarhetsmal.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        jtHallbarhetsmal.setRowHeight(22);
 
-    jtHallbarhetsmal.getTableHeader()
-    .setFont(new Font("SansSerif", Font.BOLD, 14));
+        jtHallbarhetsmal.getTableHeader()
+                .setFont(new Font("SansSerif", Font.BOLD, 14));
 
-    jtHallbarhetsmal.getColumnModel().getColumn(0).setPreferredWidth(650);
-    jtHallbarhetsmal.getColumnModel().getColumn(1).setPreferredWidth(170);
-    jtHallbarhetsmal.getColumnModel().getColumn(2).setPreferredWidth(120);
-        
-    fyllHallbarhetsmalTabell();
-    laggTillTabellLyssnare();
-    
-    if (jtHallbarhetsmal.getRowCount() > 0) {
-    jtHallbarhetsmal.setRowSelectionInterval(0, 0);
-    txtaHallbarhetsmal.setText(beskrivningar.get(0));
-}
+        jtHallbarhetsmal.getColumnModel().getColumn(0).setPreferredWidth(650);
+        jtHallbarhetsmal.getColumnModel().getColumn(1).setPreferredWidth(170);
+        jtHallbarhetsmal.getColumnModel().getColumn(2).setPreferredWidth(120);
 
-    txtaHallbarhetsmal.setLineWrap(true);
-    txtaHallbarhetsmal.setWrapStyleWord(true);
-    txtaHallbarhetsmal.setEditable(false);
-    
-    ImageIcon icon = new ImageIcon(
-    getClass().getResource("/ngo_2024/bilder/globalamal.png")
-    );
-    Image img = icon.getImage().getScaledInstance(200, 120, Image.SCALE_SMOOTH);
-    lblbild1.setIcon(new ImageIcon(img));
-    
-    }
-   
-   // Hämtar hållbarhetsmålen med tillhörande beskrivningar från databasen
-   
-   private void fyllHallbarhetsmalTabell() {
-    DefaultTableModel modell =
-            (DefaultTableModel) jtHallbarhetsmal.getModel();
+        fyllHallbarhetsmalTabell();
+        laggTillTabellLyssnare();
 
-    modell.setRowCount(0);
-    beskrivningar.clear();
-
-    try {
-        String sqlFraga = "SELECT namn, malnummer, prioritet, beskrivning FROM"
-                + " hallbarhetsmal ORDER BY malnummer";
-
-        ArrayList<HashMap<String, String>> resultat =
-                idb.fetchRows(sqlFraga);
-
-        for (HashMap<String, String> rad : resultat) {
-            modell.addRow(new Object[]{
-                rad.get("namn"),
-                rad.get("malnummer"),
-                rad.get("prioritet")
-            });
-
-            beskrivningar.add(rad.get("beskrivning"));
+        if (jtHallbarhetsmal.getRowCount() > 0) {
+            jtHallbarhetsmal.setRowSelectionInterval(0, 0);
+            txtaHallbarhetsmal.setText(beskrivningar.get(0));
         }
 
-    } catch (InfException ex) {
-        logger.log(java.util.logging.Level.SEVERE, null, ex);
+        txtaHallbarhetsmal.setLineWrap(true);
+        txtaHallbarhetsmal.setWrapStyleWord(true);
+        txtaHallbarhetsmal.setEditable(false);
+
+        ImageIcon icon = new ImageIcon(
+                getClass().getResource("/ngo_2024/bilder/globalamal.png")
+        );
+        Image img = icon.getImage().getScaledInstance(400, 150, Image.SCALE_SMOOTH);
+        lblbild1.setIcon(new ImageIcon(img));
+
+        getContentPane().setBackground(Color.WHITE);
     }
-}
-   private void laggTillTabellLyssnare() {
-    jtHallbarhetsmal.getSelectionModel()
-        .addListSelectionListener(e -> {
 
-        if (!e.getValueIsAdjusting()) {
-            int rad = jtHallbarhetsmal.getSelectedRow();
+    // Hämtar hållbarhetsmålen med tillhörande beskrivningar från databasen
+    private void fyllHallbarhetsmalTabell() {
+        DefaultTableModel modell
+                = (DefaultTableModel) jtHallbarhetsmal.getModel();
 
-            if (rad >= 0) {
-                txtaHallbarhetsmal.setText(
-                        beskrivningar.get(rad)
-                );
+        modell.setRowCount(0);
+        beskrivningar.clear();
+
+        try {
+            String sqlFraga = "SELECT namn, malnummer, prioritet, beskrivning FROM"
+                    + " hallbarhetsmal ORDER BY malnummer";
+
+            ArrayList<HashMap<String, String>> resultat
+                    = idb.fetchRows(sqlFraga);
+
+            for (HashMap<String, String> rad : resultat) {
+                modell.addRow(new Object[]{
+                    rad.get("namn"),
+                    rad.get("malnummer"),
+                    rad.get("prioritet")
+                });
+
+                beskrivningar.add(rad.get("beskrivning"));
             }
+
+        } catch (InfException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-    });
-}   
+    }
+
+    private void laggTillTabellLyssnare() {
+        jtHallbarhetsmal.getSelectionModel()
+                .addListSelectionListener(e -> {
+
+                    if (!e.getValueIsAdjusting()) {
+                        int rad = jtHallbarhetsmal.getSelectedRow();
+
+                        if (rad >= 0) {
+                            txtaHallbarhetsmal.setText(
+                                    beskrivningar.get(rad)
+                            );
+                        }
+                    }
+                });
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -210,8 +213,8 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
 
     private void btnTillbakaMalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaMalActionPerformed
         Meny meny = new Meny(idb, inloggadAnvandare);
-    meny.setVisible(true);
-    this.dispose(); // stänger Hallbarhetsmal
+        meny.setVisible(true);
+        this.dispose(); // stänger Hallbarhetsmal
     }//GEN-LAST:event_btnTillbakaMalActionPerformed
 
     /**
