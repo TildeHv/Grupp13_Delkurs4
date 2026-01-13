@@ -4,11 +4,8 @@
  */
 package ngo_2024;
 
-import java.awt.Color;
 import oru.inf.InfDB;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import java.awt.Image;
+
 /**
  *
  * @author user
@@ -67,22 +64,28 @@ public class Meny extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        lblanvandare = new javax.swing.JLabel();
+        btnProjekt = new javax.swing.JButton();
+        btnpartners = new javax.swing.JButton();
         btnminprofil = new javax.swing.JButton();
         btnavdelning = new javax.swing.JButton();
-        btnpartners = new javax.swing.JButton();
-        btnland = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        btnProjekt = new javax.swing.JButton();
         btnhallbarhetsmal = new javax.swing.JButton();
+        btnland = new javax.swing.JButton();
         btnminaprojekt = new javax.swing.JButton();
-        lblbild10 = new javax.swing.JLabel();
-        lblanvandare = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Administration"));
@@ -99,12 +102,11 @@ public class Meny extends javax.swing.JFrame {
         btnavdelning.setText("Avdelning");
         btnavdelning.addActionListener(this::btnavdelningActionPerformed);
 
-        btnpartners.setBackground(new java.awt.Color(2, 85, 139));
-        btnpartners.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnpartners.setForeground(new java.awt.Color(255, 255, 255));
-        btnpartners.setText("Partners");
-        btnpartners.setPreferredSize(new java.awt.Dimension(72, 23));
-        btnpartners.addActionListener(this::btnpartnersActionPerformed);
+        btnhallbarhetsmal.setBackground(new java.awt.Color(61, 176, 75));
+        btnhallbarhetsmal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnhallbarhetsmal.setForeground(new java.awt.Color(255, 255, 255));
+        btnhallbarhetsmal.setText("Hållbarhetsmål");
+        btnhallbarhetsmal.addActionListener(this::btnhallbarhetsmalActionPerformed);
 
         btnland.setBackground(new java.awt.Color(235, 28, 46));
         btnland.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -163,31 +165,49 @@ public class Meny extends javax.swing.JFrame {
         btnminaprojekt.setText("Mina projekt");
         btnminaprojekt.addActionListener(this::btnminaprojektActionPerformed);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(btnProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnhallbarhetsmal)
-                .addGap(21, 21, 21))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(btnminaprojekt, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblanvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnminprofil, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnpartners, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnavdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnhallbarhetsmal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnland, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnminaprojekt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProjekt)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(lblanvandare)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnminprofil)
+                    .addComponent(btnpartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnavdelning)
                     .addComponent(btnhallbarhetsmal))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProjekt)
+                    .addComponent(btnland))
+                .addGap(12, 12, 12)
                 .addComponent(btnminaprojekt)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         lblbild10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo_2024/bilder/bild10.png"))); // NOI18N
@@ -241,33 +261,33 @@ public class Meny extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnProjektActionPerformed
 
-    private void btnhallbarhetsmalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhallbarhetsmalActionPerformed
-        new Hallbarhetsmal(idb, inloggadAnvandare).setVisible(true);
-    }//GEN-LAST:event_btnhallbarhetsmalActionPerformed
-
-    private void btnminaprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminaprojektActionPerformed
-        ProjektChefTillgang tillgang = new ProjektChefTillgang(idb, inloggadAnvandare);
-        tillgang.setVisible(true);
-    }//GEN-LAST:event_btnminaprojektActionPerformed
-
-    private void btnlandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlandActionPerformed
-        Land land = new Land(idb, inloggadAnvandare);
-        land.setVisible(true);
-    }//GEN-LAST:event_btnlandActionPerformed
-
     private void btnpartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnersActionPerformed
         new PartnersFonster(idb, inloggadAnvandare).setVisible(true);
     }//GEN-LAST:event_btnpartnersActionPerformed
+
+    private void btnminprofilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminprofilActionPerformed
+        Anvandaruppgifter2 uppgifter = new Anvandaruppgifter2(idb, inloggadAnvandare);
+        uppgifter.setVisible(true);
+    }//GEN-LAST:event_btnminprofilActionPerformed
 
     private void btnavdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavdelningActionPerformed
         AvdelningJframe AvdJframe = new AvdelningJframe(idb, inloggadAnvandare);
         AvdJframe.setVisible(true);
     }//GEN-LAST:event_btnavdelningActionPerformed
 
-    private void btnminprofilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminprofilActionPerformed
-        Anvandaruppgifter2 uppgifter = new Anvandaruppgifter2(idb, inloggadAnvandare);
-        uppgifter.setVisible(true);
-    }//GEN-LAST:event_btnminprofilActionPerformed
+    private void btnhallbarhetsmalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhallbarhetsmalActionPerformed
+        new Hallbarhetsmal(idb, inloggadAnvandare).setVisible(true);
+    }//GEN-LAST:event_btnhallbarhetsmalActionPerformed
+
+    private void btnlandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlandActionPerformed
+        Land land = new Land(idb, inloggadAnvandare);
+        land.setVisible(true);
+    }//GEN-LAST:event_btnlandActionPerformed
+
+    private void btnminaprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminaprojektActionPerformed
+        ProjektChefTillgang tillgang = new ProjektChefTillgang(idb, inloggadAnvandare);
+        tillgang.setVisible(true);
+    }//GEN-LAST:event_btnminaprojektActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -299,10 +319,7 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JButton btnminaprojekt;
     private javax.swing.JButton btnminprofil;
     private javax.swing.JButton btnpartners;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblanvandare;
-    private javax.swing.JLabel lblbild10;
     // End of variables declaration//GEN-END:variables
 }
