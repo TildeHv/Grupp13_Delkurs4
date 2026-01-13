@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 
 public class Anvandaruppgifter2 extends javax.swing.JFrame {
@@ -19,6 +20,8 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         fyllUppgifter();
+        
+        getContentPane().setBackground(Color.WHITE);
     }
 
     private void fyllUppgifter() { // Tar getters från Användare-klassen och sätter namn på fälten
@@ -75,23 +78,21 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblanvandarnamn)
-                            .addComponent(lblanstallningsdatum)
-                            .addComponent(lblepost)
-                            .addComponent(lbladress)
-                            .addComponent(lbltelefon)
-                            .addComponent(lblaid)
-                            .addComponent(lblavdelning))
-                        .addGap(170, 170, 170))))
+                        .addGap(9, 9, 9))
+                    .addComponent(lblanvandarnamn)
+                    .addComponent(lblanstallningsdatum)
+                    .addComponent(lblepost)
+                    .addComponent(lbladress)
+                    .addComponent(lbltelefon)
+                    .addComponent(lblaid)
+                    .addComponent(lblavdelning))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
