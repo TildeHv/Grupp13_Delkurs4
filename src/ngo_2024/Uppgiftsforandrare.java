@@ -61,8 +61,7 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
         btnandra.setText("SPARA");
         btnandra.addActionListener(this::btnandraActionPerformed);
 
-        lblandrauppgifter.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblandrauppgifter.setText("ÄNDRA DINA UPPGIFTER");
+        lblandrauppgifter.setText("Ändra dina uppgifter");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("EPOST:");

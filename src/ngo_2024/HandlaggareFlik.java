@@ -4,12 +4,16 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import java.awt.Component;
 
 public class HandlaggareFlik extends javax.swing.JFrame {
 
@@ -24,10 +28,12 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
 
+        getContentPane().setBackground(Color.WHITE);
+
         //Lägg in tabell namn
         tabellHandlaggare.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Fornamn", "Efternamn", "Epost", "Telefon", "Ansvarighetsomrade", "Mentor"}
+                new String[]{"FORNAMN", "EFTERNAMN", "EPOST", "TELEFON", "ANSVARIGHETSOMRÅDE", "MENTOR"}
         ));
 
         fyllHandlaggareTabell();
@@ -35,6 +41,31 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         dropdownprojekt.addActionListener(e -> uppdateraHandlaggarTabell());
         uppdateraHandlaggarTabell();
         btntabort.addActionListener(e -> taBortHandlaggare());
+
+        justeraKolumnBredd();
+    }
+
+    //Justera bredd på tabell
+    public void justeraKolumnBredd() {
+        tabellHandlaggare.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int column = 0; column < tabellHandlaggare.getColumnCount(); column++) {
+            int maxBredd = 50;
+            for (int row = 0; row < tabellHandlaggare.getRowCount(); row++) {
+                TableCellRenderer renderer = tabellHandlaggare.getCellRenderer(row, column);
+                Component comp = tabellHandlaggare.prepareRenderer(renderer, row, column);
+                maxBredd = Math.max(comp.getPreferredSize().width + 10, maxBredd);
+            }
+            tabellHandlaggare.getColumnModel().getColumn(column).setPreferredWidth(maxBredd);
+        }
+
+        int bredd = 0;
+        for (int i = 0; i < tabellHandlaggare.getColumnCount(); i++) {
+            bredd += tabellHandlaggare.getColumnModel().getColumn(i).getPreferredWidth();
+        }
+        bredd += 50;
+
+        this.setSize(bredd, this.getHeight());
     }
 
     //Fyll tabellen med information om handläggare
@@ -43,21 +74,29 @@ public class HandlaggareFlik extends javax.swing.JFrame {
             DefaultTableModel modell = (DefaultTableModel) tabellHandlaggare.getModel();
             modell.setRowCount(0);
 
-            String sqlFraga = "SELECT anstalld.fornamn, anstalld.efternamn, anstalld.epost, "
-                    + "anstalld.telefon, handlaggare.ansvarighetsomrade, handlaggare.mentor "
-                    + "FROM anstalld "
-                    + "JOIN handlaggare ON anstalld.aid = handlaggare.aid";
+            String sqlFraga
+                    = "SELECT a.fornamn, a.efternamn, a.epost, a.telefon, "
+                    + "h.ansvarighetsomrade, "
+                    + "(SELECT an.fornamn FROM anstalld an WHERE an.aid = h.mentor) AS mentor_fornamn, "
+                    + "(SELECT an.efternamn FROM anstalld an WHERE an.aid = h.mentor) AS mentor_efternamn "
+                    + "FROM anstalld a "
+                    + "JOIN handlaggare h ON a.aid = h.aid";
 
             ArrayList<HashMap<String, String>> lista = idb.fetchRows(sqlFraga);
 
             for (HashMap<String, String> rad : lista) {
+                String mentorNamn = "";
+                if (rad.get("mentor_fornamn") != null) {
+                    mentorNamn = rad.get("mentor_fornamn") + " " + rad.get("mentor_efternamn");
+                }
+
                 modell.addRow(new Object[]{
                     rad.get("fornamn"),
                     rad.get("efternamn"),
                     rad.get("epost"),
                     rad.get("telefon"),
                     rad.get("ansvarighetsomrade"),
-                    rad.get("mentor")
+                    mentorNamn
                 });
             }
         } catch (Exception e) {
@@ -104,15 +143,20 @@ public class HandlaggareFlik extends javax.swing.JFrame {
             if (valdProjekt == null || valdProjekt.equals("Alla projekt")) {
 
                 sqlFraga
-                        = "SELECT a.fornamn, a.efternamn, a.epost, "
-                        + "a.telefon, h.ansvarighetsomrade, h.mentor "
+                        = "SELECT a.fornamn, a.efternamn, a.epost, a.telefon, "
+                        + "h.ansvarighetsomrade, "
+                        + "(SELECT an.fornamn FROM anstalld an WHERE an.aid = h.mentor) AS mentor_fornamn, "
+                        + "(SELECT an.efternamn FROM anstalld an WHERE an.aid = h.mentor) AS mentor_efternamn "
                         + "FROM anstalld a "
-                        + "JOIN handlaggare h ON a.aid = h.aid ";
+                        + "JOIN handlaggare h ON a.aid = h.aid";
             } else {
 
                 int pid = projektMap.get(valdProjekt);
                 sqlFraga
-                        = "SELECT a.fornamn, a.efternamn, a.epost, a.telefon, h.ansvarighetsomrade, h.mentor "
+                        = "SELECT a.fornamn, a.efternamn, a.epost, a.telefon, "
+                        + "h.ansvarighetsomrade, "
+                        + "(SELECT an.fornamn FROM anstalld an WHERE an.aid = h.mentor) AS mentor_fornamn, "
+                        + "(SELECT an.efternamn FROM anstalld an WHERE an.aid = h.mentor) AS mentor_efternamn "
                         + "FROM ans_proj ph "
                         + "JOIN handlaggare h ON ph.aid = h.aid "
                         + "JOIN anstalld a ON h.aid = a.aid "
@@ -124,14 +168,17 @@ public class HandlaggareFlik extends javax.swing.JFrame {
 
             if (lista != null) {
                 for (HashMap<String, String> rad : lista) {
-
+                    String mentorNamn = "";
+                    if (rad.get("mentor_fornamn") != null) {
+                        mentorNamn = rad.get("mentor_fornamn") + " " + rad.get("mentor_efternamn");
+                    }
                     modell.addRow(new Object[]{
                         rad.get("fornamn"),
                         rad.get("efternamn"),
                         rad.get("epost"),
                         rad.get("telefon"),
                         rad.get("ansvarighetsomrade"),
-                        rad.get("mentor")
+                        mentorNamn
                     });
                 }
             }
@@ -155,13 +202,13 @@ public class HandlaggareFlik extends javax.swing.JFrame {
                         "Välj ett projekt först!");
                 return;
             }
-            
+
             int svar = JOptionPane.showConfirmDialog(this,
                     "Är du säker på att du vill ta bort handläggaren från projektet?",
                     "Bekräfta bortagning",
                     JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.WARNING_MESSAGE);
-            
+
             if (svar != JOptionPane.YES_OPTION) {
                 return;
             }
@@ -199,10 +246,11 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         dropdownprojekt = new javax.swing.JComboBox<>();
         btnlaggtill = new javax.swing.JButton();
         btntabort = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        rubrikHandlaggare.setText("Handläggare");
+        rubrikHandlaggare.setText("Handläggare i projekt");
 
         tabellHandlaggare.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,11 +267,23 @@ public class HandlaggareFlik extends javax.swing.JFrame {
 
         dropdownprojekt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnlaggtill.setText("Lägg till");
+        btnlaggtill.setBackground(new java.awt.Color(1, 174, 217));
+        btnlaggtill.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnlaggtill.setForeground(new java.awt.Color(255, 255, 255));
+        btnlaggtill.setText("LÄGG TILL");
         btnlaggtill.addActionListener(this::btnlaggtillActionPerformed);
 
-        btntabort.setText("Ta bort");
+        btntabort.setBackground(new java.awt.Color(235, 28, 46));
+        btntabort.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btntabort.setForeground(new java.awt.Color(255, 255, 255));
+        btntabort.setText("TA BORT");
         btntabort.addActionListener(this::btntabortActionPerformed);
+
+        jButton1.setBackground(new java.awt.Color(249, 181, 18));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("TILLBAKA");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -232,17 +292,18 @@ public class HandlaggareFlik extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rubrikHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rubrikHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(dropdownprojekt, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnlaggtill)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btntabort))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnlaggtill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btntabort, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,24 +313,29 @@ public class HandlaggareFlik extends javax.swing.JFrame {
                     .addComponent(rubrikHandlaggare)
                     .addComponent(dropdownprojekt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btntabort)
                     .addComponent(btnlaggtill)
-                    .addComponent(btntabort))
-                .addContainerGap(7, Short.MAX_VALUE))
+                    .addComponent(jButton1))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnlaggtillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlaggtillActionPerformed
-     new LaggTillHandlaggare(idb, inloggadAnvandare, this).setVisible(true);
+        new LaggTillHandlaggare(idb, inloggadAnvandare, this).setVisible(true);
     }//GEN-LAST:event_btnlaggtillActionPerformed
 
     private void btntabortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntabortActionPerformed
 
     }//GEN-LAST:event_btntabortActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,6 +366,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
     private javax.swing.JButton btnlaggtill;
     private javax.swing.JButton btntabort;
     private javax.swing.JComboBox<String> dropdownprojekt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel rubrikHandlaggare;
     private javax.swing.JTable tabellHandlaggare;
