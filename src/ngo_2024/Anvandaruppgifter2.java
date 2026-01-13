@@ -4,6 +4,9 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import oru.inf.InfDB;
 
 public class Anvandaruppgifter2 extends javax.swing.JFrame {
@@ -19,6 +22,18 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         fyllUppgifter();
+
+        getContentPane().setBackground(Color.WHITE);
+
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/ngo_2024/bilder/bild6.png"));
+        
+        int targetWidth = 80;
+        int targetHeight = (originalIcon.getIconHeight() * targetWidth) / originalIcon.getIconWidth();
+
+        Image scaledImage = originalIcon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+        lblBild.setIcon(new ImageIcon(scaledImage));
+
+        setResizable(false);
     }
 
     private void fyllUppgifter() { // Tar getters från Användare-klassen och sätter namn på fälten
@@ -28,10 +43,10 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         lblanvandarnamn.setText(anv.getFullNamn());
         lbltelefon.setText(anv.getTelefon());
         lblepost.setText(anv.getEpost());
-        lblavdelning.setText("Avdelning: " + anv.getAvdelning());
+        lblavdelning.setText("AVDELNING: " + anv.getAvdelning());
         lblaid.setText("AID: " + anv.getAid());
         lbladress.setText(anv.getAdress());
-        lblanstallningsdatum.setText("Anställningsdatum: " + anv.getAnstallningsdatum());
+        lblanstallningsdatum.setText("ANSTÄLLNINGSDATUM: " + anv.getAnstallningsdatum());
     }
 
     @SuppressWarnings("unchecked")
@@ -47,6 +62,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         lblavdelning = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnTillbaka = new javax.swing.JButton();
+        lblBild = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,44 +80,58 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
 
         lblavdelning.setText("Avdelning");
 
-        jButton1.setText("Ändra uppgifter");
+        jButton1.setBackground(new java.awt.Color(1, 174, 217));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("ÄNDRA UPPGIFTER");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
-        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
+        btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
+        btnTillbaka.setText("TILLBAKA");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
+
+        lblBild.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblanvandarnamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblepost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbltelefon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblaid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblanstallningsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(lblavdelning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblanvandarnamn)
-                            .addComponent(lblanstallningsdatum)
-                            .addComponent(lblepost)
-                            .addComponent(lbladress)
-                            .addComponent(lbltelefon)
-                            .addComponent(lblaid)
-                            .addComponent(lblavdelning))
-                        .addGap(170, 170, 170))))
+                        .addComponent(lbladress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBild, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(lblanvandarnamn)
-                .addGap(18, 18, 18)
-                .addComponent(lbladress)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblepost)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(lblanvandarnamn)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbladress)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblepost))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(lblBild, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbltelefon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -159,6 +189,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel lblBild;
     private javax.swing.JLabel lbladress;
     private javax.swing.JLabel lblaid;
     private javax.swing.JLabel lblanstallningsdatum;
