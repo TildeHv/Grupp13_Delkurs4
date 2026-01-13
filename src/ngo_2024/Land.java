@@ -4,7 +4,6 @@
  */
 package ngo_2024;
 
-import java.awt.Color;
 import oru.inf.InfDB;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +24,6 @@ public class Land extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        
-        getContentPane().setLayout(null);
-        getContentPane().setBackground(Color.WHITE);
 
         getLandNamn();
 
@@ -36,7 +32,6 @@ public class Land extends javax.swing.JFrame {
         if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
             btnAndraLand.setVisible(true);
         }
-        
     }
 
     //Hämta och lägg in namn på land i filter
@@ -98,36 +93,25 @@ public class Land extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("SPRÅK");
+        jLabel2.setText("Språk");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("VALUTA");
+        jLabel4.setText("Valuta");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setText("TIDSZON");
+        jLabel5.setText("Tidszon");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("POLITISK STRUKTUR");
+        jLabel6.setText("Politisk struktur");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("EKONOMI");
+        jLabel7.setText("Ekonomi");
 
         filterLand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         filterLand.addActionListener(this::filterLandActionPerformed);
 
         txtTidszon.addActionListener(this::txtTidszonActionPerformed);
 
-        btnAndraLand.setBackground(new java.awt.Color(1, 174, 217));
-        btnAndraLand.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAndraLand.setForeground(new java.awt.Color(255, 255, 255));
-        btnAndraLand.setText("ÄNDRA LAND");
+        btnAndraLand.setText("Ändra land");
         btnAndraLand.addActionListener(this::btnAndraLandActionPerformed);
 
-        btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
-        btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
-        btnTillbaka.setText("TILLBAKA");
+        btnTillbaka.setText("Tillbaka");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,19 +125,19 @@ public class Land extends javax.swing.JFrame {
                     .addComponent(txtEkonomi)
                     .addComponent(txtTidszon)
                     .addComponent(txtValuta)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                        .addComponent(btnAndraLand, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtSprak)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                        .addComponent(btnAndraLand, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
