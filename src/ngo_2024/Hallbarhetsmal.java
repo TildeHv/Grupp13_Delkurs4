@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.awt.Image;
 
 /**
  *
@@ -52,6 +55,12 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
     txtaHallbarhetsmal.setLineWrap(true);
     txtaHallbarhetsmal.setWrapStyleWord(true);
     txtaHallbarhetsmal.setEditable(false);
+    
+    ImageIcon icon = new ImageIcon(
+    getClass().getResource("/bilder/globalamal.png")
+    );
+    Image img = icon.getImage().getScaledInstance(200, 120, Image.SCALE_SMOOTH);
+    lblbild1.setIcon(new ImageIcon(img));
     
     }
    
@@ -118,6 +127,7 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
         lblBeskrivning = new javax.swing.JLabel();
         lblHallbarhetsmal = new javax.swing.JLabel();
         btnTillbakaMal = new javax.swing.JButton();
+        lblbild1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -148,6 +158,9 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
         btnTillbakaMal.setText("Tillbaka");
         btnTillbakaMal.addActionListener(this::btnTillbakaMalActionPerformed);
 
+        lblbild1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo_2024/bilder/globalamal.png"))); // NOI18N
+        lblbild1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,26 +168,35 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblInfo)
+                            .addComponent(lblHallbarhetsmal))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblbild1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(btnTillbakaMal)
-                    .addComponent(lblInfo)
-                    .addComponent(lblHallbarhetsmal)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBeskrivning))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lblHallbarhetsmal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblInfo)
-                    .addComponent(lblBeskrivning))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(lblHallbarhetsmal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblInfo)
+                            .addComponent(lblBeskrivning)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblbild1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(20, 20, 20)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -225,6 +247,7 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
     private javax.swing.JLabel lblBeskrivning;
     private javax.swing.JLabel lblHallbarhetsmal;
     private javax.swing.JLabel lblInfo;
+    private javax.swing.JLabel lblbild1;
     private javax.swing.JTextArea txtaHallbarhetsmal;
     // End of variables declaration//GEN-END:variables
 }
