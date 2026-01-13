@@ -29,7 +29,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        btnTillbaka.setBackground(new Color(249, 181, 18));
+       
 
         projInfoKnapp.setEnabled(false);
 
@@ -258,6 +258,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         tpProjekt.addTab("tab2", jScrollPane2);
 
         btnTillbaka.setText("Tillbaka");
+        btnTillbaka.setOpaque(true);
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
