@@ -14,6 +14,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.*;
+import java.awt.Color;
 
 public class ProjektFlik extends javax.swing.JFrame {
 
@@ -28,6 +29,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
+        btnTillbaka.setBackground(new Color(249, 181, 18));
 
         projInfoKnapp.setEnabled(false);
 
@@ -209,6 +211,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         tabellMinaProjekt = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabellAllaProjekt = new javax.swing.JTable();
+        btnTillbaka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -254,6 +257,9 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         tpProjekt.addTab("tab2", jScrollPane2);
 
+        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,9 +283,12 @@ public class ProjektFlik extends javax.swing.JFrame {
                                 .addComponent(slutDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                                 .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -300,7 +309,9 @@ public class ProjektFlik extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(tpProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(projInfoKnapp)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(projInfoKnapp)
+                    .addComponent(btnTillbaka))
                 .addContainerGap())
         );
 
@@ -318,6 +329,11 @@ public class ProjektFlik extends javax.swing.JFrame {
             new ProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);
         }
     }//GEN-LAST:event_projInfoKnappActionPerformed
+
+    private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        // TODO add your handling code here:'
+        dispose();
+    }//GEN-LAST:event_btnTillbakaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,6 +361,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> filterBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
