@@ -131,6 +131,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="L&#xe4;gg till/Ta bort partners"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnandrapartnerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnandrahandlaggare">
       <Properties>
