@@ -88,50 +88,52 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtbudget" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtstatus" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtansvarig" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtprojekt" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtland" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtstartdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtprojekt" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblprojektnamn" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Component id="lblkostnad" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblstatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblstartdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblprojektnamn" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Component id="lblprojektchef" min="-2" pref="118" max="-2" attributes="0"/>
+                          <Component id="lblland" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lblland" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="btnAndraKnapp" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblbudget" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblstatus" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblstartdatum" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblprojektchef" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="36" max="32767" attributes="0"/>
-                                      <Component id="txtbeskrivning" min="-2" pref="257" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtbeskrivning" min="-2" pref="257" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnTillbaka" min="-2" pref="75" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel2" min="-2" pref="151" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="btnTillbaka" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnAndraKnapp" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -140,22 +142,24 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtprojekt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblprojektnamn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtansvarig" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                           <Component id="lblprojektchef" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblbudget" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblkostnad" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtbudget" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -178,17 +182,16 @@
                           <Component id="txtland" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblland" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtbeskrivning" min="-2" pref="171" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnAndraKnapp" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="txtbeskrivning" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnTillbaka" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAndraKnapp" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -196,7 +199,10 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="txtprojekt">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Projekt"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="PROJEKT:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblprojektnamn">
@@ -209,9 +215,9 @@
         <Property name="text" type="java.lang.String" value="Projektchef"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblbudget">
+    <Component class="javax.swing.JLabel" name="lblkostnad">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Budget"/>
+        <Property name="text" type="java.lang.String" value="Kostnad"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblstartdatum">
@@ -221,7 +227,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="txtansvarig">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ansvarig"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="ANSVARIG:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblslutdatum">
@@ -235,31 +244,40 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtbeskrivning">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtbeskrivningActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtbudget">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Budget"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="KOSTNAD:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtslutdatum">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Slutdatum"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="SLUTDATUM:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtstatus">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Status"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="STATUS:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtland">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Land"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="LAND:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblland">
@@ -274,12 +292,24 @@
     </Component>
     <Component class="javax.swing.JLabel" name="txtstartdatum">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Startdatum"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="STARTDATUM:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnAndraKnapp">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc4;ndra"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="d9" green="ae" red="1" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="&#xc4;NDRA UPPGIFTER"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAndraKnappActionPerformed"/>
@@ -287,11 +317,25 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnTillbaka">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tillbaka"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="12" green="b5" red="f9" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="TILLBAKA"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTillbakaActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Information om projekt"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

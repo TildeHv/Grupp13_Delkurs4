@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.logging.Logger;
@@ -38,6 +39,8 @@ public class Projektforandrare extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Fel vid hämtning av projekt: " + e.getMessage());
         }
+        
+        getContentPane().setBackground(Color.WHITE);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -71,18 +74,22 @@ public class Projektforandrare extends javax.swing.JFrame {
         lblbeskrivning.setText("Beskrivning");
         lblbeskrivning.addActionListener(this::lblbeskrivningActionPerformed);
 
-        txtbeskrivning.setText("Beskrivning");
+        txtbeskrivning.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtbeskrivning.setText("BESKRIVNING:");
 
-        txtprojektnamn.setText("Projektnamn");
+        txtprojektnamn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtprojektnamn.setText("PROJEKTNAMN:");
 
         lblprojektnamn.setText("Projektnamn");
         lblprojektnamn.addActionListener(this::lblprojektnamnActionPerformed);
 
-        txtStatus.setText("Status");
+        txtStatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtStatus.setText("STATUS:");
 
-        txtprioritet.setText("Prioritet");
+        txtprioritet.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtprioritet.setText("PRIORITET:");
 
-        scrollprioritet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Låg", "Medel", "IHög" }));
+        scrollprioritet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Låg", "Medel", "Hög" }));
         scrollprioritet.addActionListener(this::scrollprioritetActionPerformed);
 
         scrollstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pågående", "Avslutat", "Pausat" }));
@@ -90,23 +97,32 @@ public class Projektforandrare extends javax.swing.JFrame {
         scrollstatus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         scrollstatus.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        txtkostnad.setText("Kostnad");
+        txtkostnad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtkostnad.setText("KOSTNAD:");
 
         lblkostnad.setText("Kostnad");
         lblkostnad.addActionListener(this::lblkostnadActionPerformed);
 
-        txtstartdatum.setText("Startdatum");
+        txtstartdatum.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtstartdatum.setText("STARTDATUM:");
 
-        txtslutdatum.setText("Slutdatum");
+        txtslutdatum.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtslutdatum.setText("SLUTDATUM:");
 
-        btnspara.setText("Spara");
+        btnspara.setBackground(new java.awt.Color(61, 176, 75));
+        btnspara.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnspara.setForeground(new java.awt.Color(255, 255, 255));
+        btnspara.setText("SPARA");
         btnspara.addActionListener(this::btnsparaActionPerformed);
 
         lblstartdatum.setText("Startdatum");
 
         lblslutdatum.setText("Slutdatum");
 
-        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
+        btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
+        btnTillbaka.setText("TILLBAKA");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -114,81 +130,78 @@ public class Projektforandrare extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtprojektnamn)
-                                        .addComponent(txtStatus)
-                                        .addComponent(txtprioritet)
-                                        .addComponent(txtbeskrivning)
-                                        .addComponent(txtkostnad)
-                                        .addComponent(txtstartdatum)
-                                        .addComponent(txtslutdatum))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(13, 13, 13)))
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblbeskrivning)
-                                        .addComponent(lblprojektnamn)
-                                        .addComponent(scrollstatus, 0, 223, Short.MAX_VALUE)
-                                        .addComponent(scrollprioritet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblkostnad)
-                                        .addComponent(lblstartdatum)
-                                        .addComponent(lblslutdatum))
-                                    .addComponent(btnspara)))
-                            .addComponent(txtandraprojektuppgifter))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                            .addComponent(txtbeskrivning)
+                            .addComponent(txtprojektnamn)
+                            .addComponent(txtStatus)
+                            .addComponent(txtprioritet)
+                            .addComponent(txtkostnad)
+                            .addComponent(txtstartdatum)
+                            .addComponent(txtslutdatum)
+                            .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblstartdatum, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblkostnad, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(scrollprioritet, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(scrollstatus, javax.swing.GroupLayout.Alignment.TRAILING, 0, 272, Short.MAX_VALUE)
+                            .addComponent(lblprojektnamn, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnspara, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblbeskrivning, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblslutdatum)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtandraprojektuppgifter)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1)
+                        .addGap(0, 196, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtandraprojektuppgifter)
-                .addGap(18, 18, 18)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtandraprojektuppgifter))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblbeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtbeskrivning))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblprojektnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtprojektnamn))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtprioritet)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(scrollstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStatus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollprioritet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblprojektnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtprojektnamn)
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrollstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(scrollprioritet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtprioritet))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtkostnad)
                     .addComponent(lblkostnad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtstartdatum)
-                    .addComponent(lblstartdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtslutdatum)
-                    .addComponent(lblslutdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblstartdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtstartdatum))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnspara)
-                    .addComponent(btnTillbaka))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(lblslutdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtslutdatum))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTillbaka)
+                    .addComponent(btnspara))
+                .addContainerGap())
         );
 
         pack();
