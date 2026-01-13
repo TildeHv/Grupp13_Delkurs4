@@ -41,12 +41,21 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
 
         lblKontrollPanel.setText("Kontrollpanel för avdelningar");
 
+        btnRedigeraBefintligAvd.setBackground(new java.awt.Color(1, 174, 255));
+        btnRedigeraBefintligAvd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRedigeraBefintligAvd.setForeground(new java.awt.Color(255, 255, 255));
         btnRedigeraBefintligAvd.setText("Redigera befintlig avdelning");
         btnRedigeraBefintligAvd.addActionListener(this::btnRedigeraBefintligAvdActionPerformed);
 
+        btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
+        btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
         btnTillbaka.setText("Tillbaka");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
+        btnNyAvdelning.setBackground(new java.awt.Color(61, 176, 75));
+        btnNyAvdelning.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNyAvdelning.setForeground(new java.awt.Color(255, 255, 255));
         btnNyAvdelning.setText("Lägg till ny avdelning");
         btnNyAvdelning.addActionListener(this::btnNyAvdelningActionPerformed);
 
@@ -61,7 +70,7 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
                     .addComponent(lblKontrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNyAvdelning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,9 +81,9 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
                 .addComponent(btnRedigeraBefintligAvd)
                 .addGap(18, 18, 18)
                 .addComponent(btnNyAvdelning)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(btnTillbaka)
-                .addGap(20, 20, 20))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
