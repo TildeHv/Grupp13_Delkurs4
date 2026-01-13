@@ -30,15 +30,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="btnminaprojekt" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblanvandarnamn" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnProjekt" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="btnavdelning" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
+                          <Component id="btnProjekt" alignment="1" pref="116" max="32767" attributes="0"/>
+                          <Component id="btnminprofil" max="32767" attributes="0"/>
+                          <Component id="btnavdelning" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnhallbarhetsmal" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnland" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="btnpartner" min="-2" pref="116" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnpartners" max="32767" attributes="0"/>
+                          <Component id="btnhallbarhetsmal" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnland" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -52,14 +52,14 @@
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="lblanvandare" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblanvandarnamn" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                  <Component id="btnpartner" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnpartners" max="32767" attributes="0"/>
+                  <Component id="btnminprofil" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnhallbarhetsmal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnavdelning" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnhallbarhetsmal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -96,7 +96,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProjektActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnpartner">
+    <Component class="javax.swing.JButton" name="btnpartners">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="8b" green="55" red="2" type="rgb"/>
@@ -113,10 +113,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnpartnerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnpartnersActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="lblanvandarnamn">
+    <Component class="javax.swing.JButton" name="btnminprofil">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="d9" green="ae" red="1" type="rgb"/>
@@ -130,27 +130,10 @@
         <Property name="text" type="java.lang.String" value="Min profil"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblanvandarnamnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnminprofilActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="btnhallbarhetsmal">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="4b" green="b0" red="3d" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="H&#xe5;llbarhetsm&#xe5;l"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnhallbarhetsmalActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="btnavdelning">
+    <Component class="javax.swing.JButton" name="btnavdelning">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="12" green="b5" red="f9" type="rgb"/>
@@ -167,7 +150,24 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnavdelningActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="btnland">
+    <Component class="javax.swing.JButton" name="btnhallbarhetsmal">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="4b" green="b0" red="3d" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="H&#xe5;llbarhetsm&#xe5;l"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnhallbarhetsmalActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnland">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="2e" green="1c" red="eb" type="rgb"/>
@@ -184,8 +184,11 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnlandActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="btnminaprojekt">
+    <Component class="javax.swing.JButton" name="btnminaprojekt">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Mina projekt"/>
       </Properties>
       <Events>
