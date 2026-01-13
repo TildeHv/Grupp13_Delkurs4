@@ -33,10 +33,9 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         //Lägg in tabell namn
         tabellHandlaggare.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"FORNAMN", "EFTERNAMN", "EPOST", "TELEFON", "ANSVARIGHETSOMRÅDE", "MENTOR"}
+                new String[]{"FÖRNAMN", "EFTERNAMN", "EPOST", "TELEFON", "ANSVARIGHETSOMRÅDE", "MENTOR"}
         ));
 
-        fyllHandlaggareTabell();
         fylldropdownprojekt();
         dropdownprojekt.addActionListener(e -> uppdateraHandlaggarTabell());
         uppdateraHandlaggarTabell();
@@ -54,7 +53,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
             for (int row = 0; row < tabellHandlaggare.getRowCount(); row++) {
                 TableCellRenderer renderer = tabellHandlaggare.getCellRenderer(row, column);
                 Component comp = tabellHandlaggare.prepareRenderer(renderer, row, column);
-                maxBredd = Math.max(comp.getPreferredSize().width + 10, maxBredd);
+                maxBredd = Math.max(comp.getPreferredSize().width + 30, maxBredd);
             }
             tabellHandlaggare.getColumnModel().getColumn(column).setPreferredWidth(maxBredd);
         }

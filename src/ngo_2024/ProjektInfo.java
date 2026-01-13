@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.ArrayList;
@@ -24,14 +25,16 @@ public class ProjektInfo extends javax.swing.JFrame {
         initComponents();
         HamtaProjektinfo();
 
-        btnAndraKnapp.setVisible(false); /*z--Sätter knappen till false om man inte är projektchef*/
+        btnAndraKnapp.setVisible(false);
+        /*z--Sätter knappen till false om man inte är projektchef*/
 
         if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
             btnAndraKnapp.setVisible(true);
             btnAndraKnapp.setEnabled(true);
         }
 
-        btnAndraKnapp.setEnabled(false); /*Sätter tillgången till false om man inte är projektchef för det projektet*/
+        btnAndraKnapp.setEnabled(false);
+        /*Sätter tillgången till false om man inte är projektchef för det projektet*/
 
         boolean arProjektchef = arProjektchefForProjekt(idb, inloggadAnvandare, projektId);
 
@@ -39,24 +42,55 @@ public class ProjektInfo extends javax.swing.JFrame {
             btnAndraKnapp.setEnabled(true);
         }
 
+        getContentPane().setBackground(Color.WHITE);
     }
 
     private void HamtaProjektinfo() {
         /*<--- Hämtar information från projektklass och sätter i den i respektive fält */
 
-        ProjektKlass projekt = new ProjektKlass(idb, inloggadAnvandare, projektId);
+        try {
+            String sqlFraga = "SELECT p.projektnamn, p.projektchef, p.startdatum, p.slutdatum, "
+                    + "p.kostnad, p.status, p.beskrivning, "
+                    + "(SELECT l.namn FROM land l WHERE l.lid = p.land) AS land_namn "
+                    + "FROM projekt p "
+                    + "WHERE p.pid = " + projektId;
 
-        lblprojektnamn.setText(projekt.getProjektnamn());
-        lblprojektchef.setText(projekt.getProjektchef());
-        lblstartdatum.setText(projekt.getStartdatum());
-        lblslutdatum.setText(projekt.getSlutdatum());
-        lblbudget.setText(projekt.getKostnad());
-        lblstatus.setText(projekt.getStatus());
-        txtbeskrivning.setText(projekt.getBeskrivning());
-        lblland.setText(projekt.getLand());
+            HashMap<String, String> projekt = idb.fetchRow(sqlFraga);
+
+            if (projekt != null) {
+                lblprojektnamn.setText(projekt.get("projektnamn") != null ? projekt.get("projektnamn") : "");
+                lblstartdatum.setText(projekt.get("startdatum") != null ? projekt.get("startdatum") : "");
+                lblslutdatum.setText(projekt.get("slutdatum") != null ? projekt.get("slutdatum") : "");
+                lblkostnad.setText(projekt.get("kostnad") != null ? projekt.get("kostnad") : "");
+                lblstatus.setText(projekt.get("status") != null ? projekt.get("status") : "");
+                txtbeskrivning.setText(projekt.get("beskrivning") != null ? projekt.get("beskrivning") : "");
+                lblland.setText(projekt.get("land_namn") != null ? projekt.get("land_namn") : "Ingen");
+
+                String chefAid = projekt.get("projektchef");
+                if (chefAid != null) {
+                    HashMap<String, String> chefData = idb.fetchRow(
+                            "SELECT fornamn, efternamn FROM anstalld WHERE aid = " + chefAid
+                    );
+                    if (chefData != null) {
+                        String chefNamn = (chefData.get("fornamn") != null ? chefData.get("fornamn") : "")
+                                + " "
+                                + (chefData.get("efternamn") != null ? chefData.get("efternamn") : "");
+                        lblprojektchef.setText(chefNamn.trim());
+                    } else {
+                        lblprojektchef.setText("Ingen");
+                    }
+                } else {
+                    lblprojektchef.setText("Ingen");
+                }
+            }
+
+        } catch (InfException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static boolean arProjektchefForProjekt(InfDB idb, String inloggadAnvandare, int projektID) { /*<-- Använder sql fråga för att titta att  projekt pid och projektchefens aid är samma*/
+    public static boolean arProjektchefForProjekt(InfDB idb, String inloggadAnvandare, int projektID) {
+        /*<-- Använder sql fråga för att titta att  projekt pid och projektchefens aid är samma*/
         try {
             String sqlFraga
                     = "SELECT projekt.pid FROM projekt "
@@ -86,7 +120,7 @@ public class ProjektInfo extends javax.swing.JFrame {
         txtprojekt = new javax.swing.JLabel();
         lblprojektnamn = new javax.swing.JLabel();
         lblprojektchef = new javax.swing.JLabel();
-        lblbudget = new javax.swing.JLabel();
+        lblkostnad = new javax.swing.JLabel();
         lblstartdatum = new javax.swing.JLabel();
         txtansvarig = new javax.swing.JLabel();
         lblslutdatum = new javax.swing.JLabel();
@@ -101,6 +135,7 @@ public class ProjektInfo extends javax.swing.JFrame {
         txtstartdatum = new javax.swing.JLabel();
         btnAndraKnapp = new javax.swing.JButton();
         btnTillbaka = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -116,44 +151,58 @@ public class ProjektInfo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtprojekt.setText("Projekt");
+        txtprojekt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtprojekt.setText("PROJEKT:");
 
         lblprojektnamn.setText("Namn");
 
         lblprojektchef.setText("Projektchef");
 
-        lblbudget.setText("Budget");
+        lblkostnad.setText("Kostnad");
 
         lblstartdatum.setText("Startdatum");
 
-        txtansvarig.setText("Ansvarig");
+        txtansvarig.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtansvarig.setText("ANSVARIG:");
 
         lblslutdatum.setText("Slutdatum");
 
         lblstatus.setText("Status");
 
-        txtbeskrivning.setText("jTextField1");
         txtbeskrivning.addActionListener(this::txtbeskrivningActionPerformed);
 
-        txtbudget.setText("Budget");
+        txtbudget.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtbudget.setText("KOSTNAD:");
 
-        txtslutdatum.setText("Slutdatum");
+        txtslutdatum.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtslutdatum.setText("SLUTDATUM:");
 
-        txtstatus.setText("Status");
+        txtstatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtstatus.setText("STATUS:");
 
-        txtland.setText("Land");
+        txtland.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtland.setText("LAND:");
 
         lblland.setText("Land");
 
         jLabel1.setText("Om projektet");
 
-        txtstartdatum.setText("Startdatum");
+        txtstartdatum.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtstartdatum.setText("STARTDATUM:");
 
-        btnAndraKnapp.setText("Ändra");
+        btnAndraKnapp.setBackground(new java.awt.Color(1, 174, 217));
+        btnAndraKnapp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAndraKnapp.setForeground(new java.awt.Color(255, 255, 255));
+        btnAndraKnapp.setText("ÄNDRA UPPGIFTER");
         btnAndraKnapp.addActionListener(this::btnAndraKnappActionPerformed);
 
-        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
+        btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
+        btnTillbaka.setText("TILLBAKA");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
+
+        jLabel2.setText("Information om projekt");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,53 +217,57 @@ public class ProjektInfo extends javax.swing.JFrame {
                             .addComponent(txtslutdatum)
                             .addComponent(txtstatus)
                             .addComponent(txtansvarig)
-                            .addComponent(txtprojekt)
                             .addComponent(txtland)
-                            .addComponent(txtstartdatum))
+                            .addComponent(txtstartdatum)
+                            .addComponent(txtprojekt))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblkostnad)
+                            .addComponent(lblstatus)
+                            .addComponent(lblstartdatum)
+                            .addComponent(lblslutdatum)
+                            .addComponent(lblprojektnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblprojektchef, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblland))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblprojektnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblland)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnAndraKnapp))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblbudget)
-                                            .addComponent(lblstatus)
-                                            .addComponent(lblstartdatum)
-                                            .addComponent(lblslutdatum)
-                                            .addComponent(lblprojektchef, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                        .addComponent(txtbeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(83, 83, 83))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtbeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAndraKnapp)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtprojekt)
                     .addComponent(lblprojektnamn)
                     .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtansvarig, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblprojektchef))
-                        .addGap(58, 58, 58)
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblbudget)
+                            .addComponent(lblkostnad)
                             .addComponent(txtbudget))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,15 +284,14 @@ public class ProjektInfo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtland)
-                            .addComponent(lblland)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtbeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAndraKnapp)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTillbaka)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblland))
+                        .addGap(0, 13, Short.MAX_VALUE))
+                    .addComponent(txtbeskrivning))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTillbaka)
+                    .addComponent(btnAndraKnapp))
+                .addContainerGap())
         );
 
         pack();
@@ -288,6 +340,7 @@ public class ProjektInfo extends javax.swing.JFrame {
     private javax.swing.JButton btnAndraKnapp;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -295,7 +348,7 @@ public class ProjektInfo extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JLabel lblbudget;
+    private javax.swing.JLabel lblkostnad;
     private javax.swing.JLabel lblland;
     private javax.swing.JLabel lblprojektchef;
     private javax.swing.JLabel lblprojektnamn;
