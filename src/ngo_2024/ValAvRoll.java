@@ -6,6 +6,7 @@ package ngo_2024;
 
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,11 +63,27 @@ public class ValAvRoll {
            return idb.fetchSingle(sqlFraga) !=null;
        } catch (InfException e) {
            return false;
-           
+             
        }
+    }     
        
-       }
+    
+   public static java.util.ArrayList<String> hamtaProjektForProjektchef(InfDB idb, String inloggadAnvandare) {
+    try {
+        return idb.fetchColumn(
+            "SELECT p.pid " +
+            "FROM projekt p " +
+            "JOIN anstalld an ON p.projektchef = an.aid " +
+            "WHERE an.epost = '" + inloggadAnvandare + "'"
+        );
+    } catch (InfException e) {
+        return new java.util.ArrayList<>();
     }
+}
+
+}
+    
+  
     
 
 

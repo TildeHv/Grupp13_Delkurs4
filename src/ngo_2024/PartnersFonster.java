@@ -30,7 +30,7 @@ public class PartnersFonster extends javax.swing.JFrame {
 
         initComponents();
        
-        //Anpassar utseendet för gränssnittet (typsnitt, radstorlek, header)
+        //Anpassar utseendet för gränssnittet (typsnitt, radstorlek)
     jtPartners.setFont(new Font("SansSerif", Font.PLAIN, 12));
     jtPartners.setRowHeight(22);
 
@@ -55,17 +55,19 @@ public class PartnersFonster extends javax.swing.JFrame {
         
         sattBehorighet();
 
-        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
-            fyllProjektCombo();
-        }
+     boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
-        fyllPartnersTabell();
+     if (arProjektchef) {
+     fyllProjektCombo();
+}
 
-        cbPartners.addActionListener(e -> {
-            if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
-                fyllPartnersTabell();
-            }
-        });
+     fyllPartnersTabell();
+
+     cbPartners.addActionListener(e -> {
+    if (arProjektchef) {
+       fyllPartnersTabell();
+    }
+});
     }
 //Adminen och Projektchefens behörigheter
     private void sattBehorighet() {
@@ -151,11 +153,12 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
 
     private void fyllProjektCombo() {
     cbPartners.removeAllItems();
-    Projektchef pc = new Projektchef(idb, inloggadAnvandare);
+    
+    for (String pid : ValAvRoll.hamtaProjektForProjektchef(idb, inloggadAnvandare)) {
+    cbPartners.addItem(pid);
+}
 
-    for (String pid : pc.hamtaEgnaProjekt()) {
-        cbPartners.addItem(pid);
-    }
+    
 
     if (cbPartners.getItemCount() > 0) {
         cbPartners.setSelectedIndex(0);
