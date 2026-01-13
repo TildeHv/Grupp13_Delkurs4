@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 import javax.swing.JOptionPane;
 
@@ -21,6 +22,7 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
      */
     public AdminKontrollPanelAvdelning(InfDB idb) {
         this.idb = idb;
+          getContentPane().setBackground(Color.WHITE);
         initComponents();
     }
     /**

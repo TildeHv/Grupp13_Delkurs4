@@ -8,6 +8,7 @@ import oru.inf.InfDB;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.awt.Color;
+import javax.swing.plaf.basic.BasicTableHeaderUI;
 
 
 /**
@@ -31,20 +32,28 @@ public class AvdelningJframe extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         this.avdelningSQL = new AvdelningSQL(idb);
+  
+        getContentPane().setBackground(Color.WHITE);
         initComponents();
-        tblVisaAnstallda.setVisible(true);
-        tblVisaAnstallda.getTableHeader().setBackground(new Color(61, 176, 75));
-        tblVisaAnstallda.getTableHeader().setForeground(Color.WHITE);
        
-
+        txtAreaAvdBeskrivning.setLineWrap(true);
+        txtAreaAvdBeskrivning.setWrapStyleWord(true);
+        txtAreaAvdBeskrivning.setEditable(false);
+        
+        tblVisaPersonal.setVisible(true);
         fyllAvdelningsInfo();
         visaAvdAnstallda();
         
-        tblVisaAnstallda.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tblVisaAnstallda.getColumnModel().getColumn(1).setPreferredWidth(10);
-        tblVisaAnstallda.getColumnModel().getColumn(2).setPreferredWidth(20);
-        tblVisaAnstallda.getColumnModel().getColumn(3).setPreferredWidth(90);
-        tblVisaAnstallda.getColumnModel().getColumn(4).setPreferredWidth(20);
+        tblVisaPersonal.getTableHeader().setUI(new BasicTableHeaderUI());
+        tblVisaPersonal.getTableHeader().setBackground(new Color(61, 176, 75));
+        tblVisaPersonal.getTableHeader().setForeground(Color.WHITE);
+        tblVisaPersonal.getTableHeader().setOpaque(true);
+        
+        tblVisaPersonal.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblVisaPersonal.getColumnModel().getColumn(1).setPreferredWidth(10);
+        tblVisaPersonal.getColumnModel().getColumn(2).setPreferredWidth(20);
+        tblVisaPersonal.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tblVisaPersonal.getColumnModel().getColumn(4).setPreferredWidth(20);
     }   
 
     private void fyllAvdelningsInfo() {
@@ -63,7 +72,8 @@ public class AvdelningJframe extends javax.swing.JFrame {
             lblAvdEpost.setText(avd.getEpost());
             lblAvdTelefon.setText(avd.getTelefon());
             lblAvdChef.setText("Chef: " + avd.getChef());
-            lblAvdBeskrivning.setText(avd.getBeskrivning());
+            txtAreaAvdBeskrivning.setText(avd.getBeskrivning());
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,14 +89,14 @@ public class AvdelningJframe extends javax.swing.JFrame {
             AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
             var visaAnstallda = avdelningSQL.hamtaPersonalForAvdelning(avdid);
             
-            DefaultTableModel modell = (DefaultTableModel) tblVisaAnstallda.getModel();
+            DefaultTableModel modell = (DefaultTableModel) tblVisaPersonal.getModel();
             modell.setRowCount(0);
             
             for (var person : visaAnstallda) {
                  modell.addRow(new Object[]{
                      person.get("aid"), person.get("fornamn"), person.get("efternamn"), person.get("epost"), person.get("telefon")});
             }
-                 tblVisaAnstallda.setVisible(!visaAnstallda.isEmpty());
+                 tblVisaPersonal.setVisible(!visaAnstallda.isEmpty());
             } catch (Exception e){
             JOptionPane.showMessageDialog(this, "Anstallda från avdelningen kunde inte hämtas.");
             }
@@ -112,20 +122,22 @@ public class AvdelningJframe extends javax.swing.JFrame {
         lblAvdEpost = new javax.swing.JLabel();
         lblAvdTelefon = new javax.swing.JLabel();
         lblAvdChef = new javax.swing.JLabel();
-        lblAvdBeskrivning = new javax.swing.JLabel();
         btnSokHandlaggare = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVisaAnstallda = new javax.swing.JTable();
+        tblVisaPersonal = new javax.swing.JTable();
         btnRedigeraAvdelning = new javax.swing.JButton();
-        lblAvdAnstallda = new javax.swing.JLabel();
+        lblAvdPersonal = new javax.swing.JLabel();
         btnTillbaka = new javax.swing.JButton();
         btnAterstallTabell = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaAvdBeskrivning = new javax.swing.JTextArea();
 
         jToggleButton1.setText("jToggleButton1");
 
         lblAvdEpost1.setText("epost");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         lblSokHandlaggare.setText("Sök efter handläggare:");
 
@@ -143,15 +155,13 @@ public class AvdelningJframe extends javax.swing.JFrame {
 
         lblAvdChef.setText("chef");
 
-        lblAvdBeskrivning.setText("beskrivning");
-
         btnSokHandlaggare.setBackground(new java.awt.Color(1, 174, 217));
         btnSokHandlaggare.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSokHandlaggare.setForeground(new java.awt.Color(255, 255, 255));
         btnSokHandlaggare.setText("Sök");
         btnSokHandlaggare.addActionListener(this::btnSokHandlaggareActionPerformed);
 
-        tblVisaAnstallda.setModel(new javax.swing.table.DefaultTableModel(
+        tblVisaPersonal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -162,11 +172,10 @@ public class AvdelningJframe extends javax.swing.JFrame {
                 "aid", "fornamn", "efternamn", "epost", "telefon"
             }
         ));
-        tblVisaAnstallda.setGridColor(new java.awt.Color(0, 0, 0));
-        tblVisaAnstallda.setMinimumSize(new java.awt.Dimension(1, 80));
-        tblVisaAnstallda.setRequestFocusEnabled(false);
-        tblVisaAnstallda.setRowSelectionAllowed(true);
-        jScrollPane1.setViewportView(tblVisaAnstallda);
+        tblVisaPersonal.setGridColor(new java.awt.Color(0, 0, 0));
+        tblVisaPersonal.setMinimumSize(new java.awt.Dimension(1, 80));
+        tblVisaPersonal.setRequestFocusEnabled(false);
+        jScrollPane1.setViewportView(tblVisaPersonal);
 
         btnRedigeraAvdelning.setBackground(new java.awt.Color(1, 174, 217));
         btnRedigeraAvdelning.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -174,7 +183,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
         btnRedigeraAvdelning.setText("Redigera avdelningar");
         btnRedigeraAvdelning.addActionListener(this::btnRedigeraAvdelningActionPerformed);
 
-        lblAvdAnstallda.setText("Anställda på avdelningen:");
+        lblAvdPersonal.setText("Personal på avdelningen:");
 
         btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
         btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -187,6 +196,10 @@ public class AvdelningJframe extends javax.swing.JFrame {
         btnAterstallTabell.setText("X");
         btnAterstallTabell.addActionListener(this::btnAterstallTabellActionPerformed);
 
+        txtAreaAvdBeskrivning.setColumns(20);
+        txtAreaAvdBeskrivning.setRows(5);
+        jScrollPane2.setViewportView(txtAreaAvdBeskrivning);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,59 +210,62 @@ public class AvdelningJframe extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lblAvdNamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lblAvdPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                                            .addComponent(btnRedigeraAvdelning))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(lblAvdChef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblAvdTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                                .addComponent(lblAvdEpost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblAvdStad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblAvdAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGap(47, 47, 47)
+                                            .addComponent(jScrollPane2)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(189, 189, 189)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblAvdAnstallda, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblAvdChef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblAvdTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                        .addComponent(lblAvdEpost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblAvdStad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblAvdAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                                .addComponent(btnRedigeraAvdelning)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnAterstallTabell))
+                                    .addComponent(lblSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSokHandlaggare))))
+                        .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(177, 177, 177)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSokHandlaggare)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAterstallTabell))
-                    .addComponent(lblSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lblAvdNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAvdBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblAvdAnstallda)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblAvdid, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblAvdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvdStad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvdEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvdTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvdChef, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addComponent(lblAvdPersonal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -280,15 +296,15 @@ public class AvdelningJframe extends javax.swing.JFrame {
             AvdelningSQL avdelningSQL = new AvdelningSQL(idb); 
             var sokResultat = avdelningSQL.sokHandlaggare(avdid, sokterm);
             
-             DefaultTableModel modell = (DefaultTableModel) tblVisaAnstallda.getModel();
+             DefaultTableModel modell = (DefaultTableModel) tblVisaPersonal.getModel();
              modell.setRowCount(0);
              
              for (var person : sokResultat) {
                  modell.addRow(new Object[]{
                      person.get("aid"), person.get("fornamn"), person.get("efternamn"), person.get("epost"), person.get("telefon")});
              }
-            tblVisaAnstallda.setVisible(!sokResultat.isEmpty());   
-            lblAvdAnstallda.setText("Handläggare på avdelningen:");
+            tblVisaPersonal.setVisible(!sokResultat.isEmpty());   
+            lblAvdPersonal.setText("Handläggare på avdelningen:");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -311,7 +327,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
     private void btnAterstallTabellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAterstallTabellActionPerformed
         // När användaren trycker på knappen X återställs tabellen till att visa alla anstallda på avdelningen. 
         txtSokHandlaggare.setText("");
-        lblAvdAnstallda.setText("Personal på avdelningen: ");
+        lblAvdPersonal.setText("Personal på avdelningen: ");
         visaAvdAnstallda();
     }//GEN-LAST:event_btnAterstallTabellActionPerformed
  
@@ -323,19 +339,20 @@ public class AvdelningJframe extends javax.swing.JFrame {
     private javax.swing.JButton btnSokHandlaggare;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblAvdAdress;
-    private javax.swing.JLabel lblAvdAnstallda;
-    private javax.swing.JLabel lblAvdBeskrivning;
     private javax.swing.JLabel lblAvdChef;
     private javax.swing.JLabel lblAvdEpost;
     private javax.swing.JLabel lblAvdEpost1;
     private javax.swing.JLabel lblAvdNamn;
+    private javax.swing.JLabel lblAvdPersonal;
     private javax.swing.JLabel lblAvdStad;
     private javax.swing.JLabel lblAvdTelefon;
     private javax.swing.JLabel lblAvdid;
     private javax.swing.JLabel lblSokHandlaggare;
-    private javax.swing.JTable tblVisaAnstallda;
+    private javax.swing.JTable tblVisaPersonal;
+    private javax.swing.JTextArea txtAreaAvdBeskrivning;
     private javax.swing.JTextField txtSokHandlaggare;
     // End of variables declaration//GEN-END:variables
 }

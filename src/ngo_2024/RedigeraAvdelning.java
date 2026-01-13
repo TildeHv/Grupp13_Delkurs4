@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 import javax.swing.JOptionPane;
 /**
@@ -22,6 +23,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
     public RedigeraAvdelning(InfDB idb, int avdid) {
         this.idb = idb;
         this.avdid = avdid;
+          getContentPane().setBackground(Color.WHITE);
         initComponents();
  
         dropDownChef.removeAllItems();
@@ -154,6 +156,10 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
         btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
         btnTillbaka.setText("Tillbaka");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
+
+        dropDownChef.setBackground(new java.awt.Color(1, 174, 217));
+
+        dropDownStad.setBackground(new java.awt.Color(1, 174, 217));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

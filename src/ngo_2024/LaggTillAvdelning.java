@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 import javax.swing.JOptionPane;
 
@@ -21,6 +22,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
      */
     public LaggTillAvdelning(InfDB idb) {
         this.idb = idb;
+          getContentPane().setBackground(Color.WHITE);
         initComponents();
         dropDownChef.removeAllItems();
         dropDownChef.addItem("Välj chef...");
@@ -120,6 +122,10 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
         btnSpara.setForeground(new java.awt.Color(255, 255, 255));
         btnSpara.setText("Spara");
         btnSpara.addActionListener(this::btnSparaActionPerformed);
+
+        dropDownChef.setBackground(new java.awt.Color(1, 174, 217));
+
+        dropDownStad.setBackground(new java.awt.Color(1, 174, 217));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

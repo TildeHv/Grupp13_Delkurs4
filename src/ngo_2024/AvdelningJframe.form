@@ -15,6 +15,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -41,48 +44,53 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblAvdNamn" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="lblAvdBeskrivning" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblAvdAnstallda" min="-2" pref="295" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblAvdChef" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblAvdTelefon" alignment="0" pref="181" max="32767" attributes="0"/>
-                                      <Component id="lblAvdEpost" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblAvdStad" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblAvdid" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                                      <Component id="lblAvdAdress" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblAvdPersonal" min="-2" pref="295" max="-2" attributes="0"/>
+                                              <Component id="btnTillbaka" min="-2" pref="120" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace pref="116" max="32767" attributes="0"/>
+                                          <Component id="btnRedigeraAvdelning" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lblAvdChef" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lblAvdTelefon" alignment="0" pref="181" max="32767" attributes="0"/>
+                                              <Component id="lblAvdEpost" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lblAvdStad" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lblAvdid" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                                              <Component id="lblAvdAdress" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane2" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Component id="btnTillbaka" min="-2" pref="120" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="107" max="32767" attributes="0"/>
-                              <Component id="btnRedigeraAvdelning" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtSokHandlaggare" min="-2" pref="127" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnAterstallTabell" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="lblSokHandlaggare" alignment="0" min="-2" pref="173" max="-2" attributes="0"/>
+                                  <Component id="btnSokHandlaggare" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnSokHandlaggare" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="txtSokHandlaggare" min="-2" pref="127" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAterstallTabell" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="lblSokHandlaggare" min="-2" pref="173" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,22 +99,25 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="lblAvdNamn" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAvdBeskrivning" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblAvdid" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              <Component id="lblAvdAdress" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-              <Component id="lblAvdStad" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAvdEpost" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-              <Component id="lblAvdTelefon" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAvdChef" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblAvdAnstallda" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lblAvdid" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblAvdAdress" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblAvdStad" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblAvdEpost" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblAvdTelefon" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblAvdChef" min="-2" pref="16" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane2" min="-2" pref="144" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Component id="lblAvdPersonal" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="145" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -120,7 +131,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnSokHandlaggare" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -168,11 +179,6 @@
         <Property name="text" type="java.lang.String" value="chef"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblAvdBeskrivning">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="beskrivning"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnSokHandlaggare">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -197,7 +203,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblVisaAnstallda">
+        <Component class="javax.swing.JTable" name="tblVisaPersonal">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="4">
@@ -244,7 +250,6 @@
               <Dimension value="[1, 80]"/>
             </Property>
             <Property name="requestFocusEnabled" type="boolean" value="false"/>
-            <Property name="rowSelectionAllowed" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -269,9 +274,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRedigeraAvdelningActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblAvdAnstallda">
+    <Component class="javax.swing.JLabel" name="lblAvdPersonal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Anst&#xe4;llda p&#xe5; avdelningen:"/>
+        <Property name="text" type="java.lang.String" value="Personal p&#xe5; avdelningen:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnTillbaka">
@@ -305,5 +310,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAterstallTabellActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtAreaAvdBeskrivning">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
