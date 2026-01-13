@@ -237,6 +237,7 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
         btnTabortPartners = new javax.swing.JButton();
         btnLaggtillPartners = new javax.swing.JButton();
         btnTbPartners = new javax.swing.JButton();
+        lblProjektitel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -270,6 +271,8 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
         btnTbPartners.setText("Tillbaka");
         btnTbPartners.addActionListener(this::btnTbPartnersActionPerformed);
 
+        lblProjektitel.setText("Projekt:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -288,7 +291,10 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblPartners)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblProjektitel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -297,7 +303,9 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
                 .addGap(31, 31, 31)
                 .addComponent(lblPartners)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblProjektitel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -476,5 +484,6 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtPartners;
     private javax.swing.JLabel lblPartners;
+    private javax.swing.JLabel lblProjektitel;
     // End of variables declaration//GEN-END:variables
 }
