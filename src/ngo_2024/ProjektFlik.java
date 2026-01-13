@@ -29,7 +29,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        btnTillbaka.setBackground(new Color(249, 181, 18));
+       
 
         projInfoKnapp.setEnabled(false);
 
@@ -220,6 +220,9 @@ public class ProjektFlik extends javax.swing.JFrame {
         filterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         filterBox.addActionListener(this::filterBoxActionPerformed);
 
+        projInfoKnapp.setBackground(new java.awt.Color(1, 174, 217));
+        projInfoKnapp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        projInfoKnapp.setForeground(new java.awt.Color(255, 255, 255));
         projInfoKnapp.setText("Öppna");
         projInfoKnapp.addActionListener(this::projInfoKnappActionPerformed);
 
@@ -257,7 +260,11 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         tpProjekt.addTab("tab2", jScrollPane2);
 
+        btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
+        btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
         btnTillbaka.setText("Tillbaka");
+        btnTillbaka.setOpaque(true);
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
