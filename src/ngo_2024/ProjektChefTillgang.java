@@ -352,6 +352,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         btnandraprojektuppgifter.addActionListener(this::btnandraprojektuppgifterActionPerformed);
 
         btnandrapartner.setText("Lägg till/Ta bort partners");
+        btnandrapartner.addActionListener(this::btnandrapartnerActionPerformed);
 
         btnandrahandlaggare.setText("Lägg till/Ta bort handläggare");
         btnandrahandlaggare.addActionListener(this::btnandrahandlaggareActionPerformed);
@@ -495,6 +496,11 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         HandlaggareFlik hf = new HandlaggareFlik(idb, inloggadAnvandare);
         hf.setVisible(true);
     }//GEN-LAST:event_btnandrahandlaggareActionPerformed
+
+    private void btnandrapartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrapartnerActionPerformed
+    PartnersFonster pf = new PartnersFonster(idb, inloggadAnvandare);
+    pf.setVisible(true);
+    }//GEN-LAST:event_btnandrapartnerActionPerformed
 
     /**
      * @param args the command line arguments

@@ -14,7 +14,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.*;
-import java.awt.Color;
+
 
 public class ProjektFlik extends javax.swing.JFrame {
 
@@ -241,6 +241,7 @@ public class ProjektFlik extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabellMinaProjekt.setOpaque(false);
         jScrollPane1.setViewportView(tabellMinaProjekt);
 
         tpProjekt.addTab("tab1", jScrollPane1);
