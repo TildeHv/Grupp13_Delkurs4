@@ -6,6 +6,8 @@ package ngo_2024;
 
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import java.awt.Color;
+
 
 /**
  *
@@ -23,6 +25,7 @@ public class Inloggning extends javax.swing.JFrame {
     public Inloggning(InfDB idb) {
         this.idb = idb;
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         lblFelMeddelande.setVisible(false);
     }
 
@@ -44,17 +47,24 @@ public class Inloggning extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblepost.setText("Epost:");
+        lblepost.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblepost.setText("EPOST:");
 
-        lbllosenord.setText("Lösenord:");
+        lbllosenord.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbllosenord.setText("LÖSENORD:");
 
+        txtepost.setForeground(new java.awt.Color(51, 51, 51));
         txtepost.setText("sofia.a@example.com");
         txtepost.addActionListener(this::txtepostActionPerformed);
 
+        txtlosenord.setForeground(new java.awt.Color(51, 51, 51));
         txtlosenord.setText("passwordabc");
         txtlosenord.addActionListener(this::txtlosenordActionPerformed);
 
-        btnlogin.setText("Logga in");
+        btnlogin.setBackground(new java.awt.Color(51, 51, 51));
+        btnlogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnlogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnlogin.setText("LOGGA IN");
         btnlogin.addActionListener(this::btnloginActionPerformed);
 
         lblFelMeddelande.setForeground(new java.awt.Color(204, 0, 51));
@@ -65,25 +75,19 @@ public class Inloggning extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(190, 190, 190)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFelMeddelande)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbllosenord)
-                                    .addComponent(lblepost, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtlosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtepost, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblFelMeddelande))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(294, Short.MAX_VALUE))
+                            .addComponent(lbllosenord)
+                            .addComponent(lblepost, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtlosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtepost, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnlogin))
+                .addContainerGap(279, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,9 +102,9 @@ public class Inloggning extends javax.swing.JFrame {
                     .addComponent(lbllosenord))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFelMeddelande)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnlogin)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         pack();
