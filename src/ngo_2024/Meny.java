@@ -27,14 +27,7 @@ public class Meny extends javax.swing.JFrame {
         initComponents();
         lblanvandare.setText("Välkommen " + inloggadAnvandare);
         sattBehorighet();
-
-        btnminaprojekt.setVisible(false);
-        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
-            /*<-- Endast projektchef kan se ''Mina projekt'' knappen*/
-            btnminaprojekt.setVisible(true);
-            btnminaprojekt.setEnabled(true);
         
-        getContentPane().setLayout(null);
         ImageIcon icon = new ImageIcon(
         getClass().getResource("/ngo_2024/bilder/bild10.png")
         );
@@ -42,6 +35,12 @@ public class Meny extends javax.swing.JFrame {
         lblbild10.setIcon(new ImageIcon(img));
 
         getContentPane().setBackground(Color.WHITE);
+
+        btnminaprojekt.setVisible(false);
+        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+            /*<-- Endast projektchef kan se ''Mina projekt'' knappen*/
+            btnminaprojekt.setVisible(true);
+            btnminaprojekt.setEnabled(true);
   
         }
     }
@@ -84,8 +83,6 @@ public class Meny extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Administration"));
@@ -131,7 +128,7 @@ public class Meny extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(btnpartners, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,8 +143,6 @@ public class Meny extends javax.swing.JFrame {
                     .addComponent(btnland))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 310, 120));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Projekt"));
@@ -195,15 +190,41 @@ public class Meny extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 310, 120));
-
         lblbild10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo_2024/bilder/bild10.png"))); // NOI18N
         lblbild10.setMaximumSize(new java.awt.Dimension(100, 100));
         lblbild10.setMinimumSize(new java.awt.Dimension(100, 100));
-        jPanel1.add(lblbild10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 330, 70));
 
         lblanvandare.setText("Användare");
-        jPanel1.add(lblanvandare, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblbild10, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lblanvandare))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lblbild10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(lblanvandare)
+                .addGap(4, 4, 4)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         getContentPane().add(jPanel1);
 
