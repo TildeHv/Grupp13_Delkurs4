@@ -57,7 +57,7 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
     txtaHallbarhetsmal.setEditable(false);
     
     ImageIcon icon = new ImageIcon(
-    getClass().getResource("/bilder/globalamal.png")
+    getClass().getResource("/ngo_2024/bilder/globalamal.png")
     );
     Image img = icon.getImage().getScaledInstance(200, 120, Image.SCALE_SMOOTH);
     lblbild1.setIcon(new ImageIcon(img));
