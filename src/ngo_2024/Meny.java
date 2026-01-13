@@ -4,6 +4,9 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import oru.inf.InfDB;
 
 /**
@@ -22,8 +25,17 @@ public class Meny extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
 
         initComponents();
-        lblanvandare.setText("Välkommen " + inloggadAnvandare);
+        lblanvandare.setText("Inloggad som " + inloggadAnvandare);
+        HamtaNamn();
         sattBehorighet();
+        
+                ImageIcon icon = new ImageIcon(
+                getClass().getResource("/ngo_2024/bilder/sdg.png")
+        );
+        //Image img = icon.getImage().getScaledInstance(250, 150, Image.SCALE_SMOOTH);
+        //bildsdg.setIcon(new ImageIcon(img));
+
+        getContentPane().setBackground(Color.WHITE);
 
         btnminaprojekt.setVisible(false);
         if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
@@ -50,7 +62,14 @@ public class Meny extends javax.swing.JFrame {
         System.out.println("Handläggare: " + arHandlaggare);
 
     }
-
+    
+    private void HamtaNamn() {
+    
+    Anvandare anv = new Anvandare(idb, inloggadAnvandare);
+    
+    lblvalkommen.setText("Välkommen tillbaka " + anv.getFullNamn() +"!"); 
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -61,12 +80,14 @@ public class Meny extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnProjekt = new javax.swing.JButton();
         btnminaprojekt = new javax.swing.JButton();
-        btnland = new javax.swing.JButton();
+        btnhallbarhetsmal = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnminprofil = new javax.swing.JButton();
         btnavdelning = new javax.swing.JButton();
         btnpartners = new javax.swing.JButton();
-        btnhallbarhetsmal = new javax.swing.JButton();
+        btnland = new javax.swing.JButton();
+        bildsdg = new javax.swing.JLabel();
+        lblvalkommen = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -86,6 +107,7 @@ public class Meny extends javax.swing.JFrame {
         lblanvandare.setText("Användare");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Projekt"));
 
         btnProjekt.setBackground(new java.awt.Color(219, 20, 128));
         btnProjekt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -97,11 +119,11 @@ public class Meny extends javax.swing.JFrame {
         btnminaprojekt.setText("Mina projekt");
         btnminaprojekt.addActionListener(this::btnminaprojektActionPerformed);
 
-        btnland.setBackground(new java.awt.Color(235, 28, 46));
-        btnland.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnland.setForeground(new java.awt.Color(255, 255, 255));
-        btnland.setText("Land");
-        btnland.addActionListener(this::btnlandActionPerformed);
+        btnhallbarhetsmal.setBackground(new java.awt.Color(61, 176, 75));
+        btnhallbarhetsmal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnhallbarhetsmal.setForeground(new java.awt.Color(255, 255, 255));
+        btnhallbarhetsmal.setText("Hållbarhetsmål");
+        btnhallbarhetsmal.addActionListener(this::btnhallbarhetsmalActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,27 +133,28 @@ public class Meny extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(btnProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnland, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnhallbarhetsmal))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
+                        .addGap(80, 80, 80)
                         .addComponent(btnminaprojekt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProjekt)
-                    .addComponent(btnland))
-                .addGap(18, 18, 18)
+                    .addComponent(btnhallbarhetsmal)
+                    .addComponent(btnProjekt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(btnminaprojekt)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Administration"));
 
         btnminprofil.setBackground(new java.awt.Color(1, 174, 217));
         btnminprofil.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -152,72 +175,81 @@ public class Meny extends javax.swing.JFrame {
         btnpartners.setPreferredSize(new java.awt.Dimension(72, 23));
         btnpartners.addActionListener(this::btnpartnersActionPerformed);
 
-        btnhallbarhetsmal.setBackground(new java.awt.Color(61, 176, 75));
-        btnhallbarhetsmal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnhallbarhetsmal.setForeground(new java.awt.Color(255, 255, 255));
-        btnhallbarhetsmal.setText("Hållbarhetsmål");
-        btnhallbarhetsmal.addActionListener(this::btnhallbarhetsmalActionPerformed);
+        btnland.setBackground(new java.awt.Color(235, 28, 46));
+        btnland.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnland.setForeground(new java.awt.Color(255, 255, 255));
+        btnland.setText("Land");
+        btnland.addActionListener(this::btnlandActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(btnminprofil, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnpartners, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnavdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnhallbarhetsmal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(btnminprofil, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(btnpartners, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnavdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnland, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnminprofil)
-                    .addComponent(btnpartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btnavdelning))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnavdelning)
-                    .addComponent(btnhallbarhetsmal))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(btnland)
+                    .addComponent(btnpartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        bildsdg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo_2024/bilder/sdg2.png"))); // NOI18N
+
+        lblvalkommen.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lblvalkommen.setText("Välkommen");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(59, 59, 59))
             .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bildsdg)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addComponent(lblanvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(lblanvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblvalkommen, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(lblanvandare)
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
+                .addComponent(bildsdg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblvalkommen, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(7, 7, 7)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblanvandare))
         );
 
         pack();
@@ -282,6 +314,7 @@ public class Meny extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bildsdg;
     private javax.swing.JButton btnProjekt;
     private javax.swing.JButton btnavdelning;
     private javax.swing.JButton btnhallbarhetsmal;
@@ -294,5 +327,6 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblanvandare;
+    private javax.swing.JLabel lblvalkommen;
     // End of variables declaration//GEN-END:variables
 }
