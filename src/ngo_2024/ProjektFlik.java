@@ -54,12 +54,12 @@ public class ProjektFlik extends javax.swing.JFrame {
     private void skapaProjektTabell() {
         tabellMinaProjekt.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"pid", "Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
+                new String[]{"Pid", "Projektnamn", "Status", "Prioritet", "Startdatum", "Slutdatum"}
         ));
 
         tabellAllaProjekt.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"pid", "Projektnamn", "Status", "Prioritet", "startdatum", "slutdatum"}
+                new String[]{"Pid", "Projektnamn", "Status", "Prioritet", "Startdatum", "Slutdatum"}
         ));
 
         Calendar cal = Calendar.getInstance();
