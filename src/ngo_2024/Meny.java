@@ -5,7 +5,6 @@
 package ngo_2024;
 
 import java.awt.Color;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import oru.inf.InfDB;
 
@@ -34,8 +33,6 @@ public class Meny extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(
                 getClass().getResource("/ngo_2024/bilder/sdg.png")
         );
-        //Image img = icon.getImage().getScaledInstance(250, 150, Image.SCALE_SMOOTH);
-        //bildsdg.setIcon(new ImageIcon(img));
 
         getContentPane().setBackground(Color.WHITE);
 

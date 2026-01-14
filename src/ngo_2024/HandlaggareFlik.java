@@ -67,7 +67,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
     }
 
     //Fyll tabellen med information om handläggare
-    public void fyllHandlaggareTabell() {
+    private void fyllHandlaggareTabell() {
         try {
             DefaultTableModel modell = (DefaultTableModel) tabellHandlaggare.getModel();
             modell.setRowCount(0);
@@ -131,7 +131,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         }
     }
 
-    private void uppdateraHandlaggarTabell() {
+    public void uppdateraHandlaggarTabell() {
         try {
             DefaultTableModel modell = (DefaultTableModel) tabellHandlaggare.getModel();
             modell.setRowCount(0);
