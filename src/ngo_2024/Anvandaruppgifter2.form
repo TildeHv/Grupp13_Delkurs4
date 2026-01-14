@@ -25,25 +25,22 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="lbladress" pref="192" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lblanvandarnamn" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblepost" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbltelefon" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblaid" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblanstallningsdatum" alignment="0" pref="192" max="32767" attributes="0"/>
+                      <Component id="lblavdelning" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnTillbaka" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="38" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblanvandarnamn" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblepost" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lbltelefon" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblaid" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblanstallningsdatum" alignment="0" pref="192" max="32767" attributes="0"/>
-                          <Component id="lblavdelning" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnTillbaka" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="38" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="lbladress" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="lblBild" min="-2" pref="104" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jButton1" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblBild" alignment="1" min="-2" pref="104" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
