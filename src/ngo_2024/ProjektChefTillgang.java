@@ -35,12 +35,13 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         initComponents();
         this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;
+        this.setLocationRelativeTo(null);
 
         addChangeListener();
         andraRubrik();
         getLandNamn();
         fyllDropdown();
-        
+
         getContentPane().setBackground(Color.WHITE);
         tblMinaProjekt.getTableHeader().setUI(new BasicTableHeaderUI());
         tblMinaProjekt.getTableHeader().setBackground(new Color(61, 176, 75));
@@ -56,7 +57,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         btnandraprojektuppgifter.setForeground(Color.WHITE);
         btnandrapartner.setForeground(Color.WHITE);
         btnandrahandlaggare.setForeground(Color.WHITE);
-        
 
         //Fyll tabellen med statistik
         filterLand();
@@ -337,7 +337,6 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private void addChangeListener() {
         tpStatistik.addChangeListener(e -> filterLand());
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -510,7 +509,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
 
     private void boxprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxprojektActionPerformed
-        
+
     }//GEN-LAST:event_boxprojektActionPerformed
 
     private void btnandrahandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrahandlaggareActionPerformed
@@ -519,8 +518,8 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }//GEN-LAST:event_btnandrahandlaggareActionPerformed
 
     private void btnandrapartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrapartnerActionPerformed
-    PartnersFonster pf = new PartnersFonster(idb, inloggadAnvandare);
-    pf.setVisible(true);
+        PartnersFonster pf = new PartnersFonster(idb, inloggadAnvandare);
+        pf.setVisible(true);
     }//GEN-LAST:event_btnandrapartnerActionPerformed
 
     /**

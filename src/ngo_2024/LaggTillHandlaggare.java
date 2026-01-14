@@ -29,6 +29,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
         this.huvudFonster = huvudFonster;
         initComponents();
+        this.setLocationRelativeTo(null);
 
         getContentPane().setBackground(Color.WHITE);
 

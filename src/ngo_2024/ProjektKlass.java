@@ -28,14 +28,14 @@ public class ProjektKlass {
     private int pid;
 
     public ProjektKlass(InfDB idb, String InloggadAnvandare, int pid) {
-
         this.InloggadAnvandare = InloggadAnvandare;
         this.idb = idb;
         this.pid = pid;
         hamtaProjekt();
     }
 
-    private void hamtaProjekt() { /*Metod för getters*/
+    private void hamtaProjekt() {
+        /*Metod för getters*/
 
         try {
 

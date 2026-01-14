@@ -31,6 +31,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
+        this.setLocationRelativeTo(null);
        
         tabellMinaProjekt.getTableHeader().setUI(new BasicTableHeaderUI());
         tabellMinaProjekt.getTableHeader().setBackground(new Color(61, 176, 75));

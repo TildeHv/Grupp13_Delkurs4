@@ -19,6 +19,7 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
 
     public Uppgiftsforandrare(InfDB idb, String inloggadAnvandare) {
         initComponents();
+        this.setLocationRelativeTo(null);
 
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
@@ -28,7 +29,7 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
         /*<--- Sätter fälten*/
         txttelefon.setText(anv.getTelefon());
         txtepost.setText(anv.getEpost());
-        
+
         getContentPane().setBackground(Color.WHITE);
     }
 
@@ -142,9 +143,9 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
         String epost = txtepost.getText().trim();
         String telefon = txttelefon.getText().trim();
         String adress = txtadress.getText().trim();
-        
+
         boolean harFel = false;
-                
+
         if (!Validering.ValideraEpost(epost)) {
             /* <-- Kollar valideringen*/
             JOptionPane.showMessageDialog(this,
@@ -169,10 +170,10 @@ public class Uppgiftsforandrare extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             harFel = true;
         }
-        
-        if (harFel){
+
+        if (harFel) {
             return;
-            
+
         }
 
         try {

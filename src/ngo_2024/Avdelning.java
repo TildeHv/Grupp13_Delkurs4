@@ -6,10 +6,10 @@ package ngo_2024;
 
 /**
  *
- * @author Albin Malmquist
- * en logisk klass för avdelning 
+ * @author Albin Malmquist en logisk klass för avdelning
  */
 public class Avdelning {
+
     //fält
     private int avdid;
     private String namn;
@@ -19,7 +19,7 @@ public class Avdelning {
     private String telefon;
     private String stad;
     private String chef;
-    
+
     //konstruktor
     public Avdelning(int avdid, String namn, String beskrivning, String adress, String epost, String telefon, String stad, String chef) {
         this.avdid = avdid;
@@ -31,33 +31,73 @@ public class Avdelning {
         this.stad = stad;
         this.chef = chef;
     }
-    
-    public int getAvdid() {return avdid;}
-    public void setAvdid(int avdid) {this.avdid = avdid;}
-    
-    public String getNamn() {return namn;}
-    public void setNamn(String namn) {this.namn = namn;}
-    
-    public String getBeskrivning() {return beskrivning;}
-    public void setBeskrivning(String beskrivning) {this.beskrivning = beskrivning;}
-    
-    public String getAdress() {return adress;}
-    public void setAdress(String adress) {this.adress = adress;}
-    
-    public String getEpost() {return epost;}
-    public void setEpost(String epost) {this.epost = epost;}
-    
-    public String getTelefon() {return telefon;}
-    public void setTelefon(String telefon) {this.telefon = telefon;}
-    
-    public String getStad() {return stad;}
-    public void setStad(String stad) {this.stad = stad;}
-    
-    public String getChef() {return chef;}
-    public void setChef(String chef) {this.chef = chef;}
+
+    public int getAvdid() {
+        return avdid;
+    }
+
+    public void setAvdid(int avdid) {
+        this.avdid = avdid;
+    }
+
+    public String getNamn() {
+        return namn;
+    }
+
+    public void setNamn(String namn) {
+        this.namn = namn;
+    }
+
+    public String getBeskrivning() {
+        return beskrivning;
+    }
+
+    public void setBeskrivning(String beskrivning) {
+        this.beskrivning = beskrivning;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getEpost() {
+        return epost;
+    }
+
+    public void setEpost(String epost) {
+        this.epost = epost;
+    }
+
+    public String getTelefon() {
+        return telefon;
+    }
+
+    public void setTelefon(String telefon) {
+        this.telefon = telefon;
+    }
+
+    public String getStad() {
+        return stad;
+    }
+
+    public void setStad(String stad) {
+        this.stad = stad;
+    }
+
+    public String getChef() {
+        return chef;
+    }
+
+    public void setChef(String chef) {
+        this.chef = chef;
+    }
 
     @Override
-    public String toString(){
+    public String toString() {
         return namn;
     }
 }

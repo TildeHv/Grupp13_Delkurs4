@@ -12,19 +12,23 @@ import javax.swing.JOptionPane;
  * en kontrollpanel för adminer (avdelningar)
  */
 public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
+
     private InfDB idb;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminKontrollPanelAvdelning.class.getName());
 
     /**
      * Creates new form AdminKontrollPanelAvdelning
+     *
      * @param idb
      */
     public AdminKontrollPanelAvdelning(InfDB idb) {
         this.idb = idb;
-          getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(Color.WHITE);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,25 +97,25 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
 
     private void btnRedigeraBefintligAvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraBefintligAvdActionPerformed
         // När en admin trycker på knappen kommer en lista upp där de kan välja en avdelning att redigera. 
-       try { 
-           AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
-           var avdelningar = avdelningSQL.hamtaAllaAvdelningar();
-           
-           String [] lista = new String[avdelningar.size()];
-           for (int i = 0; i < avdelningar.size(); i++) {
-               var rad = avdelningar.get(i);
-               lista[i] = rad.get("avdid") + " - " + rad.get("namn");
-           }
-           String val = (String) JOptionPane.showInputDialog(
-                   this,"Välj avdelning att redigera: ", "Redigera avdelning",
-                   JOptionPane.QUESTION_MESSAGE, null, lista, lista[0]);
-           if (val != null) {
-               int avdid = Integer.parseInt(val.split(" - ")[0]);
-               new RedigeraAvdelning(idb, avdid).setVisible(true);
-           }
-           } catch (Exception e) {
-           JOptionPane.showMessageDialog(this, "Kunde inte hämta avdelningar: " + e.getMessage());
-           }          
+        try {
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            var avdelningar = avdelningSQL.hamtaAllaAvdelningar();
+
+            String[] lista = new String[avdelningar.size()];
+            for (int i = 0; i < avdelningar.size(); i++) {
+                var rad = avdelningar.get(i);
+                lista[i] = rad.get("avdid") + " - " + rad.get("namn");
+            }
+            String val = (String) JOptionPane.showInputDialog(
+                    this, "Välj avdelning att redigera: ", "Redigera avdelning",
+                    JOptionPane.QUESTION_MESSAGE, null, lista, lista[0]);
+            if (val != null) {
+                int avdid = Integer.parseInt(val.split(" - ")[0]);
+                new RedigeraAvdelning(idb, avdid).setVisible(true);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Kunde inte hämta avdelningar: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnRedigeraBefintligAvdActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
@@ -121,7 +125,7 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
 
     private void btnNyAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyAvdelningActionPerformed
         //öppnar Jframeklassen LaggTillAvdelning (Lägg till avdelning). 
-         new LaggTillAvdelning(idb).setVisible(true);
+        new LaggTillAvdelning(idb).setVisible(true);
     }//GEN-LAST:event_btnNyAvdelningActionPerformed
 
     /**
@@ -146,7 +150,7 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       // java.awt.EventQueue.invokeLater(() -> new AdminKontrollPanelAvdelning().setVisible(true));
+        // java.awt.EventQueue.invokeLater(() -> new AdminKontrollPanelAvdelning().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

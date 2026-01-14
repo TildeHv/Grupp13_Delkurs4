@@ -25,11 +25,13 @@ public class Meny extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
 
         initComponents();
+        this.setLocationRelativeTo(null);
+
         lblanvandare.setText("Inloggad som " + inloggadAnvandare);
         HamtaNamn();
         sattBehorighet();
-        
-                ImageIcon icon = new ImageIcon(
+
+        ImageIcon icon = new ImageIcon(
                 getClass().getResource("/ngo_2024/bilder/sdg.png")
         );
         //Image img = icon.getImage().getScaledInstance(250, 150, Image.SCALE_SMOOTH);
@@ -62,14 +64,14 @@ public class Meny extends javax.swing.JFrame {
         System.out.println("Handläggare: " + arHandlaggare);
 
     }
-    
+
     private void HamtaNamn() {
-    
-    Anvandare anv = new Anvandare(idb, inloggadAnvandare);
-    
-    lblvalkommen.setText("Välkommen tillbaka " + anv.getFullNamn() +"!"); 
+
+        Anvandare anv = new Anvandare(idb, inloggadAnvandare);
+
+        lblvalkommen.setText("Välkommen tillbaka " + anv.getFullNamn() + "!");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

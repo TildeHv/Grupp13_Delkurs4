@@ -23,6 +23,7 @@ public class Projektforandrare extends javax.swing.JFrame {
         this.InloggadAnvandare = InloggadAnvandare;
         this.idb = idb;
         this.pid = pid;
+        this.setLocationRelativeTo(null);
 
         try {
             /*F<--- yller alla fält*/
@@ -39,7 +40,7 @@ public class Projektforandrare extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Fel vid hämtning av projekt: " + e.getMessage());
         }
-        
+
         getContentPane().setBackground(Color.WHITE);
     }
 
@@ -256,7 +257,7 @@ public class Projektforandrare extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             harFel = true;
         }
-        
+
         if (!Validering.ValideraKostnad(nyKostnad)) {
             JOptionPane.showMessageDialog(this,
                     "Kostnad får endast vara positivt och utan mellanrum",
@@ -264,7 +265,7 @@ public class Projektforandrare extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             harFel = true;
         }
-        
+
         if (harFel) {
             return;
         }

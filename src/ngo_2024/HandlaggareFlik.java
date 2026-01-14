@@ -27,7 +27,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-
+        this.setLocationRelativeTo(null);
         getContentPane().setBackground(Color.WHITE);
 
         //Lägg in tabell namn
@@ -48,14 +48,14 @@ public class HandlaggareFlik extends javax.swing.JFrame {
     public void justeraKolumnBredd() {
         tabellHandlaggare.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int column = 0; column < tabellHandlaggare.getColumnCount(); column++) {
+        for (int kolumn = 0; kolumn < tabellHandlaggare.getColumnCount(); kolumn++) {
             int maxBredd = 50;
             for (int row = 0; row < tabellHandlaggare.getRowCount(); row++) {
-                TableCellRenderer renderer = tabellHandlaggare.getCellRenderer(row, column);
-                Component comp = tabellHandlaggare.prepareRenderer(renderer, row, column);
+                TableCellRenderer renderer = tabellHandlaggare.getCellRenderer(row, kolumn);
+                Component comp = tabellHandlaggare.prepareRenderer(renderer, row, kolumn);
                 maxBredd = Math.max(comp.getPreferredSize().width + 30, maxBredd);
             }
-            tabellHandlaggare.getColumnModel().getColumn(column).setPreferredWidth(maxBredd);
+            tabellHandlaggare.getColumnModel().getColumn(kolumn).setPreferredWidth(maxBredd);
         }
 
         int bredd = 0;
