@@ -19,7 +19,7 @@ public class Validering {
     }
 
     public static boolean ValideraNamn(String namn) {
-        return namn.matches("^[A-Za-zÅÄÖåäö'\\ -]{2,40}$");
+        return namn.matches("^[A-Za-zÅÄÖåäö'\\ -]{2,80}$");
     }
 
     public static boolean ValideraDatum(String datum) {
