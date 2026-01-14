@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Font;
 import javax.swing.JTable;
+import java.awt.Color;
+import javax.swing.plaf.basic.BasicTableHeaderUI;
 
 public class PartnersFonster extends javax.swing.JFrame {
     //Klassen PartnersFonster är ett fönster som visar vilka partner beroende på roll.
@@ -27,7 +29,9 @@ public class PartnersFonster extends javax.swing.JFrame {
     public PartnersFonster(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
-
+        
+        getContentPane().setBackground(Color.WHITE);
+        
         initComponents();
        
         jScrollPane1.setHorizontalScrollBarPolicy(
@@ -51,6 +55,10 @@ public class PartnersFonster extends javax.swing.JFrame {
     jtPartners.getColumnModel().getColumn(5).setPreferredWidth(160); // Branch
     jtPartners.getColumnModel().getColumn(6).setPreferredWidth(50); // Stad
 
+    jtPartners.getTableHeader().setUI(new BasicTableHeaderUI());
+    jtPartners.getTableHeader().setBackground(new Color(61, 176, 75));
+    jtPartners.getTableHeader().setForeground(Color.WHITE);
+    jtPartners.getTableHeader().setOpaque(true);
 
         //Rollstyrning för Admin och Projektchef när det gäller ta bort/ändra/lägg till
         
@@ -241,6 +249,7 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
         btnLaggtillPartners = new javax.swing.JButton();
         btnTbPartners = new javax.swing.JButton();
         lblProjektitel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -262,49 +271,66 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
 
         cbPartners.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnAndraPartners.setBackground(new java.awt.Color(2, 85, 139));
         btnAndraPartners.setText("Ändra");
         btnAndraPartners.addActionListener(this::btnAndraPartnersActionPerformed);
 
+        btnTabortPartners.setBackground(new java.awt.Color(235, 28, 46));
+        btnTabortPartners.setForeground(new java.awt.Color(255, 255, 255));
         btnTabortPartners.setText("Ta bort");
         btnTabortPartners.addActionListener(this::btnTabortPartnersActionPerformed);
 
+        btnLaggtillPartners.setBackground(new java.awt.Color(1, 174, 217));
         btnLaggtillPartners.setText("Lägg till");
         btnLaggtillPartners.addActionListener(this::btnLaggtillPartnersActionPerformed);
 
+        btnTbPartners.setBackground(new java.awt.Color(249, 181, 18));
         btnTbPartners.setText("Tillbaka");
         btnTbPartners.addActionListener(this::btnTbPartnersActionPerformed);
 
         lblProjektitel.setText("Projekt:");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo_2024/bilder/partnersbild.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnTbPartners, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPartners, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblProjektitel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTbPartners)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnLaggtillPartners)
                             .addGap(18, 18, 18)
                             .addComponent(btnTabortPartners)
                             .addGap(18, 18, 18)
-                            .addComponent(btnAndraPartners))))
-                .addContainerGap())
+                            .addComponent(btnAndraPartners))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblPartners)
+                            .addGap(767, 767, 767)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblProjektitel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1)))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(lblPartners)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(lblPartners)
+                        .addGap(18, 37, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbPartners, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProjektitel, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -484,6 +510,7 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     private javax.swing.JButton btnTabortPartners;
     private javax.swing.JButton btnTbPartners;
     private javax.swing.JComboBox<String> cbPartners;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtPartners;
     private javax.swing.JLabel lblPartners;
