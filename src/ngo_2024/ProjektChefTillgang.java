@@ -367,12 +367,15 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         filterLand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         filterLand.addActionListener(this::filterLandActionPerformed);
 
+        btnandraprojektuppgifter.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnandraprojektuppgifter.setText("Ändra projekt uppgifter");
         btnandraprojektuppgifter.addActionListener(this::btnandraprojektuppgifterActionPerformed);
 
+        btnandrapartner.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnandrapartner.setText("Lägg till/Ta bort partners");
         btnandrapartner.addActionListener(this::btnandrapartnerActionPerformed);
 
+        btnandrahandlaggare.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnandrahandlaggare.setText("Lägg till/Ta bort handläggare");
         btnandrahandlaggare.addActionListener(this::btnandrahandlaggareActionPerformed);
 
