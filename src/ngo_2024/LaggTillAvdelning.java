@@ -221,7 +221,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
             int chef = Integer.parseInt(valdChef.split(" - ")[0]);
             String beskrivning = txtAvdBeskrivning.getText();
 
-            if (!Validering.ValideraNamn(namn)) {
+            if (!Validering.ValideraAvdelningsNamn(namn)) {
                 JOptionPane.showMessageDialog(this, "Ogiltigt namn.");
                 return;
             }
