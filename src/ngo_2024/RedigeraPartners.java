@@ -12,42 +12,42 @@ import oru.inf.InfException;
  * @author tovehanssons
  */
 public class RedigeraPartners extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraPartners.class.getName());
     private String pid;
     private InfDB idb;
     private JFramePartner partnersfonster;
-    
-    
+
     /**
-     * //Klassen RedigeraPartners gör att man kan skapa eller lägga till en partner.
+     * //Klassen RedigeraPartners gör att man kan skapa eller lägga till en
+     * partner.
      */
     public RedigeraPartners(JFramePartner partnersfonster, InfDB idb, String pid) {
         this.partnersfonster = partnersfonster;
         this.idb = idb;
-        this.pid = pid; 
-    
-        initComponents();
-           
-    fyllStadCombo();
+        this.pid = pid;
 
-    if (pid == null) {
-        lblRedigeraPartners.setText("Lägg till partner");
-    } else {
-        lblRedigeraPartners.setText("Redigera partner");
-        fyllFaltFranDB();
+        initComponents();
+
+        fyllStadCombo();
+
+        if (pid == null) {
+            lblRedigeraPartners.setText("Lägg till partner");
+        } else {
+            lblRedigeraPartners.setText("Redigera partner");
+            fyllFaltFranDB();
+        }
+
+        btnTBRedPartners.addActionListener(e -> dispose());
+        btnSparaRedPartners.addActionListener(e -> spara());
+
     }
 
-    btnTBRedPartners.addActionListener(e -> dispose());
-    btnSparaRedPartners.addActionListener(e -> spara());
-    
-    }       
-    
-   private void fyllStadCombo() {
-    cbRedStad.removeAllItems();
+    private void fyllStadCombo() {
+        cbRedStad.removeAllItems();
 
-    for (int i = 1; i <= 6; i++) {
-        cbRedStad.addItem(String.valueOf(i));
+        for (int i = 1; i <= 6; i++) {
+            cbRedStad.addItem(String.valueOf(i));
         }
     }
 
@@ -63,7 +63,7 @@ public class RedigeraPartners extends javax.swing.JFrame {
 
         String stad = p.getStad();
         if (stad != null) {
-        cbRedStad.setSelectedItem(stad.trim());
+            cbRedStad.setSelectedItem(stad.trim());
         }
     }
 
@@ -76,89 +76,84 @@ public class RedigeraPartners extends javax.swing.JFrame {
         String branch = tfRedBranch.getText();
 
         int stad;
-      
+
         try {
             stad = Integer.parseInt((String) cbRedStad.getSelectedItem());
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Välj en giltig stad (1–6).");
-            return; 
-    
+            return;
+
         }
-            //Validering
-            
-            if (!Validering.ValideraNamn(namn)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig namn");
-                return;
-            }
-            
-            if (!Validering.ValideraNamn(kontaktperson)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig kontaktperson");
-                return;
-                
-            }
-            
-            if (!Validering.ValideraEpost(epost)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig e-post");
-                return;
-            }
-            
-            if (!Validering.ValideraTelefon(telefon)) {
+        //Validering
+
+        if (!Validering.ValideraNamn(namn)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig namn");
+            return;
+        }
+
+        if (!Validering.ValideraNamn(kontaktperson)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig kontaktperson");
+            return;
+
+        }
+
+        if (!Validering.ValideraEpost(epost)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig e-post");
+            return;
+        }
+
+        if (!Validering.ValideraTelefon(telefon)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ogiltligt telefonnummer");
             return;
-                    
+
         }
-            if (!Validering.ValideraAdress(adress)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig adress");
-                return;
+        if (!Validering.ValideraAdress(adress)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig adress");
+            return;
+        }
+
+        try {
+
+            if (pid == null) {
+                // Lägg till (ny pid)
+                String maxId = idb.fetchSingle("SELECT MAX(pid) FROM partner");
+                int nyttId = (maxId == null || maxId.isEmpty()) ? 1 : Integer.parseInt(maxId) + 1;
+
+                String sqlFraga
+                        = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad) VALUES ("
+                        + nyttId + ", '" + esc(namn) + "', '" + esc(kontaktperson) + "', '" + esc(epost) + "', '"
+                        + esc(telefon) + "', '" + esc(adress) + "', '" + esc(branch) + "', " + stad + ")";
+
+                idb.insert(sqlFraga);
+
+            } else {
+
+                int pidInt = Integer.parseInt(pid.trim());
+
+                String sqlFraga
+                        = "UPDATE partner SET "
+                        + "namn = '" + esc(namn) + "', "
+                        + "kontaktperson = '" + esc(kontaktperson) + "', "
+                        + "kontaktepost = '" + esc(epost) + "', "
+                        + "telefon = '" + esc(telefon) + "', "
+                        + "adress = '" + esc(adress) + "', "
+                        + "branch = '" + esc(branch) + "', "
+                        + "stad = " + stad + " "
+                        + "WHERE pid = " + pidInt;
+
+                idb.update(sqlFraga);
             }
-            
-            try {
-                
-           
 
-    if (pid == null) {
-        // Lägg till (ny pid)
-        String maxId = idb.fetchSingle("SELECT MAX(pid) FROM partner");
-        int nyttId = (maxId == null || maxId.isEmpty()) ? 1 : Integer.parseInt(maxId) + 1;
+            if (partnersfonster != null) {
+                partnersfonster.laddaOmPartners();
+            }
 
-        String sqlFraga =
-                "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad) VALUES (" +
-                nyttId + ", '" + esc(namn) + "', '" + esc(kontaktperson) + "', '" + esc(epost) + "', '" +
-                esc(telefon) + "', '" + esc(adress) + "', '" + esc(branch) + "', " + stad + ")";
+            dispose();
 
-        idb.insert(sqlFraga);
-        
-       
-    } else {
-        
-         int pidInt = Integer.parseInt(pid.trim());
-        
-        String sqlFraga =
-                "UPDATE partner SET " +
-                        "namn = '" + esc(namn) + "', " +
-                        "kontaktperson = '" + esc(kontaktperson) + "', " +
-                        "kontaktepost = '" + esc(epost) + "', " +
-                        "telefon = '" + esc(telefon) + "', " +
-                        "adress = '" + esc(adress) + "', " +
-                        "branch = '" + esc(branch) + "', " +
-                        "stad = " + stad + " " + 
-                        "WHERE pid = " + pidInt;
-
-        idb.update(sqlFraga);
+        } catch (InfException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
-
-    if (partnersfonster != null) {
-        partnersfonster.laddaOmPartners();
-    }
-
-    dispose();
-
-} catch (InfException ex) {
-    javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
-}
-}          
-        
-        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -336,13 +331,14 @@ public class RedigeraPartners extends javax.swing.JFrame {
         /* Create and display the form */
         //java.awt.EventQueue.invokeLater(() -> new RedigeraPartners().setVisible(true));
     }
-    
-       private static String esc(String s) {
-                if (s == null) return "";
-                return s.replace("'", "''").trim();
-             
-                             
-            }
+
+    private static String esc(String s) {
+        if (s == null) {
+            return "";
+        }
+        return s.replace("'", "''").trim();
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSparaRedPartners;
