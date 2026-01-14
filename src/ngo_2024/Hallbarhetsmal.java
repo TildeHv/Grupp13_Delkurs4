@@ -15,10 +15,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Image;
 
-/**
- *
- * @author tovehanssons
- */
+//@author tovehanssons
+ 
 public class Hallbarhetsmal extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Hallbarhetsmal.class.getName());
@@ -26,10 +24,8 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
     private String inloggadAnvandare;
     private java.util.ArrayList<String> beskrivningar = new java.util.ArrayList<>();
 
-    /**
-     *  //Klassen Hållbarhetsmål visar en lista för hållbarhetsmål och
-     * beskrivningar.
-     */
+    //Klassen Hållbarhetsmål visar en lista för hållbarhetsmål och beskrivningar.
+    
     public Hallbarhetsmal(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;

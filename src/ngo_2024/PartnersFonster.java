@@ -171,15 +171,15 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     
     private String valjBefintligPartnerDialog(String projektPid) {
     try {
-        String sql =
-            "SELECT p.pid, p.namn " +
-            "FROM partner p " +
-            "WHERE p.pid NOT IN (" +
-            "  SELECT pp.partner_pid FROM projekt_partner pp WHERE pp.pid = '" + projektPid + "'" +
-            ") " +
-            "ORDER BY p.namn";
+        String sqlFraga =
+               "SELECT partner.pid, partner.namn FROM partner " +
+                "WHERE partner.pid NOT IN ( " +
+                "SELECT projekt_partner.partner_pid " +
+                "FROM projekt_partner " +
+                "WHERE projekt_partner.pid = '" + projektPid + "'" +
+                ") ORDER BY partner.namn";
 
-        ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+        ArrayList<HashMap<String, String>> rader = idb.fetchRows(sqlFraga);
 
         if (rader == null || rader.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(
@@ -283,13 +283,8 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnTbPartners)
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblPartners)
-                            .addContainerGap(916, Short.MAX_VALUE)))
+                    .addComponent(btnTbPartners, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPartners, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(lblProjektitel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,7 +296,8 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
                             .addGap(18, 18, 18)
                             .addComponent(btnTabortPartners)
                             .addGap(18, 18, 18)
-                            .addComponent(btnAndraPartners)))))
+                            .addComponent(btnAndraPartners))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,9 +305,9 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
                 .addGap(31, 31, 31)
                 .addComponent(lblPartners)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblProjektitel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbPartners, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblProjektitel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -414,7 +410,8 @@ if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
     }
     
     String text = arAdmin
-            ? "Vill du radera '" + valdPartner.getNamn() + "'?\nDen kommer isåfall bli borttagen från systemet helt och hållet."
+            ? "Vill du radera '" + valdPartner.getNamn() + 
+            "'?\nDen kommer isåfall bli borttagen från systemet helt och hållet."
             : "Vill du ta bort '" + valdPartner.getNamn() + "' från projektet?";
 
     int svar = javax.swing.JOptionPane.showConfirmDialog(
