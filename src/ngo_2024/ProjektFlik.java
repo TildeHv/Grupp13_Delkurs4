@@ -4,6 +4,7 @@
  */
 package ngo_2024;
 
+import java.awt.Color;
 import oru.inf.InfDB;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,6 +85,8 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         tpProjekt.setTitleAt(0, "Mina Projekt");
         tpProjekt.setTitleAt(1, "Alla Projekt");
+        
+        getContentPane().setBackground(Color.WHITE);
     }
 
     //Sql som visar projekt kopplade till den inloggade anställda
@@ -215,6 +218,7 @@ public class ProjektFlik extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("PROJEKT");
 
         filterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -223,7 +227,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         projInfoKnapp.setBackground(new java.awt.Color(1, 174, 217));
         projInfoKnapp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         projInfoKnapp.setForeground(new java.awt.Color(255, 255, 255));
-        projInfoKnapp.setText("Öppna");
+        projInfoKnapp.setText("ÖPPNA");
         projInfoKnapp.addActionListener(this::projInfoKnappActionPerformed);
 
         jLabel2.setText("Startdatum");
@@ -264,7 +268,7 @@ public class ProjektFlik extends javax.swing.JFrame {
         btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
         btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
-        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.setText("TILLBAKA");
         btnTillbaka.setOpaque(true);
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
@@ -289,13 +293,13 @@ public class ProjektFlik extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(slutDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                                 .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
                 .addContainerGap())
         );

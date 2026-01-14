@@ -158,7 +158,10 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
         lblHallbarhetsmal.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         lblHallbarhetsmal.setText("Hållbarhetsmål");
 
-        btnTillbakaMal.setText("Tillbaka");
+        btnTillbakaMal.setBackground(new java.awt.Color(249, 181, 18));
+        btnTillbakaMal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTillbakaMal.setForeground(new java.awt.Color(255, 255, 255));
+        btnTillbakaMal.setText("TILLBAKA");
         btnTillbakaMal.addActionListener(this::btnTillbakaMalActionPerformed);
 
         lblbild1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo_2024/bilder/globalamal.png"))); // NOI18N
@@ -177,8 +180,11 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
                             .addComponent(lblHallbarhetsmal))
                         .addGap(18, 18, 18)
                         .addComponent(lblbild1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(btnTillbakaMal)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTillbakaMal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)

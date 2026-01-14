@@ -158,7 +158,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
         btnSokHandlaggare.setBackground(new java.awt.Color(1, 174, 217));
         btnSokHandlaggare.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSokHandlaggare.setForeground(new java.awt.Color(255, 255, 255));
-        btnSokHandlaggare.setText("Sök");
+        btnSokHandlaggare.setText("SÖK");
         btnSokHandlaggare.addActionListener(this::btnSokHandlaggareActionPerformed);
 
         tblVisaPersonal.setModel(new javax.swing.table.DefaultTableModel(
@@ -180,7 +180,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
         btnRedigeraAvdelning.setBackground(new java.awt.Color(1, 174, 217));
         btnRedigeraAvdelning.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRedigeraAvdelning.setForeground(new java.awt.Color(255, 255, 255));
-        btnRedigeraAvdelning.setText("Redigera avdelningar");
+        btnRedigeraAvdelning.setText("REDIGERA AVDELNINGAR");
         btnRedigeraAvdelning.addActionListener(this::btnRedigeraAvdelningActionPerformed);
 
         lblAvdPersonal.setText("Personal på avdelningen:");
@@ -188,7 +188,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
         btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
         btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
-        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.setText("TILLBAKA");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         btnAterstallTabell.setBackground(new java.awt.Color(235, 28, 46));
@@ -241,7 +241,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
                                         .addComponent(btnAterstallTabell))
                                     .addComponent(lblSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnSokHandlaggare))))
-                        .addGap(0, 25, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
