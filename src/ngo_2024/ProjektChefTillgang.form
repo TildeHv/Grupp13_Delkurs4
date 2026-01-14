@@ -84,7 +84,7 @@
                   <Component id="filterLand" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tpStatistik" pref="182" max="32767" attributes="0"/>
+              <Component id="tpStatistik" pref="186" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -98,6 +98,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="txtprojektstatistik">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Projektstatistik"/>
       </Properties>
     </Component>
@@ -145,6 +148,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="txtprojektchef">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Inloggad som projektchef"/>
       </Properties>
     </Component>

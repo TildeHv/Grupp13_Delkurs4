@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.LEFT;
 import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicTableHeaderUI;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -39,6 +40,23 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         andraRubrik();
         getLandNamn();
         fyllDropdown();
+        
+        getContentPane().setBackground(Color.WHITE);
+        tblMinaProjekt.getTableHeader().setUI(new BasicTableHeaderUI());
+        tblMinaProjekt.getTableHeader().setBackground(new Color(61, 176, 75));
+        tblMinaProjekt.getTableHeader().setForeground(Color.WHITE);
+        tblMinaProjekt.getTableHeader().setOpaque(true);
+        tblAllaProjekt.getTableHeader().setUI(new BasicTableHeaderUI());
+        tblAllaProjekt.getTableHeader().setBackground(new Color(61, 176, 75));
+        tblAllaProjekt.getTableHeader().setForeground(Color.WHITE);
+        tblAllaProjekt.getTableHeader().setOpaque(true);
+        btnandraprojektuppgifter.setBackground(new Color(1, 174, 217));
+        btnandrapartner.setBackground(new Color(1, 174, 217));
+        btnandrahandlaggare.setBackground(new Color(1, 174, 217));
+        btnandraprojektuppgifter.setForeground(Color.WHITE);
+        btnandrapartner.setForeground(Color.WHITE);
+        btnandrahandlaggare.setForeground(Color.WHITE);
+        
 
         //Fyll tabellen med statistik
         filterLand();
@@ -319,6 +337,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private void addChangeListener() {
         tpStatistik.addChangeListener(e -> filterLand());
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -343,6 +362,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
         txthanteraprojekt.setText("Hantera projekt");
 
+        txtprojektstatistik.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         txtprojektstatistik.setText("Projektstatistik");
 
         filterLand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -357,6 +377,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
         btnandrahandlaggare.setText("Lägg till/Ta bort handläggare");
         btnandrahandlaggare.addActionListener(this::btnandrahandlaggareActionPerformed);
 
+        txtprojektchef.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         txtprojektchef.setText("Inloggad som projektchef");
 
         boxprojekt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -461,7 +482,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
                     .addComponent(txtprojektstatistik)
                     .addComponent(filterLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addComponent(tpStatistik, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
