@@ -30,6 +30,7 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
+        this.setLocationRelativeTo(null);
 
         // Anpassning för utseende i gränssnittet
         jtHallbarhetsmal.setFont(new Font("SansSerif", Font.PLAIN, 14));
