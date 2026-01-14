@@ -19,7 +19,7 @@ public class JFrameMinProfil extends javax.swing.JFrame {
     public JFrameMinProfil(InfDB idb, String inloggadAnvandare) {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         fyllUppgifter();
@@ -35,6 +35,10 @@ public class JFrameMinProfil extends javax.swing.JFrame {
         lblBild.setIcon(new ImageIcon(scaledImage));
 
         setResizable(false);
+    }
+
+    public void setInloggadAnvandare(String nyEpost) {
+        this.inloggadAnvandare = nyEpost;
     }
 
     public void fyllUppgifter() { // Tar getters från Användare-klassen och sätter namn på fälten

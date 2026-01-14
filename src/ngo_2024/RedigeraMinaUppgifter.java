@@ -188,9 +188,11 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
                     + "WHERE epost = '" + inloggadAnvandare + "'";
 
             idb.update(sqlFraga);
+            inloggadAnvandare = txtepost.getText().trim();
+            
             if (huvudFonster instanceof JFrameMinProfil minProfil) {
+                minProfil.setInloggadAnvandare(inloggadAnvandare);
                 minProfil.fyllUppgifter();
-
             }
             System.out.println("Uppdatering lyckades!");
             JOptionPane.showMessageDialog(this,
