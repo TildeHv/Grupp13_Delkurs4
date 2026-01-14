@@ -89,11 +89,11 @@ public class PartnersFonster extends javax.swing.JFrame {
         btnAndraPartners.setVisible(arAdmin);
 
         if (arAdmin) {
-            btnTabortPartners.setText("TA BORT PARTNER");
-            btnLaggtillPartners.setText("LÄGG TILL PARTNER");
+            btnTabortPartners.setText("Ta bort partner");
+            btnLaggtillPartners.setText("Lägg till partner");
         } else if (arProjektchef) {
-            btnTabortPartners.setText("TA BORT FRÅN PROJEKT");
-            btnLaggtillPartners.setText("LÄGG TILL PARTNER I PROJEKT");
+            btnTabortPartners.setText("Ta bort från projekt");
+            btnLaggtillPartners.setText("Lägg till partner i projekt");
 
         }
 
