@@ -124,6 +124,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnandraprojektuppgifter">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="&#xc4;ndra projekt uppgifter"/>
       </Properties>
       <Events>
@@ -132,6 +135,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnandrapartner">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="L&#xe4;gg till/Ta bort partners"/>
       </Properties>
       <Events>
@@ -140,6 +146,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnandrahandlaggare">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="L&#xe4;gg till/Ta bort handl&#xe4;ggare"/>
       </Properties>
       <Events>
