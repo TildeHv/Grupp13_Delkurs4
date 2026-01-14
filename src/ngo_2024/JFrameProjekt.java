@@ -211,13 +211,13 @@ public class JFrameProjekt extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        rubrikProjekt = new javax.swing.JLabel();
         filterBox = new javax.swing.JComboBox<>();
         projInfoKnapp = new javax.swing.JButton();
         startDatumSpinner = new javax.swing.JSpinner();
         slutDatumSpinner = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblStartDatum = new javax.swing.JLabel();
+        lblSlutDatum = new javax.swing.JLabel();
         tpProjekt = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabellMinaProjekt = new javax.swing.JTable();
@@ -227,8 +227,8 @@ public class JFrameProjekt extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("PROJEKT");
+        rubrikProjekt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rubrikProjekt.setText("PROJEKT");
 
         filterBox.setBackground(new java.awt.Color(1, 174, 217));
         filterBox.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -242,9 +242,9 @@ public class JFrameProjekt extends javax.swing.JFrame {
         projInfoKnapp.setText("ÖPPNA");
         projInfoKnapp.addActionListener(this::projInfoKnappActionPerformed);
 
-        jLabel2.setText("Startdatum");
+        lblStartDatum.setText("Startdatum");
 
-        jLabel3.setText("Slutdatum");
+        lblSlutDatum.setText("Slutdatum");
 
         tabellMinaProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -292,15 +292,15 @@ public class JFrameProjekt extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tpProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(rubrikProjekt)
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblStartDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(startDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblSlutDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(slutDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -318,11 +318,11 @@ public class JFrameProjekt extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(rubrikProjekt)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(lblStartDatum)
+                            .addComponent(lblSlutDatum))
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(startDatumSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -385,12 +385,12 @@ public class JFrameProjekt extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> filterBox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblSlutDatum;
+    private javax.swing.JLabel lblStartDatum;
     private javax.swing.JButton projInfoKnapp;
+    private javax.swing.JLabel rubrikProjekt;
     private javax.swing.JSpinner slutDatumSpinner;
     private javax.swing.JSpinner startDatumSpinner;
     private javax.swing.JTable tabellAllaProjekt;

@@ -65,7 +65,7 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
                 lblkostnad.setText(projekt.get("kostnad") != null ? projekt.get("kostnad") : "");
                 lblstatus.setText(projekt.get("status") != null ? projekt.get("status") : "");
                 txtbeskrivning.setText(projekt.get("beskrivning") != null ? projekt.get("beskrivning") : "");
-                lblland.setText(projekt.get("land_namn") != null ? projekt.get("land_namn") : "Ingen");
+                lblLand.setText(projekt.get("land_namn") != null ? projekt.get("land_namn") : "Ingen");
 
                 String chefAid = projekt.get("projektchef");
                 if (chefAid != null) {
@@ -131,12 +131,12 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
         txtslutdatum = new javax.swing.JLabel();
         txtstatus = new javax.swing.JLabel();
         txtland = new javax.swing.JLabel();
-        lblland = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblLand = new javax.swing.JLabel();
+        lblOmProjektet = new javax.swing.JLabel();
         txtstartdatum = new javax.swing.JLabel();
         btnAndraKnapp = new javax.swing.JButton();
         btnTillbaka = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        rubrikInfoProjekt = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -184,9 +184,9 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
         txtland.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtland.setText("LAND:");
 
-        lblland.setText("Land");
+        lblLand.setText("Land");
 
-        jLabel1.setText("Om projektet");
+        lblOmProjektet.setText("Om projektet");
 
         txtstartdatum.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtstartdatum.setText("STARTDATUM:");
@@ -203,7 +203,7 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
         btnTillbaka.setText("TILLBAKA");
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
-        jLabel2.setText("Information om projekt");
+        rubrikInfoProjekt.setText("Information om projekt");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,11 +229,11 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
                             .addComponent(lblslutdatum)
                             .addComponent(lblprojektnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblprojektchef, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblland))
+                            .addComponent(lblLand))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1)
+                                .addComponent(lblOmProjektet)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -242,7 +242,7 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rubrikInfoProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,12 +254,12 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(rubrikInfoProjekt)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtprojekt)
                     .addComponent(lblprojektnamn)
-                    .addComponent(jLabel1))
+                    .addComponent(lblOmProjektet, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -285,7 +285,7 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtland)
-                            .addComponent(lblland))
+                            .addComponent(lblLand))
                         .addGap(0, 13, Short.MAX_VALUE))
                     .addComponent(txtbeskrivning))
                 .addGap(18, 18, 18)
@@ -340,8 +340,6 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAndraKnapp;
     private javax.swing.JButton btnTillbaka;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -349,13 +347,15 @@ public class JFrameProjektInfo extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel lblLand;
+    private javax.swing.JLabel lblOmProjektet;
     private javax.swing.JLabel lblkostnad;
-    private javax.swing.JLabel lblland;
     private javax.swing.JLabel lblprojektchef;
     private javax.swing.JLabel lblprojektnamn;
     private javax.swing.JLabel lblslutdatum;
     private javax.swing.JLabel lblstartdatum;
     private javax.swing.JLabel lblstatus;
+    private javax.swing.JLabel rubrikInfoProjekt;
     private javax.swing.JLabel txtansvarig;
     private javax.swing.JTextField txtbeskrivning;
     private javax.swing.JLabel txtbudget;
