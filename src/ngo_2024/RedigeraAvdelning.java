@@ -7,36 +7,40 @@ package ngo_2024;
 import java.awt.Color;
 import oru.inf.InfDB;
 import javax.swing.JOptionPane;
+
 /**
- * Gör det möjligt för adminer att redigera befintliga avdelningar. 
+ * Gör det möjligt för adminer att redigera befintliga avdelningar.
  */
 public class RedigeraAvdelning extends javax.swing.JFrame {
-        private InfDB idb;
-        private int avdid;
-        private int nuvarandeChefId;
-        private int nuvarandeStadId;
-        
+
+    private InfDB idb;
+    private int avdid;
+    private int nuvarandeChefId;
+    private int nuvarandeStadId;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraAvdelning.class.getName());
+
     /**
      * Creates new form RedigeraAvdelning
      */
     public RedigeraAvdelning(InfDB idb, int avdid) {
         this.idb = idb;
         this.avdid = avdid;
-          getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(Color.WHITE);
         initComponents();
- 
+        this.setLocationRelativeTo(null);
+
         dropDownChef.removeAllItems();
         fyllFalt();
         fyllChefDropDown();
         fyllStadDropDown();
     }
-    
+
     private void fyllFalt() {
         try {
             AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
             Avdelning avd = avdelningSQL.hamtaAvdelningMedId(avdid);
-             
+
             txtAvdid.setText(String.valueOf(avd.getAvdid()));
             txtAvdNamn.setText(avd.getNamn());
             txtAvdAdress.setText(avd.getAdress());
@@ -45,57 +49,58 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             txtAvdBeskrivning.setText(avd.getBeskrivning());
             nuvarandeChefId = Integer.parseInt(avd.getChef());
             nuvarandeStadId = Integer.parseInt(avd.getStad());
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-  private void fyllChefDropDown() {
-      try { 
-          AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
-          var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
-          
-          System.out.println("Antal anställda: " + handlaggare.size());
 
-          for (var a : handlaggare) {
-              String item = a.get("aid") + " - " + a.get("fornamn") + " " + a.get("efternamn");
-              dropDownChef.addItem(item);
-          }
-          String nuvarandeChef = String.valueOf(nuvarandeChefId);
-          for (int i = 0; i < dropDownChef.getItemCount(); i++) {
-              String item = dropDownChef.getItemAt(i);
-              if (item.startsWith(nuvarandeChef + " -")) {
-                  dropDownChef.setSelectedIndex(i);
-                  break;
-              }
-          }
-      } catch (Exception e) {
-          JOptionPane.showMessageDialog(this, "Kunde inte visa chefer: " + e.getMessage());
-      }
-  }
+    private void fyllChefDropDown() {
+        try {
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
 
-   private void fyllStadDropDown() {
-       try {
-           AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
-           var stader = avdelningSQL.hamtaAllaStader();
-           
-           for (var s : stader) {
-               String item = s.get ("sid") + " - " + s.get("namn");
-               dropDownStad.addItem(item);
-           }
-           String nuvarandeStad = String.valueOf(nuvarandeStadId);
-           for (int i = 0; i < dropDownStad.getItemCount(); i++) {
-           String item = dropDownStad.getItemAt (i);
-           if (item.startsWith(nuvarandeStad + " -")) {
-               dropDownStad.setSelectedIndex(i);
-               break;
-           }
-       }
-       } catch (Exception e) {
-           JOptionPane.showMessageDialog(this, "Kunde inte visa städer: " + e.getMessage());
-       }
-   }  
+            System.out.println("Antal anställda: " + handlaggare.size());
+
+            for (var a : handlaggare) {
+                String item = a.get("aid") + " - " + a.get("fornamn") + " " + a.get("efternamn");
+                dropDownChef.addItem(item);
+            }
+            String nuvarandeChef = String.valueOf(nuvarandeChefId);
+            for (int i = 0; i < dropDownChef.getItemCount(); i++) {
+                String item = dropDownChef.getItemAt(i);
+                if (item.startsWith(nuvarandeChef + " -")) {
+                    dropDownChef.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Kunde inte visa chefer: " + e.getMessage());
+        }
+    }
+
+    private void fyllStadDropDown() {
+        try {
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            var stader = avdelningSQL.hamtaAllaStader();
+
+            for (var s : stader) {
+                String item = s.get("sid") + " - " + s.get("namn");
+                dropDownStad.addItem(item);
+            }
+            String nuvarandeStad = String.valueOf(nuvarandeStadId);
+            for (int i = 0; i < dropDownStad.getItemCount(); i++) {
+                String item = dropDownStad.getItemAt(i);
+                if (item.startsWith(nuvarandeStad + " -")) {
+                    dropDownStad.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Kunde inte visa städer: " + e.getMessage());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -265,29 +270,29 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             String valdChef = (String) dropDownChef.getSelectedItem();
             int chef = Integer.parseInt(valdChef.split(" - ")[0]);
             String beskrivning = txtAvdBeskrivning.getText();
-            
-          if (!Validering.ValideraNamn(namn)) {
-              JOptionPane.showMessageDialog(this, "Ogiltigt namn.");
-              return;
-          }
-          if (!Validering.ValideraEpost(epost)) {
-              JOptionPane.showMessageDialog(this, "ogiltig e-postadress.");
-              return;
-          }
-          if (!Validering.ValideraTelefon(telefon)) {
-              JOptionPane.showMessageDialog(this, "Ogiltigt telefonnummer.");
-              return;
-          }
-          if (!Validering.ValideraAdress(adress)) {
-              JOptionPane.showMessageDialog(this, "Ogiltig adress.");
-              return;
-          }
+
+            if (!Validering.ValideraNamn(namn)) {
+                JOptionPane.showMessageDialog(this, "Ogiltigt namn.");
+                return;
+            }
+            if (!Validering.ValideraEpost(epost)) {
+                JOptionPane.showMessageDialog(this, "ogiltig e-postadress.");
+                return;
+            }
+            if (!Validering.ValideraTelefon(telefon)) {
+                JOptionPane.showMessageDialog(this, "Ogiltigt telefonnummer.");
+                return;
+            }
+            if (!Validering.ValideraAdress(adress)) {
+                JOptionPane.showMessageDialog(this, "Ogiltig adress.");
+                return;
+            }
             AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
             avdelningSQL.redigeraAvdelning(avdid, namn, beskrivning, adress, epost, telefon, stad, chef);
-            
+
             JOptionPane.showMessageDialog(this, "Avdelningen har uppdaterats.");
         } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Redigering misslyckades: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Redigering misslyckades: " + e.getMessage());
         }
     }//GEN-LAST:event_btnSparaAndringarActionPerformed
 
@@ -318,7 +323,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-      //  java.awt.EventQueue.invokeLater(() -> new RedigeraAvdelning().setVisible(true));
+        //  java.awt.EventQueue.invokeLater(() -> new RedigeraAvdelning().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

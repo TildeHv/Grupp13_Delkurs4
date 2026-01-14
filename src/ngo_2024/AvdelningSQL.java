@@ -10,15 +10,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * den här klassen hanterar SQL frågor relaterade till avdelning(ar). 
+ * den här klassen hanterar SQL frågor relaterade till avdelning(ar).
  */
 public class AvdelningSQL {
+
     //fält
     private InfDB idb;
 
     public AvdelningSQL(InfDB idb) {
         this.idb = idb;
     }
+
     public Avdelning hamtaAvdelningMedId(int avdid) {
         try {
             String sqlFraga
@@ -85,7 +87,7 @@ public class AvdelningSQL {
                     = "INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) "
                     + "VALUES (" + avdid + ", '" + namn + "', '" + beskrivning + "','" + adress + "','" + epost + "','" + telefon + "', '" + stad + "', " + chef + ");";
             idb.insert(sqlFraga);
-              System.out.println("SQL: " + sqlFraga);
+            System.out.println("SQL: " + sqlFraga);
             return true;
         } catch (InfException e) {
             System.out.println("Skapandet av avdelning misslyckades: " + e.getMessage());
@@ -122,16 +124,14 @@ public class AvdelningSQL {
         String sqlFraga = "SELECT avdid, namn FROM avdelning ORDER BY avdid";
         return idb.fetchRows(sqlFraga);
     }
-    
+
     public ArrayList<HashMap<String, String>> hamtaAllaHandlaggare() throws InfException {
-        String sqlFraga = "SELECT aid, fornamn, efternamn FROM anstalld " + "WHERE aid IN (SELECT aid FROM handlaggare)";     
+        String sqlFraga = "SELECT aid, fornamn, efternamn FROM anstalld " + "WHERE aid IN (SELECT aid FROM handlaggare)";
         return idb.fetchRows(sqlFraga);
     }
-    
+
     public ArrayList<HashMap<String, String>> hamtaAllaStader() throws InfException {
         String sqlFraga = "SELECT sid, namn, land FROM stad ORDER BY namn;";
         return idb.fetchRows(sqlFraga);
     }
 }
-    
-  

@@ -25,17 +25,17 @@ public class LandUppgifter extends javax.swing.JFrame {
         this.valtLandId = valtLandId;
         this.huvudFonster = huvudFonster;
         initComponents();
-        
+        this.setLocationRelativeTo(null);
+
         getContentPane().setLayout(null);
         getContentPane().setBackground(Color.WHITE);
 
         //Rubrik för land
         getLandNamn();
         laggTillUppgifter();
-        
-        
+
     }
-    
+
     private void getLandNamn() {
         try {
             HashMap<String, String> landNamn = idb.fetchRow("SELECT namn FROM land WHERE lid = '" + valtLandId + "'");

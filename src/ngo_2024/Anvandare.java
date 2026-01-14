@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @author tovehanssons
  */
 public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgifter
-    
+
     private InfDB idb;
     private String inloggadAnvandare;
     private String aid;
@@ -24,95 +24,89 @@ public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgi
     private String telefon;
     private String anstallningsdatum;
     private String avdelning;
-    
+
     public Anvandare(InfDB idb, String inloggadAnvandare) {
-        
+
         this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;
         hamtaUppgifter();
-        
+
     }
+
     //Hämtar och lagrar användarens uppgifter från databasen via e-postadress
-    private void hamtaUppgifter() {  
+    private void hamtaUppgifter() {
 
-        
         try {
-            
-           
-          String sqlFraga =
-          "SELECT fornamn, aid, efternamn, adress, epost, telefon, " +
-          "anstallningsdatum, avdelning " +
-          "FROM anstalld " +      
-          "WHERE ePost = '" + inloggadAnvandare + "'";
-          
-         
-        
-          
-          HashMap<String, String> rad = idb.fetchRow(sqlFraga);
-          
-           if (rad == null) {
-   
-            } else {
-    
-            }
-          
-          fornamn = rad.get("fornamn");
-          efternamn = rad.get("efternamn");
-          adress = rad.get ("adress");
-          epost = rad.get ("epost");
-          telefon = rad.get ("telefon");
-          anstallningsdatum = rad.get ("anstallningsdatum");
-          avdelning = rad.get ("avdelning");
-          aid = rad.get("aid");
 
-          
+            String sqlFraga
+                    = "SELECT fornamn, aid, efternamn, adress, epost, telefon, "
+                    + "anstallningsdatum, avdelning "
+                    + "FROM anstalld "
+                    + "WHERE ePost = '" + inloggadAnvandare + "'";
+
+            HashMap<String, String> rad = idb.fetchRow(sqlFraga);
+
+            if (rad == null) {
+
+            } else {
+
+            }
+
+            fornamn = rad.get("fornamn");
+            efternamn = rad.get("efternamn");
+            adress = rad.get("adress");
+            epost = rad.get("epost");
+            telefon = rad.get("telefon");
+            anstallningsdatum = rad.get("anstallningsdatum");
+            avdelning = rad.get("avdelning");
+            aid = rad.get("aid");
+
         } catch (InfException e) {
-            
+
         }
     }
-    
+
     //Getters
     public String getAid() {
         return aid;
-        
+
     }
-    
+
     public String getFornamn() {
         return fornamn;
     }
-    
+
     public String getEfternamn() {
         return efternamn;
     }
-    
+
     public String getFullNamn() {
         return fornamn + " " + efternamn;
-        
+
     }
-    
+
     public String getAdress() {
         return adress;
-        
+
     }
-    
+
     public String getEpost() {
         return epost;
-        
+
     }
-    
+
     public String getTelefon() {
         return telefon;
-        
+
     }
-    
+
     public String getAnstallningsdatum() {
         return anstallningsdatum;
     }
-    
+
     public String getAvdelning() {
         return avdelning;
-      
-    } 
-        
-      }
 
+    }
+
+}

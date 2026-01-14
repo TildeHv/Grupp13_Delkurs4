@@ -18,7 +18,8 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
 
     public Anvandaruppgifter2(InfDB idb, String inloggadAnvandare) {
         initComponents();
-
+        this.setLocationRelativeTo(null);
+        
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         fyllUppgifter();
@@ -26,13 +27,12 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
 
         ImageIcon originalIcon = new ImageIcon(getClass().getResource("/ngo_2024/bilder/bild1.png"));
-        
+
         int targetWidth = 80;
         int targetHeight = (originalIcon.getIconHeight() * targetWidth) / originalIcon.getIconWidth();
 
         Image scaledImage = originalIcon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
         lblBild.setIcon(new ImageIcon(scaledImage));
-        
 
         setResizable(false);
     }

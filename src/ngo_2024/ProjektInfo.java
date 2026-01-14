@@ -23,6 +23,7 @@ public class ProjektInfo extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
         this.projektId = projektId;
         initComponents();
+        this.setLocationRelativeTo(null);
         HamtaProjektinfo();
 
         btnAndraKnapp.setVisible(false);

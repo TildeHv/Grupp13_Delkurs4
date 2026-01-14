@@ -13,7 +13,6 @@ import java.util.HashMap;
  *
  * @author tovehanssons
  */
-
 public class Partners { //Klassen Partners hämtar partnerdata från databasen
 
     private InfDB idb;
@@ -27,22 +26,21 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
     private String branch;
     private String stad;
 
-
     public Partners(InfDB idb, String pid) {
-        
+
         this.idb = idb;
         this.pid = pid;
         hamtaUppgifter();
     }
-    
+
     //Hämtar uppgifter och information för en specifik partner
     private void hamtaUppgifter() {
         try {
-            String sqlFraga =
-                    "SELECT pid, namn, kontaktperson, kontaktepost, telefon, "
-                    + "adress, branch, stad " +
-                    "FROM partner " +
-                    "WHERE pid = '" + pid + "'";
+            String sqlFraga
+                    = "SELECT pid, namn, kontaktperson, kontaktepost, telefon, "
+                    + "adress, branch, stad "
+                    + "FROM partner "
+                    + "WHERE pid = '" + pid + "'";
             HashMap<String, String> rad = idb.fetchRow(sqlFraga);
 
             if (rad != null) {
@@ -62,60 +60,58 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
     }
 
     //Getters
-    public String getPid() { 
+    public String getPid() {
         return pid;
-        
+
     }
-    
-    public String getNamn() { 
+
+    public String getNamn() {
         return namn;
-        
+
     }
-    
-    public String getKontaktperson() { 
+
+    public String getKontaktperson() {
         return kontaktperson;
-        
+
     }
-    
+
     public String getKontaktepost() {
         return kontaktepost;
-        
+
     }
-    
+
     public String getTelefon() {
         return telefon;
-        
+
     }
-    
+
     public String getAdress() {
         return adress;
-        
+
     }
-    
+
     public String getBranch() {
         return branch;
-        
+
     }
-    
+
     public String getStad() {
         return stad;
-        
+
     }
-    
-    
-       // För att enkelt visa i listor
+
+    // För att enkelt visa i listor
     @Override
     public String toString() {
         return namn + " (" + pid + ")";
     }
-    
 
     // Hämta alla partner (Detta gäller endast för en inloggad Admin)
     public static ArrayList<Partners> hamtaAlla(InfDB idb) {
         ArrayList<Partners> lista = new ArrayList<>();
         try {
-            ArrayList<HashMap<String, String>> rader =
-                    idb.fetchRows("SELECT pid FROM partner ORDER BY namn");
+            ArrayList<HashMap<String, String>> rader
+                    = idb.fetchRows("SELECT pid FROM partner ORDER BY namn");
 
             if (rader != null) {
                 for (HashMap<String, String> rad : rader) {
@@ -133,10 +129,10 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
     public static ArrayList<Partners> hamtaForProjekt(InfDB idb, String projektPid) {
         ArrayList<Partners> lista = new ArrayList<>();
         try {
-            ArrayList<HashMap<String, String>> rader =
-                    idb.fetchRows(
-                            "SELECT partner_pid FROM projekt_partner " +
-                            "WHERE pid = '" + projektPid + "'"
+            ArrayList<HashMap<String, String>> rader
+                    = idb.fetchRows(
+                            "SELECT partner_pid FROM projekt_partner "
+                            + "WHERE pid = '" + projektPid + "'"
                     );
 
             if (rader != null) {
@@ -152,26 +148,26 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
 
     // Hämta partners för en handläggare
     public static ArrayList<Partners> hamtaForHandlaggare(InfDB idb, String inloggadEpost) {
-    ArrayList<Partners> lista = new ArrayList<>();
-    try {
-        String sql =
-              "SELECT DISTINCT projekt_partner.partner_pid "
-            + "FROM ans_proj "
-            + "JOIN anstalld ON anstalld.aid = ans_proj.aid "
-            + "JOIN projekt_partner ON projekt_partner.pid = ans_proj.pid "
-            + "WHERE anstalld.epost = '" + inloggadEpost + "'";
+        ArrayList<Partners> lista = new ArrayList<>();
+        try {
+            String sql
+                    = "SELECT DISTINCT projekt_partner.partner_pid "
+                    + "FROM ans_proj "
+                    + "JOIN anstalld ON anstalld.aid = ans_proj.aid "
+                    + "JOIN projekt_partner ON projekt_partner.pid = ans_proj.pid "
+                    + "WHERE anstalld.epost = '" + inloggadEpost + "'";
 
-        ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+            ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
 
-        if (rader != null) {
-            for (HashMap<String, String> rad : rader) {
-                lista.add(new Partners(idb, rad.get("partner_pid")));
+            if (rader != null) {
+                for (HashMap<String, String> rad : rader) {
+                    lista.add(new Partners(idb, rad.get("partner_pid")));
+                }
             }
+        } catch (InfException e) {
+            System.out.println(e.getMessage());
         }
-    } catch (InfException e) {
-        System.out.println(e.getMessage());
+        return lista;
     }
-    return lista;
-}
 
 }

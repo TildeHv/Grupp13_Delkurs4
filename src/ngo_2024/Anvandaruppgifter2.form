@@ -27,15 +27,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="lbladress" pref="192" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lblanvandarnamn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblepost" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lbltelefon" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblaid" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblanstallningsdatum" alignment="0" pref="192" max="32767" attributes="0"/>
-                      <Component id="lblavdelning" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnTillbaka" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="lblanvandarnamn" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lblepost" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lbltelefon" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lblaid" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lblanstallningsdatum" alignment="0" pref="192" max="32767" attributes="0"/>
+                  <Component id="lblavdelning" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnTillbaka" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="38" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">

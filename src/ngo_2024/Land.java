@@ -25,7 +25,8 @@ public class Land extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        
+        this.setLocationRelativeTo(null);
+
         getContentPane().setLayout(null);
         getContentPane().setBackground(Color.WHITE);
 
@@ -36,7 +37,7 @@ public class Land extends javax.swing.JFrame {
         if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
             btnAndraLand.setVisible(true);
         }
-        
+
     }
 
     //Hämta och lägg in namn på land i filter

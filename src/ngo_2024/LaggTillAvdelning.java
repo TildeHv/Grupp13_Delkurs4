@@ -12,9 +12,10 @@ import javax.swing.JOptionPane;
  * den här klassen låter administratörer lägga till nya avdelningar i databasen.
  */
 public class LaggTillAvdelning extends javax.swing.JFrame {
+
     private InfDB idb;
     private int avdid;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LaggTillAvdelning.class.getName());
 
     /**
@@ -22,8 +23,10 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
      */
     public LaggTillAvdelning(InfDB idb) {
         this.idb = idb;
-          getContentPane().setBackground(Color.WHITE);
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
+        this.setLocationRelativeTo(null);
+
         dropDownChef.removeAllItems();
         dropDownChef.addItem("Välj chef...");
         dropDownStad.removeAllItems();
@@ -32,40 +35,41 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
         fyllStadDropDown();
     }
 
-    private void fyllChefDropDown() { 
-      try { 
-          AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
-          var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
-          
-          System.out.println("Antal handläggare: " + handlaggare.size());
+    private void fyllChefDropDown() {
+        try {
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
 
-          for (var h : handlaggare) {
-              String item = h.get("aid") + " - " + h.get("fornamn") + " " + h.get("efternamn");
-              dropDownChef.addItem(item);
-          }
-          for (int i = 0; i < dropDownChef.getItemCount(); i++) {
-              String item = dropDownChef.getItemAt(i); 
-          }
-      } catch (Exception e) {
-          JOptionPane.showMessageDialog(this, "Kunde inte visa chefer: " + e.getMessage());
-      }
+            System.out.println("Antal handläggare: " + handlaggare.size());
+
+            for (var h : handlaggare) {
+                String item = h.get("aid") + " - " + h.get("fornamn") + " " + h.get("efternamn");
+                dropDownChef.addItem(item);
+            }
+            for (int i = 0; i < dropDownChef.getItemCount(); i++) {
+                String item = dropDownChef.getItemAt(i);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Kunde inte visa chefer: " + e.getMessage());
+        }
     }
-    
+
     private void fyllStadDropDown() {
         try {
-           AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
-           var stader = avdelningSQL.hamtaAllaStader();
-           
-           for (var stad : stader) {
-               String item = stad.get ("sid") + " - " + stad.get("namn");
-               dropDownStad.addItem(item);
-           }
-           for (int i = 0; i < dropDownStad.getItemCount(); i++) {
-       }
-       } catch (Exception e) {
-           System.out.println("Kunde inte visa städer: " + e.getMessage());
-       }
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            var stader = avdelningSQL.hamtaAllaStader();
+
+            for (var stad : stader) {
+                String item = stad.get("sid") + " - " + stad.get("namn");
+                dropDownStad.addItem(item);
+            }
+            for (int i = 0; i < dropDownStad.getItemCount(); i++) {
+            }
+        } catch (Exception e) {
+            System.out.println("Kunde inte visa städer: " + e.getMessage());
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -234,7 +238,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
                 return;
             }
 
-           AvdelningSQL avdelningSQL = new AvdelningSQL(idb); 
+            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
             int nyttAvdid = avdelningSQL.skapaNyttAvdid();
             System.out.println("Nytt avdid: " + nyttAvdid);
 

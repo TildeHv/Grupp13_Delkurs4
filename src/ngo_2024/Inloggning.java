@@ -27,6 +27,8 @@ public class Inloggning extends javax.swing.JFrame {
     public Inloggning(InfDB idb) {
         this.idb = idb;
         initComponents();
+        this.setLocationRelativeTo(null);
+        
         getContentPane().setBackground(Color.WHITE);
         lblFelMeddelande.setVisible(false);
 
