@@ -30,6 +30,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
+        txtAvdid.setEditable(false); //Gör att det inte går att ändra en avdelnings id. 
         dropDownChef.removeAllItems();
         fyllFalt();
         fyllChefDropDown();
