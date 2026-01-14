@@ -106,12 +106,12 @@
                           <Component id="lblslutdatum" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblprojektnamn" min="-2" pref="160" max="-2" attributes="0"/>
                           <Component id="lblprojektchef" min="-2" pref="118" max="-2" attributes="0"/>
-                          <Component id="lblland" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblLand" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblOmProjektet" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -124,7 +124,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="151" max="-2" attributes="0"/>
+                              <Component id="rubrikInfoProjekt" min="-2" pref="151" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -143,12 +143,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <Component id="rubrikInfoProjekt" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtprojekt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblprojektnamn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblOmProjektet" alignment="0" min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -180,7 +180,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtland" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblland" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblLand" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                   </Group>
@@ -280,12 +280,12 @@
         <Property name="text" type="java.lang.String" value="LAND:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblland">
+    <Component class="javax.swing.JLabel" name="lblLand">
       <Properties>
         <Property name="text" type="java.lang.String" value="Land"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lblOmProjektet">
       <Properties>
         <Property name="text" type="java.lang.String" value="Om projektet"/>
       </Properties>
@@ -332,7 +332,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTillbakaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="rubrikInfoProjekt">
       <Properties>
         <Property name="text" type="java.lang.String" value="Information om projekt"/>
       </Properties>
