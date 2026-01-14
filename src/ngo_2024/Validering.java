@@ -11,7 +11,7 @@ public class Validering {
     }
 
     public static boolean ValideraTelefon(String telefon) {
-        return telefon.matches("^\\+?[0-9]{7,15}$");
+        return telefon.matches("^\\+?[0-9-]{7,15}$");
     }
 
     public static boolean ValideraAdress(String adress) {
