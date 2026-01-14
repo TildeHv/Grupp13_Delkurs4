@@ -27,7 +27,6 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        this.setLocationRelativeTo(null);
         getContentPane().setBackground(Color.WHITE);
 
         //Lägg in tabell namn
@@ -41,7 +40,7 @@ public class HandlaggareFlik extends javax.swing.JFrame {
         uppdateraHandlaggarTabell();
         btntabort.addActionListener(e -> taBortHandlaggare());
 
-        justeraKolumnBredd();
+        this.setLocationRelativeTo(null);
     }
 
     //Justera bredd på tabell
@@ -98,6 +97,8 @@ public class HandlaggareFlik extends javax.swing.JFrame {
                     mentorNamn
                 });
             }
+
+            justeraKolumnBredd();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -181,6 +182,8 @@ public class HandlaggareFlik extends javax.swing.JFrame {
                     });
                 }
             }
+
+            justeraKolumnBredd();
         } catch (Exception e) {
 
             e.printStackTrace();
