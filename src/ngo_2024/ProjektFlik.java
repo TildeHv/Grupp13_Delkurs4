@@ -15,6 +15,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTableHeaderUI;
 
 
 public class ProjektFlik extends javax.swing.JFrame {
@@ -31,8 +32,15 @@ public class ProjektFlik extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
        
-
-        projInfoKnapp.setEnabled(false);
+        tabellMinaProjekt.getTableHeader().setUI(new BasicTableHeaderUI());
+        tabellMinaProjekt.getTableHeader().setBackground(new Color(61, 176, 75));
+        tabellMinaProjekt.getTableHeader().setForeground(Color.WHITE);
+        tabellMinaProjekt.getTableHeader().setOpaque(true);
+        tabellAllaProjekt.getTableHeader().setUI(new BasicTableHeaderUI());
+        tabellAllaProjekt.getTableHeader().setBackground(new Color(61, 176, 75));
+        tabellAllaProjekt.getTableHeader().setForeground(Color.WHITE);
+        tabellAllaProjekt.getTableHeader().setOpaque(true);
+        tabellAllaProjekt.setEnabled(false);
 
         skapaProjektTabell();
 
@@ -221,6 +229,9 @@ public class ProjektFlik extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("PROJEKT");
 
+        filterBox.setBackground(new java.awt.Color(1, 174, 217));
+        filterBox.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        filterBox.setForeground(new java.awt.Color(255, 255, 255));
         filterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         filterBox.addActionListener(this::filterBoxActionPerformed);
 
@@ -269,7 +280,6 @@ public class ProjektFlik extends javax.swing.JFrame {
         btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTillbaka.setForeground(new java.awt.Color(255, 255, 255));
         btnTillbaka.setText("TILLBAKA");
-        btnTillbaka.setOpaque(true);
         btnTillbaka.addActionListener(this::btnTillbakaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -296,8 +306,7 @@ public class ProjektFlik extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                                 .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTillbaka)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(projInfoKnapp, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
@@ -343,7 +352,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     }//GEN-LAST:event_projInfoKnappActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
-        // TODO add your handling code here:'
+        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
