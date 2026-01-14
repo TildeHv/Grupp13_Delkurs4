@@ -38,7 +38,7 @@ public class Ngo_2024 {
             try {
 
                 idb = new InfDB("sdgsweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
-                new Inloggning(idb).setVisible(true);
+                new JFrameInloggning(idb).setVisible(true);
 
                 System.out.println("funkar");
 

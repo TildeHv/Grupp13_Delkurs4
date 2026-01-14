@@ -37,7 +37,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
 
     private void fyllChefDropDown() {
         try {
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
 
             System.out.println("Antal handläggare: " + handlaggare.size());
@@ -56,7 +56,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
 
     private void fyllStadDropDown() {
         try {
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             var stader = avdelningSQL.hamtaAllaStader();
 
             for (var stad : stader) {
@@ -238,7 +238,7 @@ public class LaggTillAvdelning extends javax.swing.JFrame {
                 return;
             }
 
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             int nyttAvdid = avdelningSQL.skapaNyttAvdid();
             System.out.println("Nytt avdid: " + nyttAvdid);
 

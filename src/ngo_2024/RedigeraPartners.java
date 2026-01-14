@@ -16,13 +16,13 @@ public class RedigeraPartners extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraPartners.class.getName());
     private String pid;
     private InfDB idb;
-    private PartnersFonster partnersfonster;
+    private JFramePartner partnersfonster;
     
     
     /**
      * //Klassen RedigeraPartners gör att man kan skapa eller lägga till en partner.
      */
-    public RedigeraPartners(PartnersFonster partnersfonster, InfDB idb, String pid) {
+    public RedigeraPartners(JFramePartner partnersfonster, InfDB idb, String pid) {
         this.partnersfonster = partnersfonster;
         this.idb = idb;
         this.pid = pid; 
@@ -52,7 +52,7 @@ public class RedigeraPartners extends javax.swing.JFrame {
     }
 
     private void fyllFaltFranDB() {
-        Partners p = new Partners(idb, pid);
+        KlassPartners p = new KlassPartners(idb, pid);
 
         tfRedNamn.setText(p.getNamn());
         tfRedKontaktperson.setText(p.getKontaktperson());

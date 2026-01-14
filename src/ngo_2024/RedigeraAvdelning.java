@@ -38,8 +38,8 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
 
     private void fyllFalt() {
         try {
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
-            Avdelning avd = avdelningSQL.hamtaAvdelningMedId(avdid);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
+            KlassAvdelning avd = avdelningSQL.hamtaAvdelningMedId(avdid);
 
             txtAvdid.setText(String.valueOf(avd.getAvdid()));
             txtAvdNamn.setText(avd.getNamn());
@@ -57,7 +57,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
 
     private void fyllChefDropDown() {
         try {
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             var handlaggare = avdelningSQL.hamtaAllaHandlaggare();
 
             System.out.println("Antal anställda: " + handlaggare.size());
@@ -81,7 +81,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
 
     private void fyllStadDropDown() {
         try {
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             var stader = avdelningSQL.hamtaAllaStader();
 
             for (var s : stader) {
@@ -287,7 +287,7 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ogiltig adress.");
                 return;
             }
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             avdelningSQL.redigeraAvdelning(avdid, namn, beskrivning, adress, epost, telefon, stad, chef);
 
             JOptionPane.showMessageDialog(this, "Avdelningen har uppdaterats.");

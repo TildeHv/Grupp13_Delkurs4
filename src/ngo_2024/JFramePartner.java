@@ -13,20 +13,20 @@ import javax.swing.JTable;
 import java.awt.Color;
 import javax.swing.plaf.basic.BasicTableHeaderUI;
 
-public class PartnersFonster extends javax.swing.JFrame {
+public class JFramePartner extends javax.swing.JFrame {
     //Klassen PartnersFonster är ett fönster som visar vilka partner beroende på roll.
     //Admin: Ser alla partners och kan lägga till/ta bort/ändra i systemet.
     // Projektchef: Ser alla partners kopplade till valt projekt och kan ta bort från projekt.
     // Handläggare: Ser endast partners som finns i projekten handläggaren deltar i.
 
     private static final java.util.logging.Logger logger
-            = java.util.logging.Logger.getLogger(PartnersFonster.class.getName());
+            = java.util.logging.Logger.getLogger(JFramePartner.class.getName());
 
     private InfDB idb;
     private String inloggadAnvandare;
-    private ArrayList<Partners> visadePartners = new ArrayList<>();
+    private ArrayList<KlassPartners> visadePartners = new ArrayList<>();
 
-    public PartnersFonster(InfDB idb, String inloggadAnvandare) {
+    public JFramePartner(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
 
@@ -64,7 +64,7 @@ public class PartnersFonster extends javax.swing.JFrame {
 
         sattBehorighet();
 
-        boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+        boolean arProjektchef = KlassValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
         if (arProjektchef) {
             fyllProjektCombo();
@@ -81,8 +81,8 @@ public class PartnersFonster extends javax.swing.JFrame {
 //Adminen och Projektchefens behörigheter
 
     private void sattBehorighet() {
-        boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
-        boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+        boolean arAdmin = KlassValAvRoll.arAdmin(idb, inloggadAnvandare);
+        boolean arProjektchef = KlassValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
         btnLaggtillPartners.setVisible(arAdmin || arProjektchef);
         btnTabortPartners.setVisible(arAdmin || arProjektchef);
@@ -113,30 +113,30 @@ public class PartnersFonster extends javax.swing.JFrame {
 
         visadePartners.clear();
 
-        ArrayList<Partners> lista;
+        ArrayList<KlassPartners> lista;
 
-        if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+        if (KlassValAvRoll.arAdmin(idb, inloggadAnvandare)) {
 
             // Admin ser alla partners
-            lista = Partners.hamtaAlla(idb);
+            lista = KlassPartners.hamtaAlla(idb);
 
-        } else if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+        } else if (KlassValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
 
             // Projektchef ser partners för valt projekt
             String projektPid = (String) cbPartners.getSelectedItem();
             lista = (projektPid == null)
                     ? new ArrayList<>()
-                    : Partners.hamtaForProjekt(idb, projektPid);
+                    : KlassPartners.hamtaForProjekt(idb, projektPid);
 
-        } else if (ValAvRoll.arHandlaggare(idb, inloggadAnvandare)) {
+        } else if (KlassValAvRoll.arHandlaggare(idb, inloggadAnvandare)) {
 
-            lista = Partners.hamtaForHandlaggare(idb, inloggadAnvandare);
+            lista = KlassPartners.hamtaForHandlaggare(idb, inloggadAnvandare);
 
         } else {
             lista = new ArrayList<>();
         }
 
-        for (Partners p : lista) {
+        for (KlassPartners p : lista) {
             visadePartners.add(p);
 
             model.addRow(new Object[]{
@@ -158,7 +158,7 @@ public class PartnersFonster extends javax.swing.JFrame {
     private void fyllProjektCombo() {
         cbPartners.removeAllItems();
 
-        for (String pid : ValAvRoll.hamtaProjektForProjektchef(idb, inloggadAnvandare)) {
+        for (String pid : KlassValAvRoll.hamtaProjektForProjektchef(idb, inloggadAnvandare)) {
             cbPartners.addItem(pid);
         }
 
@@ -358,7 +358,7 @@ public class PartnersFonster extends javax.swing.JFrame {
             return;
         }
 
-        Partners valdPartner = visadePartners.get(rad);
+        KlassPartners valdPartner = visadePartners.get(rad);
         String pid = valdPartner.getPid();
 
         new RedigeraPartners(this, idb, pid).setVisible(true);
@@ -367,8 +367,8 @@ public class PartnersFonster extends javax.swing.JFrame {
 
     private void btnLaggtillPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaggtillPartnersActionPerformed
 
-        boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
-        boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+        boolean arAdmin = KlassValAvRoll.arAdmin(idb, inloggadAnvandare);
+        boolean arProjektchef = KlassValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
         if (arAdmin) {
             // Admin: skapa helt ny partner i partner-tabellen
@@ -419,11 +419,11 @@ public class PartnersFonster extends javax.swing.JFrame {
             return;
         }
 
-        Partners valdPartner = visadePartners.get(rad);
+        KlassPartners valdPartner = visadePartners.get(rad);
         String partnerPid = valdPartner.getPid();
 
-        boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
-        boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+        boolean arAdmin = KlassValAvRoll.arAdmin(idb, inloggadAnvandare);
+        boolean arProjektchef = KlassValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
         if (!arAdmin && !arProjektchef) {
             javax.swing.JOptionPane.showMessageDialog(this, "Du har inte behörighet att ta bort.");

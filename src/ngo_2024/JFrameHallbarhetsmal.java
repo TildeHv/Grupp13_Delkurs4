@@ -17,16 +17,16 @@ import java.awt.Image;
 
 //@author tovehanssons
  
-public class Hallbarhetsmal extends javax.swing.JFrame {
+public class JFrameHallbarhetsmal extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Hallbarhetsmal.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameHallbarhetsmal.class.getName());
     private InfDB idb;
     private String inloggadAnvandare;
     private java.util.ArrayList<String> beskrivningar = new java.util.ArrayList<>();
 
     //Klassen Hållbarhetsmål visar en lista för hållbarhetsmål och beskrivningar.
     
-    public Hallbarhetsmal(InfDB idb, String inloggadAnvandare) {
+    public JFrameHallbarhetsmal(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
@@ -215,7 +215,7 @@ public class Hallbarhetsmal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTillbakaMalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaMalActionPerformed
-        Meny meny = new Meny(idb, inloggadAnvandare);
+        JFrameMeny meny = new JFrameMeny(idb, inloggadAnvandare);
         meny.setVisible(true);
         this.dispose(); // stänger Hallbarhetsmal
     }//GEN-LAST:event_btnTillbakaMalActionPerformed

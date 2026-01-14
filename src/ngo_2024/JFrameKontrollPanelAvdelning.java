@@ -11,18 +11,18 @@ import javax.swing.JOptionPane;
 /**
  * en kontrollpanel för adminer (avdelningar)
  */
-public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
+public class JFrameKontrollPanelAvdelning extends javax.swing.JFrame {
 
     private InfDB idb;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminKontrollPanelAvdelning.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameKontrollPanelAvdelning.class.getName());
 
     /**
      * Creates new form AdminKontrollPanelAvdelning
      *
      * @param idb
      */
-    public AdminKontrollPanelAvdelning(InfDB idb) {
+    public JFrameKontrollPanelAvdelning(InfDB idb) {
         this.idb = idb;
         getContentPane().setBackground(Color.WHITE);
         initComponents();
@@ -98,7 +98,7 @@ public class AdminKontrollPanelAvdelning extends javax.swing.JFrame {
     private void btnRedigeraBefintligAvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraBefintligAvdActionPerformed
         // När en admin trycker på knappen kommer en lista upp där de kan välja en avdelning att redigera. 
         try {
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             var avdelningar = avdelningSQL.hamtaAllaAvdelningar();
 
             String[] lista = new String[avdelningar.size()];

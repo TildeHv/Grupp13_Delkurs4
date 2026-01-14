@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author user
  */
-public class ProjektChefTillgang extends javax.swing.JFrame {
+public class JFrameProjektChefFonster extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
@@ -29,9 +29,9 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     private int landId;
     private HashMap<String, Integer> projektMap = new HashMap<>();
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektChefTillgang.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameProjektChefFonster.class.getName());
 
-    public ProjektChefTillgang(InfDB idb, String inloggadAnvandare) {
+    public JFrameProjektChefFonster(InfDB idb, String inloggadAnvandare) {
         initComponents();
         this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;
@@ -506,7 +506,7 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
 
         Integer valtPid = projektMap.get(valtProjekt);
 
-        ProjektInfo projekt = new ProjektInfo(idb, valtPid, inloggadAnvandare);
+        JFrameProjektInfo projekt = new JFrameProjektInfo(idb, valtPid, inloggadAnvandare);
         projekt.setVisible(true);
 
     }//GEN-LAST:event_btnandraprojektuppgifterActionPerformed
@@ -516,12 +516,12 @@ public class ProjektChefTillgang extends javax.swing.JFrame {
     }//GEN-LAST:event_boxprojektActionPerformed
 
     private void btnandrahandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrahandlaggareActionPerformed
-        HandlaggareFlik hf = new HandlaggareFlik(idb, inloggadAnvandare);
+        JFrameHandlaggare hf = new JFrameHandlaggare(idb, inloggadAnvandare);
         hf.setVisible(true);
     }//GEN-LAST:event_btnandrahandlaggareActionPerformed
 
     private void btnandrapartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrapartnerActionPerformed
-        PartnersFonster pf = new PartnersFonster(idb, inloggadAnvandare);
+        JFramePartner pf = new JFramePartner(idb, inloggadAnvandare);
         pf.setVisible(true);
     }//GEN-LAST:event_btnandrapartnerActionPerformed
 

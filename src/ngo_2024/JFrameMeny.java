@@ -12,14 +12,14 @@ import oru.inf.InfDB;
  *
  * @author user
  */
-public class Meny extends javax.swing.JFrame {
+public class JFrameMeny extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Meny.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameMeny.class.getName());
 
-    public Meny(InfDB idb, String inloggadAnvandare) {
+    public JFrameMeny(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
 
@@ -37,7 +37,7 @@ public class Meny extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
 
         btnminaprojekt.setVisible(false);
-        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+        if (KlassValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
             /*<-- Endast projektchef kan se ''Mina projekt'' knappen*/
             btnminaprojekt.setVisible(true);
             btnminaprojekt.setEnabled(true);
@@ -50,13 +50,13 @@ public class Meny extends javax.swing.JFrame {
         System.out.println("Sätter behörighet för: " + inloggadAnvandare);
 
         boolean arAdmin
-                = ValAvRoll.arAdmin(idb, inloggadAnvandare);
+                = KlassValAvRoll.arAdmin(idb, inloggadAnvandare);
 
         boolean arHandlaggare
-                = ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
+                = KlassValAvRoll.arHandlaggare(idb, inloggadAnvandare);
 
         boolean arProjektchef
-                = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+                = KlassValAvRoll.arProjektchef(idb, inloggadAnvandare);
 
         System.out.println("Handläggare: " + arHandlaggare);
 
@@ -64,7 +64,7 @@ public class Meny extends javax.swing.JFrame {
 
     private void HamtaNamn() {
 
-        Anvandare anv = new Anvandare(idb, inloggadAnvandare);
+        KlassAnvandare anv = new KlassAnvandare(idb, inloggadAnvandare);
 
         lblvalkommen.setText("Välkommen tillbaka " + anv.getFullNamn() + "!");
     }
@@ -256,37 +256,37 @@ public class Meny extends javax.swing.JFrame {
 
     private void btnProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProjektActionPerformed
 
-        ProjektFlik projekt = new ProjektFlik(idb, inloggadAnvandare);
+        JFrameProjekt projekt = new JFrameProjekt(idb, inloggadAnvandare);
         projekt.setVisible(true);
         /*<----Knapp som öppnar nya flik*/
 
     }//GEN-LAST:event_btnProjektActionPerformed
 
     private void btnpartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpartnersActionPerformed
-        new PartnersFonster(idb, inloggadAnvandare).setVisible(true);
+        new JFramePartner(idb, inloggadAnvandare).setVisible(true);
     }//GEN-LAST:event_btnpartnersActionPerformed
 
     private void btnminprofilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminprofilActionPerformed
-        Anvandaruppgifter2 uppgifter = new Anvandaruppgifter2(idb, inloggadAnvandare);
+        JFrameMinProfil uppgifter = new JFrameMinProfil(idb, inloggadAnvandare);
         uppgifter.setVisible(true);
     }//GEN-LAST:event_btnminprofilActionPerformed
 
     private void btnavdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavdelningActionPerformed
-        AvdelningJframe AvdJframe = new AvdelningJframe(idb, inloggadAnvandare);
+        JFrameAvdelning AvdJframe = new JFrameAvdelning(idb, inloggadAnvandare);
         AvdJframe.setVisible(true);
     }//GEN-LAST:event_btnavdelningActionPerformed
 
     private void btnhallbarhetsmalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhallbarhetsmalActionPerformed
-        new Hallbarhetsmal(idb, inloggadAnvandare).setVisible(true);
+        new JFrameHallbarhetsmal(idb, inloggadAnvandare).setVisible(true);
     }//GEN-LAST:event_btnhallbarhetsmalActionPerformed
 
     private void btnlandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlandActionPerformed
-        Land land = new Land(idb, inloggadAnvandare);
+        JFrameLand land = new JFrameLand(idb, inloggadAnvandare);
         land.setVisible(true);
     }//GEN-LAST:event_btnlandActionPerformed
 
     private void btnminaprojektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminaprojektActionPerformed
-        ProjektChefTillgang tillgang = new ProjektChefTillgang(idb, inloggadAnvandare);
+        JFrameProjektChefFonster tillgang = new JFrameProjektChefFonster(idb, inloggadAnvandare);
         tillgang.setVisible(true);
     }//GEN-LAST:event_btnminaprojektActionPerformed
 

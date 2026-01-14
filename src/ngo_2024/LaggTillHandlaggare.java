@@ -76,7 +76,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
             idb.insert(sqlFraga);
             JOptionPane.showMessageDialog(this, "Ny handläggare tillagd till projekt");
 
-            if (huvudFonster instanceof HandlaggareFlik handlaggareFlik) {
+            if (huvudFonster instanceof JFrameHandlaggare handlaggareFlik) {
                 handlaggareFlik.uppdateraHandlaggarTabell();
             }
 

@@ -12,16 +12,16 @@ import java.util.HashMap;
 /**
  * den här klassen hanterar SQL frågor relaterade till avdelning(ar).
  */
-public class AvdelningSQL {
+public class KlassAvdelningSQL {
 
     //fält
     private InfDB idb;
 
-    public AvdelningSQL(InfDB idb) {
+    public KlassAvdelningSQL(InfDB idb) {
         this.idb = idb;
     }
 
-    public Avdelning hamtaAvdelningMedId(int avdid) {
+    public KlassAvdelning hamtaAvdelningMedId(int avdid) {
         try {
             String sqlFraga
                     = "SELECT * FROM avdelning WHERE avdid = " + avdid + ";";
@@ -29,7 +29,7 @@ public class AvdelningSQL {
             HashMap<String, String> rad = idb.fetchRow(sqlFraga);
 
             if (rad != null) {
-                return new Avdelning(
+                return new KlassAvdelning(
                         Integer.parseInt(rad.get("avdid")),
                         rad.get("namn"),
                         rad.get("beskrivning"),

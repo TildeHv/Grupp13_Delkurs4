@@ -8,7 +8,7 @@ package ngo_2024;
  *
  * @author Albin Malmquist en logisk klass för avdelning
  */
-public class Avdelning {
+public class KlassAvdelning {
 
     //fält
     private int avdid;
@@ -21,7 +21,7 @@ public class Avdelning {
     private String chef;
 
     //konstruktor
-    public Avdelning(int avdid, String namn, String beskrivning, String adress, String epost, String telefon, String stad, String chef) {
+    public KlassAvdelning(int avdid, String namn, String beskrivning, String adress, String epost, String telefon, String stad, String chef) {
         this.avdid = avdid;
         this.namn = namn;
         this.beskrivning = beskrivning;

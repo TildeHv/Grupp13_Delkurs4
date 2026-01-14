@@ -18,16 +18,16 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicTableHeaderUI;
 
 
-public class ProjektFlik extends javax.swing.JFrame {
+public class JFrameProjekt extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
     private int projektId;
     private String aktuellSql;
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektFlik.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameProjekt.class.getName());
 
-    public ProjektFlik(InfDB idb, String inloggadAnvandare) {
+    public JFrameProjekt(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
@@ -348,7 +348,7 @@ public class ProjektFlik extends javax.swing.JFrame {
     //Knapp för att öppna specifikt projekt
     private void projInfoKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projInfoKnappActionPerformed
         if (projektId > 0) {
-            new ProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);
+            new JFrameProjektInfo(idb, projektId, inloggadAnvandare).setVisible(true);
         }
     }//GEN-LAST:event_projInfoKnappActionPerformed
 

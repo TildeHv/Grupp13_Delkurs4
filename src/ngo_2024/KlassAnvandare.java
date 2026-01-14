@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author tovehanssons
  */
-public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgifter
+public class KlassAnvandare { //Ansvarar för att hämta och lagra användarens uppgifter
 
     private InfDB idb;
     private String inloggadAnvandare;
@@ -25,7 +25,7 @@ public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgi
     private String anstallningsdatum;
     private String avdelning;
 
-    public Anvandare(InfDB idb, String inloggadAnvandare) {
+    public KlassAnvandare(InfDB idb, String inloggadAnvandare) {
 
         this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;

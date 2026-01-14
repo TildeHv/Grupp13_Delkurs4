@@ -10,15 +10,15 @@ import oru.inf.InfException;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class Projektforandrare extends javax.swing.JFrame {
+public class RedigeraProjekt extends javax.swing.JFrame {
 
-    private static final Logger logger = Logger.getLogger(Projektforandrare.class.getName());
+    private static final Logger logger = Logger.getLogger(RedigeraProjekt.class.getName());
 
     private InfDB idb;
     private String InloggadAnvandare;
     private int pid;
 
-    public Projektforandrare(InfDB idb, String InloggadAnvandare, int pid) {
+    public RedigeraProjekt(InfDB idb, String InloggadAnvandare, int pid) {
         initComponents();
         this.InloggadAnvandare = InloggadAnvandare;
         this.idb = idb;
@@ -27,7 +27,7 @@ public class Projektforandrare extends javax.swing.JFrame {
 
         try {
             /*F<--- yller alla fält*/
-            ProjektKlass projekt = new ProjektKlass(idb, InloggadAnvandare, pid);
+            KlassProjekt projekt = new KlassProjekt(idb, InloggadAnvandare, pid);
 
             lblbeskrivning.setText(projekt.getBeskrivning());
             lblprojektnamn.setText(projekt.getProjektnamn());

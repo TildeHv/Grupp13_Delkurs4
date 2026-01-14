@@ -14,20 +14,20 @@ import javax.swing.plaf.basic.BasicTableHeaderUI;
  * en jFrame klass som ger användare en överblick över deras avdelning. Finns
  * även en sökfunktion för att hitta specifika handläggare.
  */
-public class AvdelningJframe extends javax.swing.JFrame {
+public class JFrameAvdelning extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
-    private AvdelningSQL avdelningSQL;
+    private KlassAvdelningSQL avdelningSQL;
 
     //  private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AvdelningJframe.class.getName());
     /**
      * Creates new form AvdelningJframe
      */
-    public AvdelningJframe(InfDB idb, String inloggadAnvandare) {
+    public JFrameAvdelning(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
-        this.avdelningSQL = new AvdelningSQL(idb);
+        this.avdelningSQL = new KlassAvdelningSQL(idb);
 
         getContentPane().setBackground(Color.WHITE);
         initComponents();
@@ -59,8 +59,8 @@ public class AvdelningJframe extends javax.swing.JFrame {
             String avdidString = idb.fetchSingle(sqlFraga);
             int avdid = Integer.parseInt(avdidString);
 
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
-            Avdelning avd = avdelningSQL.hamtaAvdelningMedId(avdid);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
+            KlassAvdelning avd = avdelningSQL.hamtaAvdelningMedId(avdid);
 
             lblAvdid.setText("avd-ID: " + String.valueOf(avd.getAvdid()));
             lblAvdNamn.setText(avd.getNamn());
@@ -82,7 +82,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
             String avdidString = idb.fetchSingle(sqlFraga);
             int avdid = Integer.parseInt(idb.fetchSingle(sqlFraga));
 
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             var visaAnstallda = avdelningSQL.hamtaPersonalForAvdelning(avdid);
 
             DefaultTableModel modell = (DefaultTableModel) tblVisaPersonal.getModel();
@@ -290,7 +290,7 @@ public class AvdelningJframe extends javax.swing.JFrame {
             String sqlFraga = "SELECT avdelning FROM anstalld WHERE epost = '" + inloggadAnvandare + "'";
             int avdid = Integer.parseInt(idb.fetchSingle(sqlFraga));
 
-            AvdelningSQL avdelningSQL = new AvdelningSQL(idb);
+            KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             var sokResultat = avdelningSQL.sokHandlaggare(avdid, sokterm);
 
             DefaultTableModel modell = (DefaultTableModel) tblVisaPersonal.getModel();
@@ -309,8 +309,8 @@ public class AvdelningJframe extends javax.swing.JFrame {
 
     private void btnRedigeraAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraAvdelningActionPerformed
         //Endast admin har behörigheten att ändra avdelningar, här kontrolleras det att den inloggade användaren är en admin.
-        if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
-            new AdminKontrollPanelAvdelning(idb).setVisible(true);
+        if (KlassValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+            new JFrameKontrollPanelAvdelning(idb).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Endast administratörer har behörigheten att redigera avdelningar.");
         }

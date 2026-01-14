@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author tovehanssons
  */
-public class ValAvRoll {
+public class KlassValAvRoll {
 //Klassen ValAvRoll är en hjälpklass för att avgöra vilken roll som är inloggad
 //baserat på e-postadress    
 

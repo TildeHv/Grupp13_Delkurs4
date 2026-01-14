@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author tovehanssons
  */
-public class Partners { //Klassen Partners hämtar partnerdata från databasen
+public class KlassPartners { //Klassen Partners hämtar partnerdata från databasen
 
     private InfDB idb;
 
@@ -26,7 +26,7 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
     private String branch;
     private String stad;
 
-    public Partners(InfDB idb, String pid) {
+    public KlassPartners(InfDB idb, String pid) {
 
         this.idb = idb;
         this.pid = pid;
@@ -107,8 +107,8 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
     }
 
     // Hämta alla partner (Detta gäller endast för en inloggad Admin)
-    public static ArrayList<Partners> hamtaAlla(InfDB idb) {
-        ArrayList<Partners> lista = new ArrayList<>();
+    public static ArrayList<KlassPartners> hamtaAlla(InfDB idb) {
+        ArrayList<KlassPartners> lista = new ArrayList<>();
         try {
             ArrayList<HashMap<String, String>> rader
                     = idb.fetchRows("SELECT pid FROM partner ORDER BY namn");
@@ -116,7 +116,7 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
             if (rader != null) {
                 for (HashMap<String, String> rad : rader) {
                     String pid = rad.get("pid");
-                    lista.add(new Partners(idb, pid));
+                    lista.add(new KlassPartners(idb, pid));
                 }
             }
         } catch (InfException e) {
@@ -126,8 +126,8 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
     }
 
     // Hämta partners för ett projekt
-    public static ArrayList<Partners> hamtaForProjekt(InfDB idb, String projektPid) {
-        ArrayList<Partners> lista = new ArrayList<>();
+    public static ArrayList<KlassPartners> hamtaForProjekt(InfDB idb, String projektPid) {
+        ArrayList<KlassPartners> lista = new ArrayList<>();
         try {
             ArrayList<HashMap<String, String>> rader
                     = idb.fetchRows(
@@ -137,7 +137,7 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
 
             if (rader != null) {
                 for (HashMap<String, String> rad : rader) {
-                    lista.add(new Partners(idb, rad.get("partner_pid")));
+                    lista.add(new KlassPartners(idb, rad.get("partner_pid")));
                 }
             }
         } catch (InfException e) {
@@ -147,8 +147,8 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
     }
 
     // Hämta partners för en handläggare
-    public static ArrayList<Partners> hamtaForHandlaggare(InfDB idb, String inloggadEpost) {
-        ArrayList<Partners> lista = new ArrayList<>();
+    public static ArrayList<KlassPartners> hamtaForHandlaggare(InfDB idb, String inloggadEpost) {
+        ArrayList<KlassPartners> lista = new ArrayList<>();
         try {
             String sql
                     = "SELECT DISTINCT projekt_partner.partner_pid "
@@ -161,7 +161,7 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
 
             if (rader != null) {
                 for (HashMap<String, String> rad : rader) {
-                    lista.add(new Partners(idb, rad.get("partner_pid")));
+                    lista.add(new KlassPartners(idb, rad.get("partner_pid")));
                 }
             }
         } catch (InfException e) {

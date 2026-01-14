@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
-public class LandUppgifter extends javax.swing.JFrame {
+public class RedigeraLand extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
     private String valtLandId;
     private javax.swing.JFrame huvudFonster;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LandUppgifter.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraLand.class.getName());
 
-    public LandUppgifter(InfDB idb, String inloggadAnvandare, String valtLandId, javax.swing.JFrame huvudFonster) {
+    public RedigeraLand(InfDB idb, String inloggadAnvandare, String valtLandId, javax.swing.JFrame huvudFonster) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         this.valtLandId = valtLandId;
@@ -252,7 +252,7 @@ public class LandUppgifter extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Land uppgifter uppdaterade");
 
-            if (huvudFonster instanceof Land land) {
+            if (huvudFonster instanceof JFrameLand land) {
                 land.getLandNamn();
             }
 
