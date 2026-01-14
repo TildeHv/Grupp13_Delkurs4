@@ -34,8 +34,9 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
         this.pid = pid;
         hamtaUppgifter();
     }
-
-    private void hamtaUppgifter() { //Hämtar uppgifter och information för en specifik partner
+    
+    //Hämtar uppgifter och information för en specifik partner
+    private void hamtaUppgifter() {
         try {
             String sqlFraga =
                     "SELECT pid, namn, kontaktperson, kontaktepost, telefon, "
@@ -151,30 +152,26 @@ public class Partners { //Klassen Partners hämtar partnerdata från databasen
 
     // Hämta partners för en handläggare
     public static ArrayList<Partners> hamtaForHandlaggare(InfDB idb, String inloggadEpost) {
-        ArrayList<Partners> lista = new ArrayList<>();
-        try {
-            ArrayList<HashMap<String, String>> rader =
-                    idb.fetchRows(
-                            "SELECT DISTINCT pp.partner_pid " +
-                            "FROM ans_proj ap " +
-                            "JOIN anstalld an ON ap.aid = an.aid " +
-                            "JOIN projekt_partner pp ON pp.pid = ap.pid " +
-                            "WHERE an.epost = '" + esc(inloggadEpost) + "'"
-                    );
+    ArrayList<Partners> lista = new ArrayList<>();
+    try {
+        String sql =
+              "SELECT DISTINCT projekt_partner.partner_pid "
+            + "FROM ans_proj "
+            + "JOIN anstalld ON anstalld.aid = ans_proj.aid "
+            + "JOIN projekt_partner ON projekt_partner.pid = ans_proj.pid "
+            + "WHERE anstalld.epost = '" + inloggadEpost + "'";
 
-            if (rader != null) {
-                for (HashMap<String, String> rad : rader) {
-                    lista.add(new Partners(idb, rad.get("partner_pid")));
-                }
+        ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+
+        if (rader != null) {
+            for (HashMap<String, String> rad : rader) {
+                lista.add(new Partners(idb, rad.get("partner_pid")));
             }
-        } catch (InfException e) {
-            System.out.println(e.getMessage());
         }
-        return lista;
+    } catch (InfException e) {
+        System.out.println(e.getMessage());
     }
+    return lista;
+}
 
-    private static String esc(String s) {
-        if (s == null) return "";
-        return s.replace("'", "''").trim();
-    }
 }

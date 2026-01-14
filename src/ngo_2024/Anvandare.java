@@ -30,7 +30,7 @@ public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgi
         this.inloggadAnvandare = inloggadAnvandare;
         this.idb = idb;
         hamtaUppgifter();
-        System.out.println("Skapar Anvandare med aid: " + aid);
+        
     }
     //Hämtar och lagrar användarens uppgifter från databasen via e-postadress
     private void hamtaUppgifter() {  
@@ -38,23 +38,23 @@ public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgi
         
         try {
             
-            System.out.println(aid);
+           
           String sqlFraga =
           "SELECT fornamn, aid, efternamn, adress, epost, telefon, " +
           "anstallningsdatum, avdelning " +
           "FROM anstalld " +      
           "WHERE ePost = '" + inloggadAnvandare + "'";
           
-          System.out.print(sqlFraga);
+         
         
           
           HashMap<String, String> rad = idb.fetchRow(sqlFraga);
           
            if (rad == null) {
-    System.out.println("Ingen rad hittades för aid: " + aid);
-} else {
-    System.out.println("Hämtade användare: " + rad.get("fornamn") + " " + rad.get("efternamn"));
-}
+   
+            } else {
+    
+            }
           
           fornamn = rad.get("fornamn");
           efternamn = rad.get("efternamn");
@@ -66,10 +66,7 @@ public class Anvandare { //Ansvarar för att hämta och lagra användarens uppgi
           aid = rad.get("aid");
 
           
-          System.out.println(efternamn);
-          
         } catch (InfException e) {
-          System.out.println(e.getMessage());
             
         }
     }
