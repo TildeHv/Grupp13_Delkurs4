@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author user
  */
-public class ProjektKlass {
+public class KlassProjekt {
 
     private InfDB idb;
     private String InloggadAnvandare;
@@ -27,7 +27,7 @@ public class ProjektKlass {
     private String prioritet;
     private int pid;
 
-    public ProjektKlass(InfDB idb, String InloggadAnvandare, int pid) {
+    public KlassProjekt(InfDB idb, String InloggadAnvandare, int pid) {
         this.InloggadAnvandare = InloggadAnvandare;
         this.idb = idb;
         this.pid = pid;

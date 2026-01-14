@@ -9,19 +9,19 @@ import oru.inf.InfDB;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Land extends javax.swing.JFrame {
+public class JFrameLand extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
     private String landId;
     private HashMap<String, String> namnTillId = new HashMap<>();
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Land.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameLand.class.getName());
 
     /**
      * Creates new form Land
      */
-    public Land(InfDB idb, String inloggadAnvandare) {
+    public JFrameLand(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
@@ -34,7 +34,7 @@ public class Land extends javax.swing.JFrame {
 
         //Visar bara knapp för att ändra information om ett land för admin
         btnAndraLand.setVisible(false);
-        if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+        if (KlassValAvRoll.arAdmin(idb, inloggadAnvandare)) {
             btnAndraLand.setVisible(true);
         }
 
@@ -220,7 +220,7 @@ public class Land extends javax.swing.JFrame {
 
     //Knapp för att kunna ändra information om ett land
     private void btnAndraLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLandActionPerformed
-        LandUppgifter landUppgifter = new LandUppgifter(idb, inloggadAnvandare, landId, this);
+        RedigeraLand landUppgifter = new RedigeraLand(idb, inloggadAnvandare, landId, this);
         landUppgifter.setVisible(true);
     }//GEN-LAST:event_btnAndraLandActionPerformed
 

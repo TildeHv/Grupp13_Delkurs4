@@ -15,16 +15,16 @@ import javax.swing.JLabel;
  *
  * @author user
  */
-public class Inloggning extends javax.swing.JFrame {
+public class JFrameInloggning extends javax.swing.JFrame {
 
     private InfDB idb;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inloggning.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameInloggning.class.getName());
 
     /**
      * Creates new form Inloggning
      */
-    public Inloggning(InfDB idb) {
+    public JFrameInloggning(InfDB idb) {
         this.idb = idb;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -146,7 +146,7 @@ public class Inloggning extends javax.swing.JFrame {
             // System.out.println(sqlFraga);
             String dblosen = idb.fetchSingle(sqlFraga);
             if (losenord.equals(dblosen)) {
-                new Meny(idb, ePost).setVisible(true);
+                new JFrameMeny(idb, ePost).setVisible(true);
                 this.setVisible(false);
             } else {
                 lblFelMeddelande.setVisible(true);

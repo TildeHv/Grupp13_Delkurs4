@@ -9,21 +9,21 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
 
-public class Uppgiftsforandrare extends javax.swing.JFrame {
+public class RedigeraMinaUppgifter extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
-    private Anvandare anv;
+    private KlassAnvandare anv;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Uppgiftsforandrare.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraMinaUppgifter.class.getName());
 
-    public Uppgiftsforandrare(InfDB idb, String inloggadAnvandare) {
+    public RedigeraMinaUppgifter(InfDB idb, String inloggadAnvandare) {
         initComponents();
         this.setLocationRelativeTo(null);
 
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
-        anv = new Anvandare(idb, inloggadAnvandare);
+        anv = new KlassAnvandare(idb, inloggadAnvandare);
 
         txtadress.setText(anv.getAdress());
         /*<--- Sätter fälten*/

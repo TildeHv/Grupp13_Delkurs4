@@ -15,15 +15,15 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import java.awt.Component;
 
-public class HandlaggareFlik extends javax.swing.JFrame {
+public class JFrameHandlaggare extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
     private HashMap<String, Integer> projektMap = new HashMap<>();
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HandlaggareFlik.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameHandlaggare.class.getName());
 
-    public HandlaggareFlik(InfDB idb, String inloggadAnvandare) {
+    public JFrameHandlaggare(InfDB idb, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();

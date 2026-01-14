@@ -9,14 +9,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import oru.inf.InfDB;
 
-public class Anvandaruppgifter2 extends javax.swing.JFrame {
+public class JFrameMinProfil extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Anvandaruppgifter2.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameMinProfil.class.getName());
 
-    public Anvandaruppgifter2(InfDB idb, String inloggadAnvandare) {
+    public JFrameMinProfil(InfDB idb, String inloggadAnvandare) {
         initComponents();
         this.setLocationRelativeTo(null);
         
@@ -39,7 +39,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
 
     private void fyllUppgifter() { // Tar getters från Användare-klassen och sätter namn på fälten
 
-        Anvandare anv = new Anvandare(idb, inloggadAnvandare);
+        KlassAnvandare anv = new KlassAnvandare(idb, inloggadAnvandare);
 
         lblanvandarnamn.setText(anv.getFullNamn());
         lbltelefon.setText(anv.getTelefon());
@@ -103,14 +103,13 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbladress, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblanvandarnamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblepost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbltelefon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblaid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblanstallningsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                        .addComponent(lblavdelning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblanvandarnamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblepost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbltelefon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblaid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblanstallningsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                    .addComponent(lblavdelning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -150,7 +149,7 @@ public class Anvandaruppgifter2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Uppgiftsforandrare uppgifter = new Uppgiftsforandrare(idb, inloggadAnvandare);
+        RedigeraMinaUppgifter uppgifter = new RedigeraMinaUppgifter(idb, inloggadAnvandare);
         uppgifter.setVisible(true); //Öppnar en ny uppgiftsförändrare baserat på den inloggade användaren
     }//GEN-LAST:event_jButton1ActionPerformed
 

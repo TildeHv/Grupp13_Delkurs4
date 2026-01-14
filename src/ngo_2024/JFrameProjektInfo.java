@@ -10,15 +10,15 @@ import oru.inf.InfException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProjektInfo extends javax.swing.JFrame {
+public class JFrameProjektInfo extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
     private int projektId;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjektInfo.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameProjektInfo.class.getName());
 
-    public ProjektInfo(InfDB idb, int projektId, String inloggadAnvandare) {
+    public JFrameProjektInfo(InfDB idb, int projektId, String inloggadAnvandare) {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         this.projektId = projektId;
@@ -29,7 +29,7 @@ public class ProjektInfo extends javax.swing.JFrame {
         btnAndraKnapp.setVisible(false);
         /*z--Sätter knappen till false om man inte är projektchef*/
 
-        if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+        if (KlassValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
             btnAndraKnapp.setVisible(true);
             btnAndraKnapp.setEnabled(true);
         }
@@ -303,7 +303,7 @@ public class ProjektInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtbeskrivningActionPerformed
 
     private void btnAndraKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraKnappActionPerformed
-        Projektforandrare projekt = new Projektforandrare(idb, inloggadAnvandare, projektId);
+        RedigeraProjekt projekt = new RedigeraProjekt(idb, inloggadAnvandare, projektId);
         projekt.setVisible(true);
     }//GEN-LAST:event_btnAndraKnappActionPerformed
 
