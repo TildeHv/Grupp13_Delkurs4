@@ -77,7 +77,7 @@ public class LaggTillHandlaggare extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ny handläggare tillagd till projekt");
 
             if (huvudFonster instanceof HandlaggareFlik handlaggareFlik) {
-                handlaggareFlik.fyllHandlaggareTabell();
+                handlaggareFlik.uppdateraHandlaggarTabell();
             }
 
             this.dispose();
