@@ -69,11 +69,9 @@ public class Inloggning extends javax.swing.JFrame {
         lbllosenord.setText("LÖSENORD:");
 
         txtepost.setForeground(new java.awt.Color(51, 51, 51));
-        txtepost.setText("sofia.a@example.com");
         txtepost.addActionListener(this::txtepostActionPerformed);
 
         txtlosenord.setForeground(new java.awt.Color(51, 51, 51));
-        txtlosenord.setText("passwordabc");
         txtlosenord.addActionListener(this::txtlosenordActionPerformed);
 
         btnlogin.setBackground(new java.awt.Color(51, 51, 51));

@@ -60,23 +60,27 @@ public class PartnersFonster extends javax.swing.JFrame {
         jtPartners.getTableHeader().setOpaque(true);
 
         //Rollstyrning för Admin och Projektchef när det gäller ta bort/ändra/lägg till
-        cbPartners.removeAllItems();
+        
+    
 
-        sattBehorighet();
+       sattBehorighet();
 
-        boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
+boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+boolean arHandlaggare = ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
 
-        if (arProjektchef) {
-            fyllProjektCombo();
-        }
+// Admin + projektchef + handläggare ska ha combobox
+boolean farHaCombo = arAdmin || arProjektchef || arHandlaggare;
 
-        fyllPartnersTabell();
+if (farHaCombo) {
+    fyllProjektCombo();   // fyller projekt för rätt roll
+}
 
-        cbPartners.addActionListener(e -> {
-            if (arProjektchef) {
-                fyllPartnersTabell();
-            }
-        });
+fyllPartnersTabell();
+
+// När man byter projekt i comboboxen -> uppdatera tabellen
+cbPartners.addActionListener(e -> fyllPartnersTabell());
+
     }
 //Adminen och Projektchefens behörigheter
 
@@ -96,77 +100,112 @@ public class PartnersFonster extends javax.swing.JFrame {
             btnLaggtillPartners.setText("Lägg till partner i projekt");
 
         }
+        
+          boolean arHandlaggare = ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
 
-        //Projektchefen får välja projekt i combobox.
-        cbPartners.setVisible(arProjektchef);
+    
+          boolean farSeCombo = arAdmin || arProjektchef || arHandlaggare;
 
-        if (!arProjektchef) {
-            cbPartners.removeAllItems();
-        }
+          cbPartners.setVisible(farSeCombo);
+          lblProjektitel.setVisible(farSeCombo);
+
+         if (!farSeCombo) {
+        cbPartners.removeAllItems();
+    }
+
+        
 
     }
 
-    //Fyller tabellen för partners beroende på användarens roll.
-    private void fyllPartnersTabell() {
-        DefaultTableModel model = (DefaultTableModel) jtPartners.getModel();
-        model.setRowCount(0);
+   private void fyllPartnersTabell() {
+    DefaultTableModel model = (DefaultTableModel) jtPartners.getModel();
+    model.setRowCount(0);
 
-        visadePartners.clear();
+    visadePartners.clear();
 
-        ArrayList<Partners> lista;
+    ArrayList<Partners> lista = new ArrayList<>();
 
-        if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+    boolean arAdmin = ValAvRoll.arAdmin(idb, inloggadAnvandare);
+    boolean arProjektchef = ValAvRoll.arProjektchef(idb, inloggadAnvandare);
+    boolean arHandlaggare = ValAvRoll.arHandlaggare(idb, inloggadAnvandare);
 
-            // Admin ser alla partners
-            lista = Partners.hamtaAlla(idb);
-
-        } else if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
-
-            // Projektchef ser partners för valt projekt
-            String projektPid = (String) cbPartners.getSelectedItem();
-            lista = (projektPid == null)
-                    ? new ArrayList<>()
-                    : Partners.hamtaForProjekt(idb, projektPid);
-
-        } else if (ValAvRoll.arHandlaggare(idb, inloggadAnvandare)) {
-
-            lista = Partners.hamtaForHandlaggare(idb, inloggadAnvandare);
-
-        } else {
-            lista = new ArrayList<>();
-        }
-
-        for (Partners p : lista) {
-            visadePartners.add(p);
-
-            model.addRow(new Object[]{
-                p.getNamn(),
-                p.getKontaktperson(),
-                p.getKontaktepost(),
-                p.getTelefon(),
-                p.getAdress(),
-                p.getBranch(),
-                p.getStad()
-            });
+    // Admin/projektchef/handläggare: visa partners för valt projekt i combobox
+    if (arAdmin || arProjektchef || arHandlaggare) {
+        String projektPid = (String) cbPartners.getSelectedItem();
+        if (projektPid != null) {
+            lista = Partners.hamtaForProjekt(idb, projektPid);
         }
     }
 
+    for (Partners p : lista) {
+        visadePartners.add(p);
+
+        model.addRow(new Object[]{
+            p.getNamn(),
+            p.getKontaktperson(),
+            p.getKontaktepost(),
+            p.getTelefon(),
+            p.getAdress(),
+            p.getBranch(),
+            p.getStad()
+        });
+    }
+}
     public void laddaOmPartners() {
         fyllPartnersTabell();
     }
 
+ 
     private void fyllProjektCombo() {
-        cbPartners.removeAllItems();
+    cbPartners.removeAllItems();
 
-        for (String pid : ValAvRoll.hamtaProjektForProjektchef(idb, inloggadAnvandare)) {
-            cbPartners.addItem(pid);
+    try {
+        ArrayList<String> projektPids;
+
+     
+        if (ValAvRoll.arAdmin(idb, inloggadAnvandare)) {
+
+           
+            projektPids = idb.fetchColumn(
+                "SELECT pid FROM projekt ORDER BY pid"
+            );
+
+        } else if (ValAvRoll.arProjektchef(idb, inloggadAnvandare)) {
+
+            projektPids = idb.fetchColumn(
+                "SELECT pid FROM projekt " +
+                "WHERE projektchef = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "') " +
+                "ORDER BY pid"
+            );
+
+        } else if (ValAvRoll.arHandlaggare(idb, inloggadAnvandare)) {
+
+            projektPids = idb.fetchColumn(
+                "SELECT pid FROM ans_proj " +
+                "WHERE aid = (SELECT aid FROM anstalld WHERE epost = '" + inloggadAnvandare + "') " +
+                "ORDER BY pid"
+            );
+
+        } else {
+            return;
         }
 
+        
+        if (projektPids != null) {
+            for (String pid : projektPids) {
+                cbPartners.addItem(pid);
+            }
+        }
+
+       
         if (cbPartners.getItemCount() > 0) {
             cbPartners.setSelectedIndex(0);
         }
 
+    } catch (Exception ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
     }
+}
 
     private String valjBefintligPartnerDialog(String projektPid) {
         try {
@@ -331,9 +370,9 @@ public class PartnersFonster extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbPartners, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblProjektitel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbPartners, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblProjektitel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
