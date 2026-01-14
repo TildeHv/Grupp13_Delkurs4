@@ -41,7 +41,6 @@ public class JFrameProjekt extends javax.swing.JFrame {
         tabellAllaProjekt.getTableHeader().setBackground(new Color(61, 176, 75));
         tabellAllaProjekt.getTableHeader().setForeground(Color.WHITE);
         tabellAllaProjekt.getTableHeader().setOpaque(true);
-        tabellAllaProjekt.setEnabled(false);
 
         skapaProjektTabell();
 
@@ -52,11 +51,14 @@ public class JFrameProjekt extends javax.swing.JFrame {
         filterBox.addItem("Pågående");
         filterBox.addItem("Avslutat");
 
+        
         aktuellSql = getAnstalldSql();
         filtreraDatum();
         addTabellLyssnare(tabellMinaProjekt);
         addTabellLyssnare(tabellAllaProjekt);
         addChangeListener();
+        
+        projInfoKnapp.setEnabled(false);
     }
 
     //Skapar tabell för projekten
@@ -176,6 +178,7 @@ public class JFrameProjekt extends javax.swing.JFrame {
                 aktuellSql = getAvdelningsProjektSql();
             }
 
+            projInfoKnapp.setEnabled(false);
             filtreraDatum();
         });
     }
