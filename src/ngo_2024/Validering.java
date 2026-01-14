@@ -11,7 +11,7 @@ public class Validering {
     }
 
     public static boolean ValideraTelefon(String telefon) {
-        return telefon != null && telefon.matches("^\\+?[0-9-]{7,20}$");
+    return telefon != null && telefon.matches("^\\+?[0-9-]{7,20}$");
 
     }
 
@@ -20,11 +20,7 @@ public class Validering {
     }
 
     public static boolean ValideraNamn(String namn) {
-        return namn.matches("^[A-Za-zÅÄÖåäö'\\ -]{2,40}$");
-    }
-
-    public static boolean ValideraAvdelningsNamn(String namn) {
-        return namn.matches("^[A-Za-zÅÄÖåäö0-9 ,.'\\-]{2,100}$");
+        return namn.matches("^[A-Za-zÅÄÖåäö'\\ -]{2,80}$");
     }
 
     public static boolean ValideraDatum(String datum) {
