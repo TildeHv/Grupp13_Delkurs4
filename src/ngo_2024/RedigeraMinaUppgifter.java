@@ -14,15 +14,17 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private KlassAnvandare anv;
+    private javax.swing.JFrame huvudFonster;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RedigeraMinaUppgifter.class.getName());
 
-    public RedigeraMinaUppgifter(InfDB idb, String inloggadAnvandare) {
+    public RedigeraMinaUppgifter(InfDB idb, String inloggadAnvandare, javax.swing.JFrame huvudFonster) {
         initComponents();
         this.setLocationRelativeTo(null);
 
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
+        this.huvudFonster = huvudFonster;
         anv = new KlassAnvandare(idb, inloggadAnvandare);
 
         txtadress.setText(anv.getAdress());
@@ -186,15 +188,22 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
                     + "WHERE epost = '" + inloggadAnvandare + "'";
 
             idb.update(sqlFraga);
+            if (huvudFonster instanceof JFrameMinProfil minProfil) {
+                minProfil.fyllUppgifter();
+
+            }
             System.out.println("Uppdatering lyckades!");
             JOptionPane.showMessageDialog(this,
                     "Uppdatering lyckades!",
                     "Lyckad Uppdatering",
                     JOptionPane.INFORMATION_MESSAGE);
+            
+            this.dispose();
 
         } catch (InfException e) {
             System.out.println("Fel vid uppdatering: " + e.getMessage());
         }
+
 
     }//GEN-LAST:event_btnandraActionPerformed
 

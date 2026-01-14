@@ -37,7 +37,7 @@ public class JFrameMinProfil extends javax.swing.JFrame {
         setResizable(false);
     }
 
-    private void fyllUppgifter() { // Tar getters från Användare-klassen och sätter namn på fälten
+    public void fyllUppgifter() { // Tar getters från Användare-klassen och sätter namn på fälten
 
         KlassAnvandare anv = new KlassAnvandare(idb, inloggadAnvandare);
 
@@ -149,7 +149,7 @@ public class JFrameMinProfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        RedigeraMinaUppgifter uppgifter = new RedigeraMinaUppgifter(idb, inloggadAnvandare);
+        RedigeraMinaUppgifter uppgifter = new RedigeraMinaUppgifter(idb, inloggadAnvandare, this);
         uppgifter.setVisible(true); //Öppnar en ny uppgiftsförändrare baserat på den inloggade användaren
     }//GEN-LAST:event_jButton1ActionPerformed
 
