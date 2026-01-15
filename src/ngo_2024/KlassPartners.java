@@ -56,6 +56,7 @@ public class KlassPartners { //Klassen Partners hämtar partnerdata från databa
 
         } catch (InfException e) {
             System.out.println(e.getMessage());
+            
         }
     }
 
