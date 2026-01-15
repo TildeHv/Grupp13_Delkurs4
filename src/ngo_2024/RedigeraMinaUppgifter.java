@@ -44,9 +44,9 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
         txttelefon = new javax.swing.JTextField();
         btnandra = new javax.swing.JButton();
         lblandrauppgifter = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblepost = new javax.swing.JLabel();
+        lbladress = new javax.swing.JLabel();
+        lbltelefonnummer = new javax.swing.JLabel();
         btnTillbaka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -66,14 +66,14 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
 
         lblandrauppgifter.setText("Ändra dina uppgifter");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("EPOST:");
+        lblepost.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblepost.setText("EPOST:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("ADRESS:");
+        lbladress.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbladress.setText("ADRESS:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("TELEFONNUMMER:");
+        lbltelefonnummer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbltelefonnummer.setText("TELEFONNUMMER:");
 
         btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
         btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -90,7 +90,7 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lbladress)
                             .addComponent(txtadress, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtepost, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txttelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -103,9 +103,9 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
                                 .addComponent(btnandra, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
+                                    .addComponent(lblepost)
                                     .addComponent(lblandrauppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
+                                    .addComponent(lbltelefonnummer))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
@@ -115,15 +115,15 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblandrauppgifter)
                 .addGap(31, 31, 31)
-                .addComponent(jLabel2)
+                .addComponent(lbladress)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtadress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(lblepost)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtepost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(lbltelefonnummer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txttelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -239,10 +239,10 @@ public class RedigeraMinaUppgifter extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JButton btnandra;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lbladress;
     private javax.swing.JLabel lblandrauppgifter;
+    private javax.swing.JLabel lblepost;
+    private javax.swing.JLabel lbltelefonnummer;
     private javax.swing.JTextField txtadress;
     private javax.swing.JTextField txtepost;
     private javax.swing.JTextField txttelefon;
