@@ -65,7 +65,7 @@ public class JFrameMinProfil extends javax.swing.JFrame {
         lblaid = new javax.swing.JLabel();
         lblanstallningsdatum = new javax.swing.JLabel();
         lblavdelning = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnandrauppgifter = new javax.swing.JButton();
         btnTillbaka = new javax.swing.JButton();
         lblBild = new javax.swing.JLabel();
 
@@ -85,11 +85,11 @@ public class JFrameMinProfil extends javax.swing.JFrame {
 
         lblavdelning.setText("Avdelning");
 
-        jButton1.setBackground(new java.awt.Color(1, 174, 217));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("ÄNDRA UPPGIFTER");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnandrauppgifter.setBackground(new java.awt.Color(1, 174, 217));
+        btnandrauppgifter.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnandrauppgifter.setForeground(new java.awt.Color(255, 255, 255));
+        btnandrauppgifter.setText("ÄNDRA UPPGIFTER");
+        btnandrauppgifter.addActionListener(this::btnandrauppgifterActionPerformed);
 
         btnTillbaka.setBackground(new java.awt.Color(249, 181, 18));
         btnTillbaka.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -116,7 +116,7 @@ public class JFrameMinProfil extends javax.swing.JFrame {
                     .addComponent(btnTillbaka, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnandrauppgifter, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblBild, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
@@ -145,17 +145,17 @@ public class JFrameMinProfil extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTillbaka)
-                    .addComponent(jButton1))
+                    .addComponent(btnandrauppgifter))
                 .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnandrauppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnandrauppgifterActionPerformed
         RedigeraMinaUppgifter uppgifter = new RedigeraMinaUppgifter(idb, inloggadAnvandare, this);
         uppgifter.setVisible(true); //Öppnar en ny uppgiftsförändrare baserat på den inloggade användaren
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnandrauppgifterActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
         // tillbakaknapp
@@ -190,7 +190,7 @@ public class JFrameMinProfil extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnandrauppgifter;
     private javax.swing.JLabel lblBild;
     private javax.swing.JLabel lbladress;
     private javax.swing.JLabel lblaid;
