@@ -272,22 +272,26 @@ public class RedigeraAvdelning extends javax.swing.JFrame {
             int chef = Integer.parseInt(valdChef.split(" - ")[0]);
             String beskrivning = txtAvdBeskrivning.getText();
 
+            boolean harfel = false;
             if (!Validering.ValideraNamn(namn)) {
                 JOptionPane.showMessageDialog(this, "Ogiltigt namn.");
-                return;
+                harfel = true;
             }
             if (!Validering.ValideraEpost(epost)) {
                 JOptionPane.showMessageDialog(this, "ogiltig e-postadress.");
-                return;
+                harfel = true;
             }
             if (!Validering.ValideraTelefon(telefon)) {
                 JOptionPane.showMessageDialog(this, "Ogiltigt telefonnummer.");
-                return;
+               harfel = true;
             }
             if (!Validering.ValideraAdress(adress)) {
                 JOptionPane.showMessageDialog(this, "Ogiltig adress.");
-                return;
+                harfel = true;
             }
+           if (harfel) {
+            return;
+           }
             KlassAvdelningSQL avdelningSQL = new KlassAvdelningSQL(idb);
             avdelningSQL.redigeraAvdelning(avdid, namn, beskrivning, adress, epost, telefon, stad, chef);
 
