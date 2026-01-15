@@ -85,30 +85,35 @@ public class RedigeraPartners extends javax.swing.JFrame {
 
         }
         //Validering
+        boolean harFel = false;
 
         if (!Validering.ValideraNamn(namn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig namn");
-            return;
+           harFel = true;
         }
 
         if (!Validering.ValideraNamn(kontaktperson)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig kontaktperson");
-            return;
+            harFel = true;
 
         }
 
         if (!Validering.ValideraEpost(epost)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig e-post");
-            return;
+            harFel = true;
         }
 
         if (!Validering.ValideraTelefon(telefon)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ogiltligt telefonnummer");
-            return;
+            harFel = true;
 
         }
         if (!Validering.ValideraAdress(adress)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ogiltlig adress");
+            harFel = true;
+        }
+        
+        if (harFel) {
             return;
         }
 
